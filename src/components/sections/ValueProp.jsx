@@ -30,35 +30,35 @@ const impactAreas = [
     title: "Drive Direct Room Revenue",
     shortDesc: "Transform your Rooms & Suites operations by automating direct reservations, upselling early check-ins, and recovering abandoned bookings via WhatsApp.",
     icon: <Bed size={28} />,
-    path: "/rooms-and-suites",
+    path: "/rooms-suites",
     theme: 'dark'
   },
   {
     title: "Maximize Restaurant Bookings",
     shortDesc: "Empower your Food & Beverage team to promote seasonal menus, push last-minute table reservations, and handle in-room dining orders natively.",
     icon: <Utensils size={28} />,
-    path: "/food-and-beverage",
+    path: "/food-beverage",
     theme: 'light'
   },
   {
     title: "Fill Empty Spa Slots",
     shortDesc: "Broadcast exclusive offers for your Wellness Club & Spa to in-house guests, effortlessly manage memberships, and maintain a fully booked schedule.",
     icon: <RunningMan size={28} />,
-    path: "/wellness-club",
+    path: "/wellness-spa",
     theme: 'dark'
   },
   {
     title: "Capture High-Ticket Leads",
     shortDesc: "Ensure Weddings & Events managers instantly capture corporate inquiries, send automated follow-ups, and convert venue tours straight into your CRM.",
     icon: <BrideGroom size={28} />,
-    path: "/weddings",
+    path: "/weddings-events",
     theme: 'light'
   },
   {
     title: "Track Marketing ROI",
     shortDesc: "Measure the exact revenue generated from every WhatsApp broadcast, attribute direct bookings, and optimize your property's marketing spend.",
     icon: <LineChart size={28} />,
-    path: "/marketing-roi",
+    path: "/loyalty-retention",
     theme: 'dark'
   }
 ];
