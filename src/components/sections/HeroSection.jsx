@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 
 export default function HeroSection() {
@@ -80,17 +81,16 @@ export default function HeroSection() {
           Turn every guest into a regular with MENA's most powerful 
           automated guest engagement platform.
         </motion.p>
-
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.4 }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <button className="group relative px-10 py-4 bg-electric text-brand-black font-extrabold rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-button hover:shadow-button-hover">
+          <Link to="/contact" className="group relative px-10 py-4 bg-electric text-brand-black font-extrabold rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-button hover:shadow-button-hover flex items-center justify-center">
             <span className="relative z-10">SCHEDULE A DEMO</span>
             <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
-          </button>
+          </Link>
           
           <button 
             onClick={() => setShowVideo(true)}
@@ -126,9 +126,9 @@ export default function HeroSection() {
                 ✕
               </button>
               <iframe
-                src="https://drive.google.com/file/d/1_-IZIHZbQ6NCmYRES3_OiN-BuOp2sW-v/preview"
-                className="w-full h-full"
-                allow="autoplay"
+                src="https://www.youtube.com/embed/YOUTUBE_ID_HERE?autoplay=1&mute=1&playsinline=1"
+                className="w-full h-full bg-black/50"
+                allow="autoplay; fullscreen; picture-in-picture"
                 title="Total Engage Full Demo"
               />
             </motion.div>

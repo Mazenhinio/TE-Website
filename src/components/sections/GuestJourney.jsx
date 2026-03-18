@@ -1,52 +1,34 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MessageCircle, Bot, MessageSquare, Calendar, Share2, CreditCard, Tags, BarChart } from 'lucide-react';
+import { MessageCircle, Bot, MessageSquare, Calendar, Share2, CreditCard, Tags, BarChart, Star } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const journeySteps = [
     {
         id: "step-1",
-        title: "Unified Inbox",
-        desc: "Slash lobby friction instantly. Handle room service requests and concierge questions from one inbox. No more ringing lobby phones.",
-        icon: <MessageCircle className="text-electric" size={24} />
-    },
-    {
-        id: "step-2",
-        title: "CRM & Automation",
-        desc: "Automate cross-sells for spa and dining based on guest profile and preferences. Stop using generic CRMs.",
-        icon: <Bot className="text-electric" size={24} />
-    },
-    {
-        id: "step-3",
-        title: "WhatsApp Campaigns",
-        desc: "Drive direct reservations and automate pre-stay upsells (like airport transfers or spa credits) via WhatsApp.",
-        icon: <MessageSquare className="text-electric" size={32} />
-    },
-    {
-        id: "step-4",
-        title: "Appointment Booking",
-        desc: "Let guests book F&B reservations, spa slots, and concierge services easily directly from their phones without calling.",
+        title: "Check-in",
+        desc: "Automate arrival instructions, digital registration links, and upsell early check-in or airport transfers via WhatsApp.",
         icon: <Calendar className="text-electric" size={24} />
     },
     {
-        id: "step-5",
-        title: "Social Media Posting",
-        desc: "Keep the guest expectation high across all channels and natively reply to prospective leads to drive direct bookings.",
-        icon: <Share2 className="text-electric" size={24} />
+        id: "step-2",
+        title: "In-stay",
+        desc: "Provide 24/7 AI concierge support. Instantly answer common questions and push daily F&B, Spa, or Kids Club promotions.",
+        icon: <MessageCircle className="text-electric" size={24} />
     },
     {
-        id: "step-6",
-        title: "CRM Tagging",
-        desc: "Precisely identify loyalty tiers automatically. Tag high-spending guests as VIPs and send targeted offers to bring them back.",
-        icon: <Tags className="text-electric" size={24} />
+        id: "step-3",
+        title: "Check-out",
+        desc: "Send digital folios, coordinate luggage pickup, and offer paid late check-out on the morning of departure.",
+        icon: <CreditCard className="text-electric" size={24} />
     },
     {
-        id: "step-7",
-        title: "Analytics & Reporting",
-        desc: "Identify your most profitable repeat guests and comprehensively track the performance of every campaign sent out.",
-        icon: <BarChart className="text-electric" size={24} />
+        id: "step-4",
+        title: "Post-stay",
+        desc: "Automatically route 5-star guests to Google Reviews. Flag unhappy guests for manager recovery, and send return offers.",
+        icon: <Star className="text-electric" size={24} />
     }
 ];
 

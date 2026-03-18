@@ -1,1 +1,0 @@
-import PageTransition from '../components/ui/PageTransition'; export default function About() { return <PageTransition><div className="p-20 text-center"><h1 className="text-electric">About</h1></div></PageTransition>; }

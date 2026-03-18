@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
@@ -16,10 +16,10 @@ import PhoneChatAnimation from '../ui/PhoneChatAnimation';
 
 /* ─── Video Demo Mapping ─────────────────────────────────── */
 const MODULE_VIDEOS = {
-  conversations: '1YZvKuHav8g9nZijbjhWpzh-qdgkBu36A', // Video 2
-  opportunities: '1EqM2oB3dPcGKqqBzMSaM_mAUNCOey4Ij', // Video 3
-  reviews:       '1s38KFhXN1LfUzIkkOqdxiBYpuxdRKaFt', // Video 4
-  automation:    '1A0R95nb6FbMAwMX8WJvcFFxwKVCbjt42', // Video 5
+  conversations: 'YOUTUBE_ID_HERE', // Unified Inbox
+  opportunities: 'YOUTUBE_ID_HERE', // CRM/Opportunities
+  reviews:       'YOUTUBE_ID_HERE', // Reputation
+  automation:    'YOUTUBE_ID_HERE', // Automations
 };
 
 /* ─── Video Modal Component ─────────────────────────────── */
@@ -46,9 +46,10 @@ function VideoModal({ videoId, isOpen, onClose }) {
           <X size={20} />
         </button>
         <iframe
-          src={`https://drive.google.com/file/d/${videoId}/preview`}
-          className="w-full h-full"
-          allow="autoplay"
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1`}
+          className="w-full h-full bg-black/50"
+          allow="autoplay; fullscreen; picture-in-picture"
+          title="Module Demo Video"
         />
       </motion.div>
     </motion.div>
@@ -57,10 +58,10 @@ function VideoModal({ videoId, isOpen, onClose }) {
 
 /* ─── Channel → Total Engage converging SVG funnel ─────── */
 const CHANNEL_LOGOS = [
-  { src: '/images/Whatsapp Logo.webp',                   alt: 'WhatsApp' },
-  { src: '/images/instagram logo.webp',                  alt: 'Instagram' },
-  { src: '/images/gmail logo.png',                       alt: 'Gmail' },
-  { src: '/images/Facebook_Messenger_logo_2020.svg.png', alt: 'Messenger' },
+  { src: '/images/Whatsapp Logo.webp',                          alt: 'WhatsApp' },
+  { src: '/images/instagram logo.webp',                         alt: 'Instagram' },
+  { src: '/images/Microsoft_Office_Outlook_Logo_512px.webp',    alt: 'Outlook' },
+  { src: '/images/TikTok-Logo-Transparent.webp',                alt: 'TikTok' },
 ];
 
 const TE_LOGO = '/images/Total engage logo neon.png';
@@ -68,8 +69,11 @@ const TE_LOGO = '/images/Total engage logo neon.png';
 function ChannelFunnel() {
   const W = 400, H = 240;
   const LOGO_S = 44;    // standard logo size
-  const WA_S   = 86;    // WhatsApp is significantly larger
-  const LINE_Y = WA_S + 12;  // unified line-start Y (below tallest logo)
+  const WA_S   = 72;    // WhatsApp — slightly larger but same center
+
+  // Center-alignment: all logos share the same vertical midpoint
+  const LOGO_CENTER_Y = WA_S / 2 + 4;          // = 40
+  const LINE_Y        = LOGO_CENTER_Y + WA_S / 2 + 12; // below tallest logo
 
   const TE_W = 120, TE_H = 32;
   const TE_CX  = W / 2;
@@ -128,11 +132,11 @@ function ChannelFunnel() {
         <circle cx={TE_CX} cy={TE_TOP - TE_GAP} r="4"
           fill="#deff00" filter="url(#te-glow)" />
 
-        {/* ─ Channel logos ─ */}
+        {/* ─ Channel logos — center-aligned at LOGO_CENTER_Y ─ */}
         {logoX.map((cx, i) => {
           const s = i === 0 ? WA_S : LOGO_S;
-          // Bottom-align all logos so they sit on the same horizontal line
-          const y = WA_S - s;
+          // All logos share the same vertical center (LOGO_CENTER_Y)
+          const y = LOGO_CENTER_Y - s / 2;
           return (
             <image
               key={CHANNEL_LOGOS[i].alt}
@@ -160,6 +164,72 @@ function ChannelFunnel() {
   );
 }
 
+
+/* ─── Animated Timeline Component ────────────────────────── */
+function AutomationsTimeline() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep(s => (s + 1) % 5);
+    }, 2200);
+    return () => clearInterval(timer);
+  }, []);
+
+  const steps = [
+    { label: 'Pre-Arrival', note: 'Forms & reminders' },
+    { label: 'Check-In', note: 'Digital concierge' },
+    { label: 'In-Stay', note: 'Upsells & surveys' },
+    { label: 'Checkout', note: 'Express flow' },
+    { label: 'Post-Stay', note: 'Reviews & loyalty' },
+  ];
+
+  return (
+    <div className="flex-1 flex flex-wrap md:flex-nowrap items-center md:items-start justify-center md:justify-end gap-1 overflow-visible">
+      {steps.map((step, i) => {
+        const isActive = i === activeStep;
+        const isPassed = i < activeStep;
+        
+        return (
+          <div key={step.label} className="flex items-center flex-shrink-0 relative group">
+            <div className="flex flex-col items-center gap-2 min-w-[70px] md:min-w-[90px] relative z-10">
+              <motion.div 
+                animate={{
+                  scale: isActive ? 1.2 : 1,
+                  backgroundColor: isActive || isPassed ? '#deff00' : 'rgba(255,255,255,0.05)',
+                  borderColor: isActive || isPassed ? '#deff00' : 'rgba(255,255,255,0.15)',
+                  boxShadow: isActive ? '0px 0px 18px rgba(222,255,0,0.5)' : 'none'
+                }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="w-10 h-10 rounded-full border-2 flex items-center justify-center"
+              >
+                <span className={`text-xs font-bold transition-colors duration-300 ${isActive || isPassed ? 'text-black' : 'text-white/30'}`}>
+                  {i + 1}
+                </span>
+              </motion.div>
+              <h4 className={`text-[11px] font-bold text-center mt-2 transition-colors duration-300 ${isActive || isPassed ? 'text-electric' : 'text-white/30'}`}>
+                {step.label}
+              </h4>
+              <p className={`text-[10px] text-center whitespace-nowrap transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/20'}`}>
+                {step.note}
+              </p>
+            </div>
+            {i < steps.length - 1 && (
+              <div className="h-px w-6 md:w-10 xl:w-16 mx-0 xl:mx-1 mb-10 flex-shrink-0 relative overflow-hidden bg-white/10 hidden sm:block">
+                <motion.div 
+                  className="absolute inset-0 h-full bg-electric origin-left"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: isPassed ? 1 : 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 /* ─── Shared card shell ──────────────────────────────────── */
 function Card({ children, span = '', className = '', index = 0 }) {
@@ -216,9 +286,9 @@ export default function OperationsSolutions() {
           <span className="inline-block font-bold uppercase tracking-widest text-xs mb-5 px-4 py-1.5 bg-electric/10 border border-electric/20 text-electric rounded-full">
             Platform Capabilities
           </span>
-          <h2 className="text-5xl md:text-6xl font-bold font-display leading-[1.1] text-white mb-5">
-            Eight modules.<br />
-            <span className="text-electric">One platform.</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1] text-white mb-5">
+            The best WhatsApp and social media marketing platform<br />
+            <span className="text-electric text-4xl md:text-5xl lg:text-6xl">for hospitality.</span>
           </h2>
           <p className="text-lg text-white/40 max-w-xl mx-auto leading-relaxed">
             Purpose-built for hospitality — every tool works together seamlessly across your entire property portfolio.
@@ -237,20 +307,25 @@ export default function OperationsSolutions() {
                   <h3 className="text-white text-3xl md:text-4xl font-bold font-display leading-[1.15] mb-5">
                     One inbox for every channel.
                   </h3>
-                  <p className="text-white/50 text-base leading-relaxed mb-8">
-                    WhatsApp, SMS, email, Instagram DMs — all threaded in one unified view with complete guest history visible the moment you respond.
+                  <p className="text-white/50 text-base leading-relaxed mb-6">
+                    WhatsApp, Outlook, TikTok, Instagram DMs — all threaded in one unified view with complete guest history visible the moment you respond.
                   </p>
+                  
+                  {/* Restore Channel Funnel (octopus animation) beneath paragraph */}
+                  <div className="w-full max-w-[320px] mb-8 relative z-10">
+                    <ChannelFunnel />
+                  </div>
                 </div>
-                <div className="mt-auto">
+                <div className="mt-auto items-start justify-start flex">
                    <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.conversations)} />
                 </div>
               </div>
               <div className="flex items-center justify-center bg-black/20 border-l border-white/5 p-8 relative group overflow-hidden">
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex items-center justify-center">
                    <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.conversations)} />
                 </div>
-                <div className="transform scale-90">
-                  <ChannelFunnel />
+                <div className="transform scale-75 md:scale-90 origin-center z-10 pointer-events-none">
+                  <PhoneChatAnimation />
                 </div>
               </div>
             </div>
@@ -293,38 +368,7 @@ export default function OperationsSolutions() {
                 <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.automation)} label="System Automation Demo" />
               </div>
               {/* Timeline */}
-              <div className="flex-1 flex items-center gap-0 overflow-x-auto no-scrollbar">
-                {[
-                  { label: 'Pre-Arrival', note: 'Forms & reminders' },
-                  { label: 'Check-In', note: 'Digital concierge' },
-                  { label: 'In-Stay', note: 'Upsells & surveys' },
-                  { label: 'Checkout', note: 'Express flow' },
-                  { label: 'Post-Stay', note: 'Reviews & loyalty' },
-                ].map((step, i, arr) => (
-                  <div key={step.label} className="flex items-center flex-shrink-0">
-                    <div className="flex flex-col items-center gap-2 min-w-[90px]">
-                      <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center ${
-                        i === 0
-                          ? 'bg-electric border-electric'
-                          : i === arr.length - 1
-                          ? 'bg-electric/10 border-electric/40'
-                          : 'bg-white/5 border-white/15'
-                      }`}>
-                        <span className={`text-xs font-bold ${i === 0 ? 'text-black' : i === arr.length - 1 ? 'text-electric' : 'text-white/30'}`}>
-                          {i + 1}
-                        </span>
-                      </div>
-                      <span className={`text-[11px] font-bold text-center ${i === 0 ? 'text-electric' : i === arr.length - 1 ? 'text-electric/60' : 'text-white/30'}`}>
-                        {step.label}
-                      </span>
-                      <span className="text-[10px] text-white/20 text-center whitespace-nowrap">{step.note}</span>
-                    </div>
-                    {i < arr.length - 1 && (
-                      <div className={`h-px w-10 mx-0 mb-8 flex-shrink-0 ${i === 0 ? 'bg-electric/50' : 'bg-white/8'}`} />
-                    )}
-                  </div>
-                ))}
-              </div>
+              <AutomationsTimeline />
             </div>
           </Card>
         </div>
@@ -345,10 +389,13 @@ export default function OperationsSolutions() {
                     <Star key={s} size={16} className={s <= 4 ? 'text-electric fill-electric' : 'text-white/15 fill-white/15'} />
                   ))}
                 </div>
-                <p className="text-electric text-5xl font-black font-mono leading-none mb-2">+0.4★</p>
-                <p className="text-white/30 text-xs font-bold uppercase tracking-widest mb-6">Google uplift in 90 days</p>
-                <p className="text-white/40 text-sm leading-relaxed">
-                  5-star guests go to Google. Unhappy guests get a private recovery flow — before they post publicly.
+                <h4 className="text-electric text-2xl font-black font-display leading-[1.1] mb-1">Drive more positive reviews</h4>
+                <p className="text-white/70 text-lg font-bold mb-4 decoration-white/30 text-decoration-line-through">and eliminate negative ones.</p>
+                <div className="mb-4">
+                  <span className="text-electric text-[10px] font-bold uppercase tracking-widest border border-electric/40 bg-electric/10 px-3 py-1.5 rounded-full inline-block">5-Star Routing Logic</span>
+                </div>
+                <p className="text-white/40 text-sm leading-relaxed mt-2">
+                  Reply to reviews instantly with AI. 5-star guests go to Google. Unhappy guests get a private recovery flow — before they post publicly.
                 </p>
               </div>
             </div>

@@ -1,58 +1,80 @@
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
 
 const labels = [
-  { text: 'Luxury Resorts', x: -350, y: -180, color: '#A855F7' }, // Purple
-  { text: 'Boutique Hotels', x: -250, y: 150, color: '#3B82F6' }, // Blue
-  { text: 'F&B Groups', x: 300, y: -160, color: '#DEFF00' },     // Electric
-  { text: 'General Managers', x: 380, y: 140, color: '#A855F7' },  // Purple
-  { text: 'Marketing Teams', x: -400, y: -20, color: '#3B82F6' },  // Blue
-  { text: 'Revenue Managers', x: 420, y: -30, color: '#2DD4BF' },  // Teal
-  { text: 'Chain Hotels', x: -150, y: -220, color: '#DEFF00' },    // Electric
-  { text: 'Resort Groups', x: 180, y: 220, color: '#2DD4BF' },     // Teal
-  { text: 'Front Desk', x: -280, y: 250, color: '#DEFF00' },       // Electric
-  { text: 'Concierge', x: 120, y: -250, color: '#3B82F6' },        // Blue
-  { text: 'Owners', x: 50, y: 280, color: '#DEFF00' },           // Electric
-  { text: 'Asset Managers', x: 450, y: 240, color: '#A855F7' },    // Purple
+  { text: 'Luxury Resorts', x: -350, y: -180, color: '#A855F7' }, 
+  { text: 'Boutique Hotels', x: -250, y: 150, color: '#3B82F6' },
+  { text: 'F&B Groups', x: 300, y: -160, color: '#DEFF00' },     
+  { text: 'General Managers', x: 380, y: 140, color: '#A855F7' },  
+  { text: 'Marketing Teams', x: -400, y: -20, color: '#3B82F6' },  
+  { text: 'Revenue Managers', x: 420, y: -30, color: '#2DD4BF' },  
+  { text: 'Chain Hotels', x: -150, y: -220, color: '#DEFF00' },    
+  { text: 'Resort Groups', x: 180, y: 220, color: '#2DD4BF' },     
+  { text: 'Front Desk', x: -280, y: 250, color: '#DEFF00' },       
+  { text: 'Concierge', x: 120, y: -250, color: '#3B82F6' },        
+  { text: 'Owners', x: 50, y: 280, color: '#DEFF00' },           
+  { text: 'Asset Managers', x: 450, y: 240, color: '#A855F7' },    
 ];
 
-export default function BuiltForHotels() {
-  const containerRef = useRef(null);
+const FloatingPill = ({ label, index }) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const targetX = isMobile ? label.x * 0.4 : label.x;
+  const targetY = isMobile ? label.y * 0.7 : label.y;
+  const targetScale = isMobile ? 0.7 : 1;
+
+  // Horizontal sliding path for purely back-and-forth drifting
+  const xOffset = [0, 40 + index * 2, -40 - index * 2, 0];
 
   return (
+    <motion.div
+      initial={{ x: 0, y: 0, opacity: 0, scale: 0.5 }}
+      whileInView={{ x: targetX, y: targetY, opacity: 1, scale: targetScale }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.2 + (index * 0.05) }}
+      className="absolute pointer-events-none z-0"
+    >
+      <motion.div
+        animate={{ 
+          x: xOffset,
+        }}
+        transition={{
+          duration: 12 + (index % 4) * 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: index * 0.2
+        }}
+        className="pointer-events-none"
+      >
+        <motion.div
+          drag
+          dragElastic={0.6}
+          dragSnapToOrigin={true}
+          dragTransition={{ bounceStiffness: 40, bounceDamping: 5 }}
+          whileDrag={{ scale: 1.15, cursor: "grabbing" }}
+          style={{ backgroundColor: label.color }}
+          className="px-6 py-2 rounded-full text-brand-black font-bold text-sm md:text-base shadow-[0_10px_30px_rgba(0,0,0,0.5)] whitespace-nowrap cursor-grab hover:shadow-[0_15px_40px_rgba(0,0,0,0.6)] pointer-events-auto transition-shadow"
+        >
+          {label.text}
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default function BuiltForHotels() {
+  return (
     <section className="bg-brand-black py-40 px-6 overflow-hidden relative min-h-[800px] flex items-center justify-center">
-      <div className="relative z-10 text-center max-w-7xl mx-auto">
-        <h2 className="text-[12vw] md:text-[10vw] font-black font-display leading-[0.85] tracking-tighter text-cream flex flex-col items-center">
-          <span className="block">BUILT FOR</span>
-          <span className="block italic text-electric">HOTELS</span>
+      <div className="relative z-20 text-center max-w-7xl mx-auto pointer-events-none">
+        <h2 className="text-[10vw] md:text-[8vw] font-black font-display leading-[0.85] tracking-tighter text-cream flex flex-col items-center">
+          <span className="block">BUILT FOR HOTELS,</span>
+          <span className="block italic text-electric">BY HOSPITALITY EXPERTS.</span>
         </h2>
       </div>
 
       {/* Floating Labels */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div className="relative w-full h-full max-w-[1440px] flex items-center justify-center">
           {labels.map((label, i) => (
-            <motion.div
-              key={i}
-              initial={{ x: 0, y: 0, opacity: 0, scale: 0.5 }}
-              whileInView={{ 
-                x: typeof window !== 'undefined' && window.innerWidth < 768 ? label.x * 0.4 : label.x, 
-                y: typeof window !== 'undefined' && window.innerWidth < 768 ? label.y * 0.7 : label.y, 
-                opacity: 1, 
-                scale: typeof window !== 'undefined' && window.innerWidth < 768 ? 0.7 : 1 
-              }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 70, 
-                damping: 20, 
-                delay: 0.2 + (i * 0.05) 
-              }}
-              style={{ backgroundColor: label.color }}
-              className="absolute px-6 py-2 rounded-full text-brand-black font-bold text-sm md:text-base shadow-xl whitespace-nowrap"
-            >
-              {label.text}
-            </motion.div>
+            <FloatingPill key={i} label={label} index={i} />
           ))}
         </div>
       </div>
