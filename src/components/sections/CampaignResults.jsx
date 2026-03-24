@@ -44,7 +44,7 @@ export default function CampaignResults() {
           <span className="text-black/40 uppercase tracking-widest text-sm font-bold mb-4 block">Proof of Performance</span>
           <h2 className="text-5xl md:text-7xl font-bold font-display text-brand-black mb-6">Real results.<br /><span className="text-text-muted-light/60">Real Impact.</span></h2>
           <p className="text-xl text-text-muted-light max-w-3xl mx-auto">
-            We don't just provide software; we deliver measurable bottom-line growth for world-class hospitality brands.
+            We don't just provide software; we deliver measurable bottom-line growth for world-class property & travel brands.
           </p>
         </div>
 

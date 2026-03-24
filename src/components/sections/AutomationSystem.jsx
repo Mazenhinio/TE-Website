@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, UtensilsCrossed, Flower2, Heart, BedDouble, PartyPopper, Baby } from 'lucide-react';
+import { ArrowRight, UtensilsCrossed, Flower2, Heart, BedDouble, PartyPopper, Baby, Compass } from 'lucide-react';
 
 const stages = [
   {
@@ -11,27 +11,27 @@ const stages = [
       {
         name: 'Drive Sales',
         items: [
-          'Seasonal WhatsApp Campaign',
-          'Flash Sale broadcast',
-          'Weekend brunch promotion',
-          'Private dining offer push',
+          { text: 'Seasonal WhatsApp Campaign', preview: 'Hey! 🥑 Our Avocado Toast is back on the seasonal menu. Want me to send you the new menu PDF?' },
+          { text: 'Flash Sale broadcast', preview: 'FLASHSALE: 🥂 2-for-1 cocktails at the Rooftop bar starts in 15 mins! Just show this msg to the bartender.' },
+          { text: 'Weekend brunch promotion', preview: 'Weekend plans? 🍳 Our Saturday brunch is almost full. Can I grab a spot for you before they’re gone?' },
+          { text: 'Private dining offer push', preview: 'Quick question—are you still looking for a private space for your dinner? Our garden room just opened up!' },
         ],
       },
       {
         name: 'Enhance Guest Exp.',
         items: [
-          'AI agent reservation bookings',
-          'Social messages response',
-          'Table confirmation & reminders',
-          'Post-dining review request',
+          { text: 'AI agent reservation bookings', preview: 'I can definitely help with that. Which day were you thinking of coming by?' },
+          { text: 'Social messages response', preview: 'Hey there! Yes, we have a few outdoor tables left for tonight. Shall I put your name down?' },
+          { text: 'Table confirmation & reminders', preview: 'Just a friendly heads up—we’ve got your table saved for 7 PM. See you soon! 🍴' },
+          { text: 'Post-dining review request', preview: 'Hope you enjoyed the pasta today! 🍝 If you have a sec, could you let us know how it was?' },
         ],
       },
       {
         name: 'Upselling',
         items: [
-          'Wine pairing upgrade prompt',
-          'Birthday cake add-on offer',
-          "Chef's tasting menu upsell",
+          { text: 'Wine pairing upgrade prompt', preview: 'By the way, our Sommelier just opened a rare vintage that pairs perfectly with your steak. Want a glass?' },
+          { text: 'Birthday cake add-on offer', preview: 'I noticed it’s a special occasion! 🎂 Should I have a small surprise cake brought out after mains?' },
+          { text: "Chef's tasting menu upsell", preview: "The Chef is doing a special off-menu tasting tonight with 3 extra courses. Interested in seeing it?" },
         ],
       },
     ],
@@ -44,26 +44,26 @@ const stages = [
       {
         name: 'Drive Sales',
         items: [
-          'Spa special offers via WhatsApp',
-          'Membership promos & renewals',
-          'New treatment launch blast',
-          'Couples retreat package push',
+          { text: 'Spa special offers via WhatsApp', preview: 'Time for a break? 🧘‍♀️ I have one spot left for a 90-min massage today. Want it?' },
+          { text: 'Membership promos & renewals', preview: 'Your membership is coming up for renewal soon! Should I send you the loyalty discount code?' },
+          { text: 'New treatment launch blast', preview: 'We just launched a new Hot Stone therapy. It’s honestly amazing—want more info?' },
+          { text: 'Couples retreat package push', preview: 'Surprise them? 🥂 Our couples retreat includes a private hot tub session. Interested?' },
         ],
       },
       {
         name: 'Guest Experience',
         items: [
-          'Pre-appointment reminders',
-          'Post-treatment feedback flow',
-          'Therapist preference capture',
+          { text: 'Pre-appointment reminders', preview: 'Just a quick reminder about your 10 AM session tomorrow. Don’t forget to arrive 15 mins early!' },
+          { text: 'Post-treatment feedback flow', preview: 'Hope you’re feeling relaxed! ✨ How was your therapist today? We value your thoughts.' },
+          { text: 'Therapist preference capture', preview: 'Did you like working with Sarah? I can make sure you’re booked with her next time too.' },
         ],
       },
       {
         name: 'Upselling',
         items: [
-          'Last-minute spa discounts',
-          'Retail product follow-up',
-          'Loyalty tier upgrade nudge',
+          { text: 'Last-minute spa discounts', preview: 'Quick! ⚡️ A cancellation just opened up a 2 PM slot. I can give it to you for 30% off.' },
+          { text: 'Retail product follow-up', preview: 'Glad you liked that lavender oil! 🌿 I have a few bottles left in the shop—want me to save one?' },
+          { text: 'Loyalty tier upgrade nudge', preview: 'You’re so close to Gold status! One more visit and your next sauna session is on us.' },
         ],
       },
     ],
@@ -76,26 +76,26 @@ const stages = [
       {
         name: 'Lead Generation',
         items: [
-          'Venue tours & quotes flow',
-          'Meta Ads to direct inbox',
-          'WA auto-reply to enquiries',
-          'Available dates drip sequence',
+          { text: 'Venue tours & quotes flow', preview: 'Hi! 🏰 Still thinking about a venue tour? I have a few slots open this Saturday morning.' },
+          { text: 'Meta Ads to direct inbox', preview: 'Hey there! Saw you were interested in our outdoor weddings. Want to see our 2026 pricing?' },
+          { text: 'WA auto-reply to enquiries', preview: 'Omg congrats on the engagement! 💍 I just got your inquiry—can\'t wait to chat more.' },
+          { text: 'Available dates drip sequence', preview: 'Just a quick heads up... our most popular June date just opened up! Want first dibs?' },
         ],
       },
       {
         name: 'Planning & Follow-Up',
         items: [
-          'Vendor checklist reminders',
-          'Final headcount confirmation',
-          'Day-of logistics broadcast',
+          { text: 'Vendor checklist reminders', preview: 'How’s the planning going? 🌸 By the way, have you picked a florist yet? I have some ideas!' },
+          { text: 'Final headcount confirmation', preview: 'Hey! We’re getting close. 🥂 Can you send over the final guest count by Wednesday?' },
+          { text: 'Day-of logistics broadcast', preview: 'Weather update: It’s going to be a beautiful sunny day! We’re all set for the garden. ☀️' },
         ],
       },
       {
         name: 'Post-Event',
         items: [
-          'Honeymoon suite upsell',
-          'Anniversary recall campaign',
-          'Review & testimonial request',
+          { text: 'Honeymoon suite upsell', preview: 'Thinking of staying the night? I can upgrade you to the Bridal Suite for half price! 🥂' },
+          { text: 'Anniversary recall campaign', preview: 'Happy 1st Anniversary! ❤️ Want to come back and recreate your wedding dinner with us?' },
+          { text: 'Review & testimonial request', preview: 'We loved hosting you! 🕊️ If you have any photos or a nice word to share, we’d love it.' },
         ],
       },
     ],
@@ -106,32 +106,35 @@ const stages = [
     icon: <BedDouble size={22} />,
     categories: [
       {
-        name: 'Pre-Arrival',
+        name: 'Pre-Arrival Experience',
         items: [
-          'Online check-in nudge',
-          'Pillow & preference survey',
-          'Transfer & airport pickup offer',
-          'Early check-in upsell',
+          { text: 'Personalised Milestone Welcome', preview: 'Congratulations on your honeymoon! 🥂 Should I have a bottle of chilled champagne waiting for you?' },
+          { text: 'Private Airport Transfer', preview: 'Need a ride? 🚗 Our private driver can meet you at Terminal 2. One tap to book your transfer.' },
+          { text: 'Digital Check-In & Entry', preview: 'Skip the lobby! 🏨 Check in here and I’ll send your digital key straight to your WhatsApp.' },
+          { text: 'Choice of View Upsell', preview: 'We just had a high-floor sea view room open up. Want to swap your booking for just $20?' },
         ],
       },
       {
-        name: 'In-Stay',
+        name: 'In-Stay Luxury',
         items: [
-          'Real-time service requests',
-          'Mid-stay satisfaction check',
-          'In-room dining push',
+          { text: 'Real-Time Suite Butler', preview: 'Need anything? 🧴 I’m your digital butler. Fresh towels, ice, or local tips—just ask me!' },
+          { text: 'Milestone Package Push', preview: 'Thinking of a surprise? 🌹 I can arrange a romantic rose-petal turndown for tonight at 8 PM.' },
+          { text: 'In-Room Celebration Dining', preview: 'A cozy night in? 🥂 Our private dining menu is available. Want me to send the Chef’s specials?' },
+          { text: 'Extended Stay Benefits', preview: 'Loving your stay? ☀️ Extend for 2 more nights and I’ll include a complimentary spa credit.' },
         ],
       },
       {
-        name: 'Upselling',
+        name: 'Upselling & Loyalty',
         items: [
-          'Room upgrade offer on arrival',
-          'Late checkout paid extension',
-          'Minibar & amenity prompt',
+          { text: 'One-Tap Suite Upgrade', preview: 'Upgrade to our Royal Suite today for 40% off the standard rate. Interested in a tour first?' },
+          { text: 'Late Checkout Paid Extension', preview: 'Sleep in! 💤 We can extend your stay until 4 PM today for a small lazy-afternoon fee.' },
+          { text: 'Return Milestone Recall', preview: 'Can you believe it’s been a year? ❤️ Come back for your anniversary and the cake is on us!' },
+          { text: 'Seasonal Direct Booking', preview: 'Hey! 🌊 Our summer sale just started. Book direct here for the best room rates of the year.' },
         ],
       },
     ],
   },
+
   {
     id: 'special-happenings',
     title: 'Special Happenings',
@@ -140,29 +143,69 @@ const stages = [
       {
         name: 'Engagement',
         items: [
-          'Private event invitations',
-          'Festival & seasonal announcements',
-          'VIP preview night blast',
-          'Live music & entertainment push',
+          { text: 'Private event invitations', preview: 'You’re on the list! 🥂 Join us for a secret sunset cocktail tonight at the North Terrace.' },
+          { text: 'Festival & seasonal announcements', preview: 'Ready for the holidays? 🎄 See our full schedule of events and book your spots early!' },
+          { text: 'VIP preview night blast', preview: 'Want to see the new lounge before it opens? Come by at 6 PM for a sneak peek. ✨' },
+          { text: 'Live music & entertainment push', preview: 'Jazz night starts in 20 mins! 🎷 There’s a free drink waiting for you if you come down.' },
         ],
       },
       {
         name: 'Personalisation',
         items: [
-          'Birthday & anniversary recall',
-          'Tailored offers by past stay',
-          'Returning guest welcome back',
+          { text: 'Birthday & anniversary recall', preview: 'Happy Birthday! 🎉 I’ve arranged a small gift for you at the front desk for your next stay.' },
+          { text: 'Tailored offers by past stay', preview: 'Remember that beach villa you liked last summer? I can get it for you at a discount!' },
+          { text: 'Returning guest welcome back', preview: 'Hey! Welcome back! It’s been a while—here’s a little treat to celebrate your return. 🎁' },
         ],
       },
       {
         name: 'Revenue',
         items: [
-          'Package add-on at booking',
-          'Early bird ticket campaign',
-          'Last-seat urgency message',
+          { text: 'Package add-on at booking', preview: 'Traveling for work? 💼 I can add the "Business Plus" package for high-speed Wi-Fi.' },
+          { text: 'Early bird ticket campaign', preview: 'The New Year’s Gala tickets are live! Grab yours now before prices go up next week. 🥂' },
+          { text: 'Last-seat urgency message', preview: 'Only 1 spot left for the boat tour! Want me to grab it and charge it to your room?' },
         ],
       },
     ],
+  },
+  {
+    id: 'leisure-activities',
+    title: 'Leisure & Activities',
+    icon: <Compass size={22} />,
+    categories: [
+      {
+        name: 'Drive Sales',
+        items: [
+          { text: 'Receive booking inquiries 24/7', preview: 'Sure thing! 🚣‍♂️ Our kayak sunrise tours depart daily. Which day works for you?' },
+          { text: 'Tee time booking campaign', preview: 'Morning! ⛳️ The 8:30 AM tee time is open for tomorrow. Want it before someone else does?' },
+          { text: 'Activity package promotion', preview: 'Thinking of a beach day? 🏖️ Our "All-In" watersports pass is 20% off today.' },
+          { text: 'Early bird lesson offer push', preview: 'Want to sharpen your game? Book your pro tennis lesson now for an early-bird rate.' },
+          { text: 'Group booking broadcast', preview: 'Corporate day out? 🏌️‍♂️ I can arrange a private golf tournament for your team.' },
+        ],
+      },
+      {
+        name: 'Enhance Guest Exp.',
+        items: [
+          { text: 'AI agent activity reservations', preview: 'Got it! I’ll check the availability for the Pottery class right now. 🏺' },
+          { text: 'Equipment & slot confirmation', preview: 'All set! Your padel rackets are waiting at the front desk. Have a great game! 🎾' },
+          { text: 'Pre-activity reminder message', preview: 'Just a heads up—your desert safari leaves in 45 mins. Meet us at the front entrance! 🏜️' },
+          { text: 'Post-activity review request', preview: 'How was the scuba trip? 🤿 Hope you saw lots of fish! Let us know how we did.' },
+        ],
+      },
+      {
+        name: 'Upselling',
+        items: [
+          { text: 'Private coaching session upgrade', preview: 'Since you’re doing the group clinic, want to add 30 mins with the Pro afterwards? 🎾' },
+          { text: 'Premium equipment rental offer', preview: 'We just got some new graphite clubs in—want to swap your rentals for those today? 🏌️‍♂️' },
+          { text: 'Membership tier upgrade prompt', preview: 'By the way, becoming a "Leisure VIP" gets you free equipment rentals all year!' },
+          { text: 'Multi-activity bundle offer', preview: 'Can’t decide? 🌊 Get the "Sea & Sky" bundle and save big on both parasailing and jet skis!' },
+        ],
+      },
+    ],
+    stats: [
+      { label: 'Avg. open rate', value: '94%' },
+      { label: 'Automations in this dept.', value: '9' },
+      { label: 'Channels', value: 'WhatsApp · Instagram · Email · Facebook · TikTok' },
+    ]
   },
   {
     id: 'kids-club',
@@ -170,33 +213,69 @@ const stages = [
     icon: <Baby size={22} />,
     categories: [
       {
-        name: 'Information',
+        name: 'Inquiries & Booking',
         items: [
-          'Daily activities schedule',
-          'Babysitting requests flow',
-          'Age-group programme updates',
-          'Pool & beach session times',
+          { text: 'Instant birthday inquiry bot', preview: 'Hey! 🎂 I can check our birthday dates for you. When are you thinking of celebrating?' },
+          { text: 'Theme & package selector', preview: 'We have Superhero, Safari, and Mermaid themes! 🧜‍♀️ Want to see the package details for each?' },
+          { text: 'Calendar availability check', preview: 'Looking at June 14th... Yes, we have a slot at 2 PM! Shall I hold it for you for 24h?' },
+          { text: 'Automated deposit collection', preview: 'To confirm the party, just tap here to pay the 20% deposit securely via WhatsApp. 💳' },
         ],
       },
       {
         name: 'Parent Engagement',
         items: [
-          'Real-time pickup notifications',
-          'Photo & activity highlights',
-          'Safety & allergy confirmation',
+          { text: 'Guest list & RSVP manager', preview: 'Hi! 📝 Here is your current guest list. 12 parents have RSVPed "Yes" so far. Want to see who?' },
+          { text: 'Dietary requirement survey', preview: 'Quick question—any allergies I should tell the Chef about for Leos party on Saturday? 🥜' },
+          { text: 'Real-time party updates', preview: 'The pizza has arrived! 🍕 The kids are having a blast in the play zone right now.' },
+          { text: 'Post-party photo gallery', preview: 'What a day! 📸 Here are the photos from the celebration. Hope to see you again soon!' },
         ],
       },
       {
-        name: 'Upselling',
+        name: 'Revenue & Upselling',
         items: [
-          'Premium session booking',
-          'Birthday party packages',
-          'Souvenir & activity add-ons',
+          { text: 'Mascot & entertainment add-ons', preview: 'Want to make it extra special? 🦁 I can arrange a surprise visit from our Safari Mascot!' },
+          { text: 'Custom cake & catering upsell', preview: 'Our pastry chef can make a 3-tier custom cake for the party. Want to see some designs?' },
+          { text: 'Pro photography package', preview: 'Don\'t worry about the photos! 📷 Our pro photographer can capture the whole event for you.' },
+          { text: 'Anniversary recall (re-booking)', preview: 'Can you believe it’s been a year? 🎈 Leo is turning 6 soon—want to see our new party themes?' },
         ],
       },
     ],
   },
 ];
+
+/* ─── Preview Bubble Component ────────────────────────────── */
+function PreviewBubble({ text, channel = 'whatsapp' }) {
+  const isWA = channel === 'whatsapp';
+  
+  return (
+    <div className={`relative px-4 py-3 rounded-2xl min-w-[180px] max-w-[240px] shadow-2xl transition-all border border-white/5 ${
+      isWA ? 'bg-[#0b5c4b] text-white/95' : 'bg-[#262626] text-white/95'
+    }`}>
+      <p className="text-[12px] leading-relaxed font-medium">
+        {text}
+      </p>
+      
+      <div className="flex items-center justify-end gap-1 mt-2 opacity-50">
+        <span className="text-[9px] font-mono tracking-tight">10:00 AM</span>
+        <div className="flex -space-x-[7px]">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DEFF00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DEFF00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-ml-1">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Speech Bubble Tail - Bottom centered */}
+      <div className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-4 overflow-hidden pointer-events-none`}>
+        <svg viewBox="0 0 20 20" className={isWA ? 'text-[#0b5c4b]' : 'text-[#262626]'} fill="currentColor">
+          <path d="M0 0 L10 10 L20 0 Z" />
+        </svg>
+      </div>
+    </div>
+  );
+}
 
 export default function AutomationSystem() {
   const [activeStage, setActiveStage] = useState(stages[0].id);
@@ -218,7 +297,7 @@ export default function AutomationSystem() {
           </h2>
           <div className="flex flex-col items-center gap-8">
             <p className="text-xl text-cream-muted max-w-3xl mx-auto">
-              Purpose-built automation frameworks for every hotel department — set once, run forever.
+              Purpose-built automation frameworks for every property department — set once, run forever.
             </p>
             <button
               onClick={() => setShowVideo(true)}
@@ -335,17 +414,15 @@ export default function AutomationSystem() {
                           key={i}
                           className="group relative text-cream/85 text-sm leading-snug font-medium pl-4 border-l border-white/10 hover:border-electric transition-colors cursor-pointer py-1"
                         >
-                          {item}
-                          {/* WhatsApp / Instagram preview tooltip */}
-                          <span className="absolute left-full ml-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-black px-4 py-2.5 rounded-xl border border-white/10 pointer-events-none whitespace-nowrap z-50 shadow-2xl hidden md:flex items-center gap-3">
-                            <span className="text-electric text-[10px] font-bold uppercase tracking-widest text-left">
-                              Preview flow<br />on channel
-                            </span>
-                            <div className="flex -space-x-2">
-                              <img src="/images/Whatsapp Logo.webp" alt="WhatsApp" className="w-6 h-6 rounded-full border-2 border-black bg-[#25D366] p-1" />
-                              <img src="/images/instagram logo.webp" alt="Instagram" className="w-6 h-6 rounded-full border-2 border-black object-cover" />
-                            </div>
-                          </span>
+                          {typeof item === 'string' ? item : item.text}
+                          
+                          {/* Chat Preview bubble - Now positioned ABOVE to prevent column overlap */}
+                          <div className="absolute bottom-full left-4 mb-4 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all pointer-events-none z-50 hidden md:block">
+                             <PreviewBubble 
+                               text={item.preview || `Ready to automate your ${item}? Reply YES to learn more!`} 
+                               channel="whatsapp" 
+                             />
+                          </div>
                         </li>
                       ))}
                     </ul>
@@ -356,11 +433,11 @@ export default function AutomationSystem() {
               {/* Footer stat row */}
               <div className="mt-10 pt-8 border-t border-white/6 flex flex-wrap items-center gap-6 justify-between">
                 <div className="flex flex-wrap gap-6">
-                  {[
+                  {(active.stats || [
                     { label: 'Avg. open rate', value: '97%' },
                     { label: 'Automations in this dept.', value: `${active.categories.reduce((a, c) => a + c.items.length, 0)}` },
-                    { label: 'Channels', value: 'WhatsApp · Instagram · Email' },
-                  ].map((stat) => (
+                    { label: 'Channels', value: 'WhatsApp · Instagram · Email · Facebook · TikTok' },
+                  ]).map((stat) => (
                     <div key={stat.label}>
                       <p className="text-electric text-lg font-black font-mono">{stat.value}</p>
                       <p className="text-white/30 text-[10px] uppercase tracking-widest font-bold">{stat.label}</p>

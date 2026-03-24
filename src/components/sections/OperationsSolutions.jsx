@@ -172,7 +172,7 @@ function AutomationsTimeline() {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveStep(s => (s + 1) % 5);
-    }, 2200);
+    }, 1500);
     return () => clearInterval(timer);
   }, []);
 
@@ -220,7 +220,7 @@ function AutomationsTimeline() {
                   className="absolute inset-0 h-full bg-electric origin-left"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: isPassed ? 1 : 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                 />
               </div>
             )}
@@ -288,10 +288,10 @@ export default function OperationsSolutions() {
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1] text-white mb-5">
             The best WhatsApp and social media marketing platform<br />
-            <span className="text-electric text-4xl md:text-5xl lg:text-6xl">for hospitality.</span>
+            <span className="text-electric text-4xl md:text-5xl lg:text-6xl">for your property.</span>
           </h2>
           <p className="text-lg text-white/40 max-w-xl mx-auto leading-relaxed">
-            Purpose-built for hospitality — every tool works together seamlessly across your entire property portfolio.
+            Purpose-built for travel, entertainment & stays — every tool works together seamlessly across your entire property portfolio.
           </p>
         </div>
 

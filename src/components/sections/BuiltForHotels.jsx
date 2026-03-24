@@ -3,15 +3,15 @@ import { motion } from 'framer-motion';
 const labels = [
   { text: 'Luxury Resorts', x: -350, y: -180, color: '#A855F7' }, 
   { text: 'Boutique Hotels', x: -250, y: 150, color: '#3B82F6' },
-  { text: 'F&B Groups', x: 300, y: -160, color: '#DEFF00' },     
+  { text: 'Golf Courses', x: 300, y: -160, color: '#DEFF00' },     
   { text: 'General Managers', x: 380, y: 140, color: '#A855F7' },  
-  { text: 'Marketing Teams', x: -400, y: -20, color: '#3B82F6' },  
-  { text: 'Revenue Managers', x: 420, y: -30, color: '#2DD4BF' },  
+  { text: 'Beach Clubs', x: -400, y: -20, color: '#3B82F6' },  
+  { text: 'Tennis Courts', x: 420, y: -30, color: '#2DD4BF' },  
   { text: 'Chain Hotels', x: -150, y: -220, color: '#DEFF00' },    
-  { text: 'Resort Groups', x: 180, y: 220, color: '#2DD4BF' },     
-  { text: 'Front Desk', x: -280, y: 250, color: '#DEFF00' },       
-  { text: 'Concierge', x: 120, y: -250, color: '#3B82F6' },        
-  { text: 'Owners', x: 50, y: 280, color: '#DEFF00' },           
+  { text: 'Water Sports', x: 180, y: 220, color: '#2DD4BF' },     
+  { text: 'Entertainment', x: -280, y: 250, color: '#DEFF00' },       
+  { text: 'Theme Parks', x: 120, y: -250, color: '#3B82F6' },        
+  { text: 'Revenue Management', x: 50, y: 280, color: '#DEFF00' },           
   { text: 'Asset Managers', x: 450, y: 240, color: '#A855F7' },    
 ];
 
@@ -64,9 +64,9 @@ export default function BuiltForHotels() {
   return (
     <section className="bg-brand-black py-40 px-6 overflow-hidden relative min-h-[800px] flex items-center justify-center">
       <div className="relative z-20 text-center max-w-7xl mx-auto pointer-events-none">
-        <h2 className="text-[10vw] md:text-[8vw] font-black font-display leading-[0.85] tracking-tighter text-cream flex flex-col items-center">
-          <span className="block">BUILT FOR HOTELS,</span>
-          <span className="block italic text-electric">BY HOSPITALITY EXPERTS.</span>
+        <h2 className="text-[9vw] md:text-[7vw] font-black font-display leading-[0.85] tracking-tighter text-cream flex flex-col items-center">
+          <span className="block">BUILT FOR HOSPITALITY & LEISURE,</span>
+          <span className="block italic text-electric uppercase">by Hospitality Experts.</span>
         </h2>
       </div>
 

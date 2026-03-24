@@ -15,8 +15,9 @@ const integrations = [
 ];
 
 export default function IntegrationsSection() {
-  // Triplicate the integrations list to ensure seamless infinite scroll even on ultra-wide screens
-  const marqueeItems = [...integrations, ...integrations, ...integrations];
+  // Split integrations into two rows for variety
+  const row1Items = [...integrations.slice(0, 6), ...integrations.slice(0, 6), ...integrations.slice(0, 6)];
+  const row2Items = [...integrations.slice(6), ...integrations.slice(6), ...integrations.slice(6)];
 
   return (
     <section className="bg-brand-black py-24 px-6 border-y border-white/5 relative overflow-hidden">
@@ -25,12 +26,20 @@ export default function IntegrationsSection() {
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes scroll-left {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.3333%); } /* Translates exactly 1/3 of the total width since we triplicated */
+          100% { transform: translateX(-33.3333%); }
+        }
+        @keyframes scroll-right {
+          0% { transform: translateX(-33.3333%); }
+          100% { transform: translateX(0); }
         }
         .animate-scroll-left {
-          animation: scroll-left 35s linear infinite;
+          animation: scroll-left 40s linear infinite;
         }
-        .animate-scroll-left:hover {
+        .animate-scroll-right {
+          animation: scroll-right 40s linear infinite;
+        }
+        .marquee-row:hover .animate-scroll-left,
+        .marquee-row:hover .animate-scroll-right {
           animation-play-state: paused;
         }
       `}} />
@@ -53,34 +62,39 @@ export default function IntegrationsSection() {
         </h2>
       </div>
 
-      {/* Infinite scrolling track container */}
-      <div className="w-full overflow-hidden relative z-10 before:absolute before:left-0 before:top-0 before:z-10 before:w-[15%] before:h-full before:bg-gradient-to-r before:from-brand-black before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:w-[15%] after:h-full after:bg-gradient-to-l after:from-brand-black after:to-transparent pointer-events-auto">
+      {/* Row 1: Infinite scrolling track (Left) */}
+      <div className="w-full overflow-hidden relative z-10 py-6 marquee-row before:absolute before:left-0 before:top-0 before:z-10 before:w-[15%] before:h-full before:bg-gradient-to-r before:from-brand-black before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:w-[15%] after:h-full after:bg-gradient-to-l after:from-brand-black after:to-transparent pointer-events-auto">
         <div className="flex items-center w-max animate-scroll-left">
-          {marqueeItems.map((app, i) => (
-            <div key={i} className="flex items-center">
-              
-              {/* Logo Item */}
-              <div 
-                className="flex flex-col items-center justify-center gap-6 px-12 md:px-16 cursor-pointer group"
-              >
+          {row1Items.map((app, i) => (
+            <div key={`row1-${i}`} className="flex items-center">
+              <div className="flex flex-col items-center justify-center gap-6 px-12 md:px-16 cursor-pointer group">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2">
-                  <img 
-                    src={app.icon} 
-                    alt={app.name} 
-                    className="max-w-full max-h-full object-contain filter transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(222,255,0,0.5)]" 
-                    onError={(e) => {e.target.style.display = 'none'}}
-                    style={{ transform: app.scale ? `scale(${app.scale})` : 'scale(1)' }}
-                  />
+                  <img src={app.icon} alt={app.name} className="max-w-full max-h-full object-contain filter transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(222,255,0,0.5)]" />
                 </div>
                 <span className="text-white/60 group-hover:text-electric font-bold text-[10px] md:text-xs uppercase tracking-[0.15em] transition-colors duration-300">
                   {app.name}
                 </span>
               </div>
+              <div className="h-16 w-px bg-white/10"></div>
+            </div>
+          ))}
+        </div>
+      </div>
 
-              {/* Vertical Divider (unless it's the very last item in the 3x list) */}
-              {i !== marqueeItems.length - 1 && (
-                <div className="h-16 w-px bg-white/10"></div>
-              )}
+      {/* Row 2: Infinite scrolling track (Right) */}
+      <div className="w-full overflow-hidden relative z-10 py-6 mt-4 marquee-row before:absolute before:left-0 before:top-0 before:z-10 before:w-[15%] before:h-full before:bg-gradient-to-r before:from-brand-black before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:w-[15%] after:h-full after:bg-gradient-to-l after:from-brand-black after:to-transparent pointer-events-auto">
+        <div className="flex items-center w-max animate-scroll-right">
+          {row2Items.map((app, i) => (
+            <div key={`row2-${i}`} className="flex items-center">
+              <div className="flex flex-col items-center justify-center gap-6 px-12 md:px-16 cursor-pointer group">
+                <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2">
+                  <img src={app.icon} alt={app.name} className="max-w-full max-h-full object-contain filter transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(222,255,0,0.5)]" />
+                </div>
+                <span className="text-white/60 group-hover:text-electric font-bold text-[10px] md:text-xs uppercase tracking-[0.15em] transition-colors duration-300">
+                  {app.name}
+                </span>
+              </div>
+              <div className="h-16 w-px bg-white/10"></div>
             </div>
           ))}
         </div>

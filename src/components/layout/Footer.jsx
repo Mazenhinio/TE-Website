@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="col-span-2 md:col-span-1">
           <Link to="/" className="text-electric text-2xl font-display font-black tracking-tighter mb-6 block">TOTAL ENGAGE</Link>
           <p className="text-sm leading-relaxed max-w-[200px]">
-            The high-performance engagement platform for modern hospitality. Built for MENA.
+            The high-performance engagement platform for modern properties. Built for MENA.
           </p>
         </div>
 

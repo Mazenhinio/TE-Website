@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Bed, Utensils, LineChart, ArrowRight } from 'lucide-react';
+import { Bed, Utensils, LineChart, ArrowRight, Compass } from 'lucide-react';
 
 const RunningMan = ({ size = 28 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -60,6 +60,13 @@ const impactAreas = [
     icon: <LineChart size={28} />,
     path: "/loyalty-retention",
     theme: 'dark'
+  },
+  {
+    title: "Book Leisure & Activities Instantly",
+    shortDesc: "Enable your golf course, tennis courts, watersports center, and activity desk to receive booking inquiries, confirm reservations, and upsell packages — all on WhatsApp, 24/7.",
+    icon: <Compass size={28} />,
+    path: "/contact",
+    theme: 'light'
   }
 ];
 
@@ -73,10 +80,10 @@ export default function ValueProp() {
           </span>
           <h2 className="text-4xl md:text-6xl font-display font-bold text-black leading-[1.1] mb-6">
             Elevate the guest journey, <br className="hidden md:block" />
-            <span className="text-electric bg-black px-3 pb-1 mt-2 inline-block -rotate-1 shadow-xl">maximize hotel revenue.</span>
+            <span className="text-electric bg-brand-black px-3 pb-1 mt-2 inline-block -rotate-1 shadow-xl">maximize property revenue.</span>
           </h2>
           <p className="text-xl text-black/60 font-medium">
-            Total Engage orchestrates seamless, personalized communication across every touchpoint—empowering your hospitality teams and driving direct bookings.
+            Total Engage orchestrates seamless, personalized communication across every touchpoint—empowering your property & management teams and driving direct bookings.
           </p>
         </div>
 

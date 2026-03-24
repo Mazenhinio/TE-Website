@@ -56,7 +56,7 @@ export default function HeroSection() {
           className="mb-6"
         >
           <span className="text-electric uppercase tracking-[0.3em] text-xs md:text-sm font-bold bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full inline-block border border-electric/20">
-            The World's #1 Hospitality Platform
+            The World's #1 Property Revenue Platform
           </span>
         </motion.div>
         
@@ -78,8 +78,8 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="mt-8 text-cream-muted text-lg md:text-xl max-w-2xl mx-auto font-body"
         >
-          Turn every guest into a regular with MENA's most powerful 
-          automated guest engagement platform.
+          Maximize property revenue and turn every guest into a regular with MENA's most powerful 
+          automated engagement platform.
         </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

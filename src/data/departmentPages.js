@@ -134,87 +134,86 @@ export const weddingsData = {
 export const kidsClubData = {
   theme: { layout: 'playful-stack', animation: 'bouncy-pop' },
   meta: {
-    title: 'Hotel Kids Club Marketing & Family Guest Engagement | Total Engage',
-    description: 'Engage family guests with automated kids club activity updates, WhatsApp notifications for parents, and family-focused hotel marketing.',
+    title: 'Hotel Kids Club & Birthday Party Hosting Automation | Total Engage',
+    description: 'Maximize kids club revenue by automating birthday party inquiries, package upselling, and family celebrations through WhatsApp.',
   },
   hero: {
-    tag: 'KIDS CLUB',
-    h1: 'Happy Kids. Relaxed Parents. Repeat Bookings.',
-    subheadline: 'Keep parents informed and kids entertained with automated activity updates, session bookings, and family-focused promotions via WhatsApp.',
+    tag: 'KIDS CLUB & CELEBRATIONS',
+    h1: 'The Easiest Way to Host Unforgettable Birthdays',
+    subheadline: 'From the first inquiry to the final candle—automate your birthday party bookings, package upselling, and parent communications via WhatsApp.',
   },
-  painPoint: 'Parents want to know their kids are having fun — but your kids club communication is limited to a poster in the elevator. Families are your highest-value repeat guests, and you are not engaging them.',
+  painPoint: 'Your kids club is a revenue goldmine, but birthday inquiries slip through the cracks of busy front desks. Parents want instant quotes and easy booking, not waiting days for an email. You are missing out on high-margin celebration revenue.',
   solutions: [
-    { title: 'Daily Activity Alerts', description: 'Automated WhatsApp to parents with today\'s kids club schedule and open slots.' },
-    { title: 'Pre-Arrival Family Welcome', description: 'Families tagged in CRM receive a personalized message before arrival with kids club highlights.' },
-    { title: 'Session Booking', description: 'Parents book specific activities directly via WhatsApp reply.' },
-    { title: 'Post-Stay Family Follow-Up', description: 'Targeted re-engagement campaigns for family segments with school holiday offers.' }
+    { title: '24/7 Birthday Inquiry Bot', description: 'Immediate WhatsApp responses to party inquiries with automated package availability and pricing.' },
+    { title: 'Interactive Party Menus', description: 'Let parents browse themes, cake options, and catering menus directly on WhatsApp with one-tap selection.' },
+    { title: 'Automated Deposits', description: 'Secure party dates with automated deposit links and instant confirmation messages.' },
+    { title: 'Post-Party Memory Sharing', description: 'Automatically send a thank-you note with a photo gallery link and a discount for their next celebration.' }
   ],
   whatsappSection: {
-    context: 'Day-of activity schedule',
-    h2: 'Parents Know Exactly What Their Kids Are Doing Today',
-    body: 'Every morning, families with children receive the day\'s kids club schedule on WhatsApp. One tap to register. Parents relax. Kids play.',
+    context: 'Birthday Party Inquiry',
+    h2: 'Confirm a Full Birthday Party in Under 3 Minutes',
+    body: 'A parent asks about a birthday party for 15 kids. Instead of waiting for a callback, they get an instant menu of packages, pick a theme, and pay the deposit—all without your team lifting a finger.',
     messages: [
-      { sender: 'Hotel', text: "Good morning! Here is what is happening at the Kids Club today: 10 AM — Arts & Crafts, 11:30 AM — Pool Games, 2 PM — Movie Time, 4 PM — Treasure Hunt. Would you like to sign up your little ones for any of these?" },
-      { sender: 'Guest', text: "Pool games and treasure hunt please!" },
-      { sender: 'Hotel', text: "Done! Sarah and Adam are registered for Pool Games at 11:30 AM and Treasure Hunt at 4 PM. Have a relaxing day!" }
+      { sender: 'Guest', text: "Do you have any availability for a 5th birthday party on Saturday, June 14th? Looking for about 20 kids." },
+      { sender: 'Hotel', text: "We do! 🎂 Our 'Superhero Adventure' and 'Jungle Explorer' themes are available for that date. Would you like to see our all-inclusive party packages?" },
+      { sender: 'Guest', text: "Yes, the Superhero one please!" },
+      { sender: 'Hotel', text: "Great choice! 🦸‍♂️ Here's the package: includes 2h private room, cake, gifts, and a kids buffet for 20. Would you like to secure the date with a 20% deposit?" }
     ]
   },
   useCases: [
-    { title: 'Check-In Family Welcome', trigger: 'Family tag + check-in', action: 'WhatsApp with kids club overview and today\'s schedule.' },
-    { title: 'Daily Schedule Push', trigger: 'Every morning 8 AM', action: 'WhatsApp to all in-house families with the day\'s activities.' },
-    { title: 'Summer Camp Promotion', trigger: 'Campaign launch', action: 'Broadcast to family segment with summer program details.' },
-    { title: 'School Holiday Campaign', trigger: '4 weeks before school holidays', action: 'WhatsApp to past family guests with holiday packages.' },
-    { title: 'Post-Stay Family Re-Engagement', trigger: '60 days after checkout', action: 'WhatsApp inviting them back with family package.' }
+    { title: 'Instant Party Inquiry', trigger: 'Inquiry via WhatsApp/Web', action: 'Immediate reply with birthday brochures and availability.' },
+    { title: 'Package Upsell Nudge', trigger: 'Party booked', action: 'WhatsApp 7 days before party with "Pro Photographer" or "Mascot Visit" add-ons.' },
+    { title: 'Dietary Requirement Check', trigger: '3 days before party', action: 'Automated WhatsApp to host parent asking for guest allergy list.' },
+    { title: 'School Holiday Campaign', trigger: '4 weeks before holidays', action: 'WhatsApp to past birthday guest families with holiday camp offers.' },
+    { title: 'Anniversary Celebration', trigger: '1 year after party', action: 'WhatsApp: "Time flies! Leo is turning 6 soon—want to see our new party themes?"' }
   ],
   results: [
-    { value: '78%', label: 'kids club participation from WhatsApp', icon: 'children/people' },
-    { value: '2.1x', label: 'higher repeat booking rate for families', icon: 'refresh/cycle' },
-    { value: '94%', label: 'parent satisfaction with activity updates', icon: 'star' }
+    { value: '3.5x', label: 'increase in birthday party leads', icon: 'celebration' },
+    { value: '82%', label: 'deposit conversion on WhatsApp', icon: 'credit-card' },
+    { value: '96%', label: 'parent satisfaction with party booking', icon: 'star' }
   ]
 };
 
 export const roomsSuitesData = {
   theme: { layout: 'classic-cards', animation: 'sharp-slide' },
   meta: {
-    title: 'Hotel Room Upsell & Pre-Arrival Marketing Automation | Total Engage',
-    description: 'Maximize room revenue with automated WhatsApp upsells, pre-arrival messaging, and post-stay re-booking campaigns for hotels in MENA.',
+    title: 'Hotel Room Revenue & Experience Upsell Automation | Total Engage',
+    description: 'Drive more room bookings and high-value stay experiences with automated WhatsApp upsells for honeymoons, anniversaries, and extended stays.',
   },
   hero: {
-    tag: 'ROOMS & SUITES',
-    h1: 'Maximize Revenue From Every Room, Every Night',
-    subheadline: 'Automated room upgrades, pre-arrival preference collection, and post-stay rebooking — all delivered through WhatsApp before guests even arrive.',
+    tag: 'ROOMS, SUITES & EXPERIENCES',
+    h1: 'Turn a Stay into a Lifetime Memory',
+    subheadline: 'Automate high-value upsells for honeymoons, anniversaries, and premium suite upgrades—delivered directly via WhatsApp when guests are most excited.',
   },
-  painPoint: 'Guests book standard rooms online. By the time they arrive, it is too late to upsell. You are leaving upgrade revenue, early check-in fees, and rebooking opportunities on the table because your team cannot reach every guest manually.',
+  painPoint: 'Guests book standard rooms online and the conversation often ends there. You are missing out on the most profitable revenue streams in hospitality—milestone celebrations and premium experiences—because your team cannot reach every guest with a personalized offer.',
   solutions: [
-    { title: 'Pre-Arrival Upsell', description: 'Automated WhatsApp offer to upgrade to a suite or add packages before arrival.' },
-    { title: 'Preference Collection', description: 'Guests share room preferences (pillow type, minibar, floor) via WhatsApp before check-in.' },
-    { title: 'In-Stay Satisfaction Check', description: 'Mid-stay WhatsApp asking if everything is perfect — catch issues before they become bad reviews.' },
-    { title: 'Post-Stay Re-Booking', description: 'Automated re-engagement with seasonal offers and loyalty incentives.' }
+    { title: 'Automated Milestone Concierge', description: 'Detect keywords like "honeymoon" or "anniversary" in bookings and automatically send a curated list of romantic packages.' },
+    { title: 'One-Tap Suite Upgrades', description: 'Offer available suites 48 hours before arrival. Capture revenue from high-value inventory that would otherwise go unsold.' },
+    { title: 'Long-Stay Incentives', description: 'Automatically identify guests staying 3+ nights and offer them an exclusive "Extended Bliss" package or late check-out.' },
+    { title: 'Milestone Recall Booking', description: 'A year later, automatically invite guests back with a "Celebrate Again" offer tailored to their previous stay.' }
   ],
   whatsappSection: {
-    context: 'Pre-arrival upgrade offer',
-    h2: 'Sell the Suite Before They Arrive',
-    body: '48 hours before arrival, guests receive a personalized WhatsApp with an upgrade offer. One reply to confirm. Revenue captured while the guest is still excited about their trip.',
+    context: 'Honeymoon Package Upsell',
+    h2: 'Upgrading the Experience Before They Even Pack',
+    body: 'A guest mentions they are celebrate their honeymoon in a booking note. They get an instant, personalized WhatsApp with a curated "Honeymoon Bliss" package—champagne, rose petal turndown, and a private dinner—capturing extra revenue instantly.',
     messages: [
-      { sender: 'Hotel', text: "Hi, we are looking forward to welcoming you on Friday! We have a special offer: upgrade to our Ocean View Suite for just a little more. Would you like to upgrade?" },
-      { sender: 'Guest', text: "How much more?" },
-      { sender: 'Hotel', text: "Just $45 per night more than your current booking. Shall I upgrade you?" },
+      { sender: 'Hotel', text: "Congratulations on your upcoming honeymoon! 🥂 To make your stay extra special, we've curated a 'Honeymoon Bliss' package for you. Would you like to see the details?" },
       { sender: 'Guest', text: "Yes please!" },
-      { sender: 'Hotel', text: "Upgraded! Your Ocean View Suite is confirmed. See you Friday." }
+      { sender: 'Hotel', text: "Our package includes a chilled bottle of champagne, rose petal turndown service, and a private sunset dinner for two. We can add this to your stay for just $120. Shall I confirm?" },
+      { sender: 'Guest', text: "That sounds perfect, please add it!" }
     ]
   },
   useCases: [
-    { title: '48-Hour Pre-Arrival Upsell', trigger: '2 days before check-in', action: 'WhatsApp with available upgrade and price.' },
-    { title: 'Room Preference Collection', trigger: '3 days before check-in', action: 'WhatsApp asking for pillow, minibar, and special request preferences.' },
-    { title: 'Early Check-In Offer', trigger: 'Day before arrival', action: 'WhatsApp offering early check-in for a fee.' },
-    { title: 'Mid-Stay Satisfaction Check', trigger: 'Day 2 of stay', action: 'WhatsApp asking if everything is good, with quick-reply options.' },
-    { title: 'No-Show Prevention', trigger: 'Day of check-in, 6 PM', action: 'WhatsApp confirmation they are still coming.' },
-    { title: 'Post-Checkout Re-Booking', trigger: '30 days after checkout', action: 'WhatsApp with seasonal offer and direct booking link.' }
+    { title: 'Milestone Detection & Upsell', trigger: 'Keyword match: "Honeymoon"', action: 'Automated WhatsApp with romantic celebration packages.' },
+    { title: '48h Pre-Arrival Suite Upgrade', trigger: '2 days before check-in', action: 'WhatsApp with exclusive availability alerts for premium suites.' },
+    { title: 'extended Stay Offer', trigger: 'Booking duration > 3 nights', action: 'WhatsApp with complimentary spa credit or resort-wide discounts.' },
+    { title: 'Anniversary Return Campaign', trigger: '11 months after stay', action: 'WhatsApp recalling their milestone and offering a return discount.' },
+    { title: 'Last-Room Urgency Push', trigger: 'High occupancy detected', action: 'WhatsApp broadcast to past guests with exclusive rates on the final available rooms.' }
   ],
   results: [
-    { value: '22%', label: 'upgrade conversion rate via WhatsApp', icon: 'upward arrow' },
-    { value: '40%', label: 'reduction in no-shows', icon: 'downward arrow' },
-    { value: '3.5x', label: 'ROI on pre-arrival campaigns', icon: 'chart' }
+    { value: '31%', label: 'upsell conversion on milestone stays', icon: 'heart' },
+    { value: '2.8x', label: 'higher ROI on pre-arrival suite offers', icon: 'upward arrow' },
+    { value: '91%', label: 'guest satisfaction with personalized offers', icon: 'star' }
   ]
 };
 
