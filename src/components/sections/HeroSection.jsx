@@ -38,7 +38,7 @@ export default function HeroSection() {
           className="w-full h-full object-cover opacity-60"
         >
           <source 
-            src="/Customer Journey.mp4" 
+            src="/Hero Video.mp4" 
             type="video/mp4" 
           />
           Your browser does not support the video tag.

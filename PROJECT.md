@@ -148,7 +148,7 @@ TE Website/
 ├── .gitignore
 ├── public/
 │   ├── images/                  # Logos, brand assets, integration icons
-│   ├── hero-video.mp4
+│   ├── Hero Video.mp4
 │   ├── Customer Journey.mp4
 │   └── crm-mockup.png
 ├── src/
@@ -347,6 +347,14 @@ Each fully built with bespoke design and live data from `departmentPages.js`:
 ## Change Log
 
 > **Instruction:** Every time a change is made to this website — whether code, content, design, or configuration — add an entry to this log. Include the date and time of the change and a concise technical summary of what was modified and why.
+
+---
+
+### 2026-03-24 — Hero Section Video Update
+
+**Summary:** Replaced the generic background video in the Hero Section with a custom hospitality-themed video.
+
+- **Hero Background:** Updated `HeroSection.jsx` to use `/Hero Video.mp4` as the background loop, replacing `/Customer Journey.mp4`.
 
 ---
 
