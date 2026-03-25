@@ -7,7 +7,13 @@ export default function Footer() {
         
         {/* Brand */}
         <div className="col-span-2 md:col-span-1">
-          <Link to="/" className="text-electric text-2xl font-display font-black tracking-tighter mb-6 block">TOTAL ENGAGE</Link>
+          <Link to="/" className="transition-transform hover:scale-105 mb-8 block">
+            <img
+              src="/images/Total engage logo neon.png"
+              alt="Total Engage"
+              className="h-8 md:h-10 object-contain"
+            />
+          </Link>
           <p className="text-sm leading-relaxed max-w-[200px]">
             The high-performance engagement platform for modern properties. Built for MENA.
           </p>

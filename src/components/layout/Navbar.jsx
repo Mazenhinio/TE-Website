@@ -16,6 +16,7 @@ export default function Navbar() {
   }, []);
 
   const solutions = [
+    { name: 'Home', path: '/' },
     { name: 'Food & Beverage', path: '/food-beverage' },
     { name: 'Wellness & Spa', path: '/wellness-spa' },
     { name: 'Weddings & Events', path: '/weddings-events' },

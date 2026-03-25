@@ -29,6 +29,11 @@ const PageLoader = () => (
 function App() {
   const location = useLocation();
 
+  // Scroll to top on every route change
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <div className="flex flex-col min-h-screen bg-brand-black text-text-on-black">
       <Navbar />

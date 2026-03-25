@@ -16,12 +16,7 @@ export default function RoomsSuites() {
     <div ref={containerRef} className="bg-[#FAF9F6] min-h-screen text-black font-body pt-20 selection:bg-electric">
       
       {/* 1. LUXURY EDITORIAL HERO */}
-      <section className="relative w-full h-[85vh] flex items-center justify-center px-6 overflow-hidden">
-        <div className="absolute inset-0 grid grid-cols-4 gap-1 opacity-5">
-           {[...Array(4)].map((_, i) => (
-             <div key={i} className="border-x border-black h-full" />
-           ))}
-        </div>
+      <section className="relative w-full h-[90vh] flex items-center justify-center px-6 overflow-hidden">
         
         <div className="max-w-7xl w-full z-10 grid lg:grid-cols-2 gap-20 items-center">
           <motion.div 
@@ -29,16 +24,18 @@ export default function RoomsSuites() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "circOut" }}
           >
-            <span className="font-mono text-xs tracking-[0.4em] uppercase opacity-40 mb-8 block">THE PRE-ARRIVAL EXPERIENCE</span>
-            <h1 className="text-6xl md:text-8xl font-display font-black leading-[0.95] tracking-tighter mb-10 text-black">
-              {hero.h1.split(' ').slice(0,3).join(' ')} <br/>
-              <span className="font-italic italic text-electric stroke-black" style={{ WebkitTextStroke: '2px black' }}>{hero.h1.split(' ').slice(3).join(' ')}</span>
+            <span className="text-electric uppercase tracking-[0.3em] text-xs md:text-sm font-bold bg-black backdrop-blur-sm px-4 py-2 rounded-full inline-block border border-black mb-8">
+              THE PRE-ARRIVAL EXPERIENCE
+            </span>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-[5.5vw] font-black uppercase tracking-tighter leading-[0.9] mb-10 text-black">
+              Turn a Stay <br/>
+              into a <span className="bg-black text-electric px-4 py-1 inline-block -skew-x-6">Lifetime Memory</span>
             </h1>
             <p className="text-xl text-black font-medium max-w-md leading-relaxed mb-12 opacity-80">{hero.subheadline}</p>
-            <motion.div whileHover={{ scale: 1.05 }}>
+            <motion.div whileHover={{ scale: 1.05 }} className="w-fit">
               <Link 
                 to="/contact" 
-                className="group inline-flex items-center gap-6 bg-black text-white px-10 py-5 rounded-full font-medium"
+                className="group inline-flex items-center gap-6 bg-black text-white px-10 py-5 rounded-full font-extrabold uppercase tracking-widest text-sm"
               >
                 Master Your Inventory <ChevronRight className="group-hover:translate-x-2 transition-transform" />
               </Link>

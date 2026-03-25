@@ -16,10 +16,10 @@ export default function Home() {
   return (
     <PageTransition>
       <HeroSection />
+      <TrustedLogos />      
       <ValueProp />
       <BuiltForHotels />
       <StatsBar />
-      <TrustedLogos />      
       {/* 
         OperationsSolutions fits between StatsBar and optionally others, 
         or it can be placed after AutomationSystem. We'll leave it here as it 

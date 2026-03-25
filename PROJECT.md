@@ -160,7 +160,7 @@ TE Website/
 │   │   ├── layout/
 │   │   │   ├── Navbar.jsx       # Sticky nav, scroll transparency, mobile overlay, Solutions links
 │   │   │   ├── Footer.jsx       # 5-col layout: Platform, Revenue, Operations, Corporate, Legal
-│   │   │   └── DepartmentPageTemplate.jsx  # Shared template for all 7 department pages
+│   │   │   └── DepartmentPageTemplate.jsx  # Reference template (bespoke versions used in production)
 │   │   ├── sections/            # Homepage section components
 │   │   │   ├── HeroSection.jsx
 │   │   │   ├── ValueProp.jsx
@@ -174,10 +174,12 @@ TE Website/
 │   │   │   ├── IntegrationsSection.jsx  # Infinite marquee conveyor belt
 │   │   │   ├── SecuritySummary.jsx
 │   │   │   ├── FinalCTA.jsx
-│   │   │   └── GuestJourney.jsx
+│   │   │   ├── GuestJourney.jsx
+│   │   │   └── FeaturesGrid.jsx         # (Unused) Modular platform feature cards
 │   │   └── ui/
 │   │       ├── PageTransition.jsx       # Framer Motion page wrapper
-│   │       └── PhoneChatAnimation.jsx   # Live WhatsApp chat simulation
+│   │       ├── PhoneChatAnimation.jsx   # Live WhatsApp chat simulation
+│   │       └── RotatingWord.jsx         # 3D revolving text component
 │   ├── pages/
 │   │   ├── Home.jsx             # Composes all homepage sections
 │   │   ├── Contact.jsx          # Schedule a Demo form → GHL webhook
@@ -304,7 +306,7 @@ Every department page follows this 7-section template:
 
 ### Contact / Demo Form
 - Custom form component (no embedded GHL widget)
-- Fields: First Name, Last Name, Email, Phone, Hotel/Company Name, Job Title, Number of Properties, Message
+- Fields: Full Name, Email, Phone Number, Hotel/Property Name, Challenge/Message
 - Webhook POST to GoHighLevel via `VITE_GHL_WEBHOOK_URL`
 - Standard Fetch (no `no-cors` mode) for reliable GHL data reception
 - Console debug logging for lead sync verification
@@ -347,6 +349,43 @@ Each fully built with bespoke design and live data from `departmentPages.js`:
 ## Change Log
 
 > **Instruction:** Every time a change is made to this website — whether code, content, design, or configuration — add an entry to this log. Include the date and time of the change and a concise technical summary of what was modified and why.
+
+### 2026-03-26 — UI Enhancement: 3D Rotating Carousel
+
+**Summary:** Swapped simple navigation arrows for a more immersive 3D carousel interaction for the Automation Engine.
+
+- **Title-Based Navigation:** Replaced arrows with faded, 3D-rotated titles of the "Previous" and "Next" stages.
+- **Directional Animation:** Implemented a `rotateY` and `x-offset` spring animation that flips the content based on the navigation direction (clockwise vs counter-clockwise).
+- **Depth & Perspective:** Used `origin-right`/`origin-left` and scale transformations to create a sense of mechanical rotation around a central axis.
+
+---
+
+### 2026-03-26 — UI Enhancement: Automation System Navigation
+
+**Summary:** Enhanced the accessibility and interactivity of the Automation Engine section on the homepage.
+
+- **Navigation Arrows:** Added interactive `ChevronLeft` and `ChevronRight` buttons next to the department header.
+- **Cycle Logic:** Implemented a seamless cycling mechanism to switch between automation stages (F&B, Spa, Weddings, etc.) via the new arrows.
+- **Responsive Design:** Optimized arrow sizing and spacing for mobile and desktop views.
+
+---
+
+### 2026-03-26 — Project Audit & Context Sync
+
+**Summary:** Performed a comprehensive codebase audit to ensure synchronization with documentation.
+
+- **Documentation Alignment:** Updated `PROJECT.md` to reflect actual production file structure and `Contact.jsx` form fields.
+- **Component Inventory:** Verified presence of `RotatingWord` in Hero and Value Prop sections.
+- **Task Verification:** Reviewed lazy-loading implementation and routing logic across all 7 bespoke department designs.
+
+---
+
+### 2026-03-25 — Homepage Animation: Revolver Barrel "Revenue"
+
+**Summary:** Implemented a dynamic, mechanical 3D rotation for the core value proposition on the homepage.
+
+- **Revolver Animation:** Created a reusable `RotatingWord` component that cycles through value-driven terms ("revenue", "profit", "bookings", "loyalty", "growth", etc.) using a 3D `rotateX` animation to mimic a revolver barrel.
+- **Section Integration:** Applied the animation to the primary headings/paragraphs in both the **Hero Section** and **Value Proposition** section to emphasize the platform's multi-faceted impact on property ROI.
 
 ---
 

@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, UtensilsCrossed, Flower2, Heart, BedDouble, PartyPopper, Baby, Compass } from 'lucide-react';
+import { ArrowRight, UtensilsCrossed, Flower2, Heart, BedDouble, PartyPopper, Baby, Compass, CheckCircle2 } from 'lucide-react';
 
 const stages = [
   {
     id: 'f-and-b',
-    title: 'F&B',
+    title: 'Food & Beverage',
     icon: <UtensilsCrossed size={22} />,
     categories: [
       {
         name: 'Drive Sales',
+        label: 'Lead Gen',
         items: [
+          { text: 'Comment-to-DM Automation', preview: 'Saw your comment! 💬 Want the menu? Just reply with "MENU" and I\'ll send it over instantly.', highlight: true },
+          { text: 'Auto-Reply to Comments', preview: 'Thanks for the love! ❤️ We just sent you a secret discount code in your DMs. Check it out!', highlight: true },
           { text: 'Seasonal WhatsApp Campaign', preview: 'Hey! 🥑 Our Avocado Toast is back on the seasonal menu. Want me to send you the new menu PDF?' },
           { text: 'Flash Sale broadcast', preview: 'FLASHSALE: 🥂 2-for-1 cocktails at the Rooftop bar starts in 15 mins! Just show this msg to the bartender.' },
           { text: 'Weekend brunch promotion', preview: 'Weekend plans? 🍳 Our Saturday brunch is almost full. Can I grab a spot for you before they’re gone?' },
@@ -19,6 +22,7 @@ const stages = [
       },
       {
         name: 'Enhance Guest Exp.',
+        label: 'Operations',
         items: [
           { text: 'AI agent reservation bookings', preview: 'I can definitely help with that. Which day were you thinking of coming by?' },
           { text: 'Social messages response', preview: 'Hey there! Yes, we have a few outdoor tables left for tonight. Shall I put your name down?' },
@@ -28,22 +32,28 @@ const stages = [
       },
       {
         name: 'Upselling',
+        label: 'Revenue',
         items: [
-          { text: 'Wine pairing upgrade prompt', preview: 'By the way, our Sommelier just opened a rare vintage that pairs perfectly with your steak. Want a glass?' },
+          { text: 'Family Value Bundle', preview: 'Dining with the whole crew? 👨‍👩‍👧‍👦 I can upgrade your order to the Family Bundle and save you 25% on your total. Interested?' },
           { text: 'Birthday cake add-on offer', preview: 'I noticed it’s a special occasion! 🎂 Should I have a small surprise cake brought out after mains?' },
           { text: "Chef's tasting menu upsell", preview: "The Chef is doing a special off-menu tasting tonight with 3 extra courses. Interested in seeing it?" },
+          { text: "Late Night Menu Push", preview: "Still hungry? 🍔 Our room service menu is available 24/7. Want to see the late-night bites?" },
         ],
       },
     ],
+    categoryDescription: 'Automated dining experiences that increase table turnover and guest satisfaction.'
   },
   {
     id: 'wellness-club',
-    title: 'Wellness Club',
+    title: 'Wellness & Spa',
     icon: <Flower2 size={22} />,
     categories: [
       {
         name: 'Drive Sales',
+        label: 'Booking',
         items: [
+          { text: 'Comment-to-DM Automation', preview: 'Loved your spa post! ✨ Want the private membership brochure? Just comment "SPA"!', highlight: true },
+          { text: 'Auto-Reply to Comments', preview: 'So glad you enjoyed the session! ❤️ We’ve just sent a special discount for your next visit to your DMs.', highlight: true },
           { text: 'Spa special offers via WhatsApp', preview: 'Time for a break? 🧘‍♀️ I have one spot left for a 90-min massage today. Want it?' },
           { text: 'Membership promos & renewals', preview: 'Your membership is coming up for renewal soon! Should I send you the loyalty discount code?' },
           { text: 'New treatment launch blast', preview: 'We just launched a new Hot Stone therapy. It’s honestly amazing—want more info?' },
@@ -52,6 +62,7 @@ const stages = [
       },
       {
         name: 'Guest Experience',
+        label: 'Service',
         items: [
           { text: 'Pre-appointment reminders', preview: 'Just a quick reminder about your 10 AM session tomorrow. Don’t forget to arrive 15 mins early!' },
           { text: 'Post-treatment feedback flow', preview: 'Hope you’re feeling relaxed! ✨ How was your therapist today? We value your thoughts.' },
@@ -60,6 +71,7 @@ const stages = [
       },
       {
         name: 'Upselling',
+        label: 'Profit',
         items: [
           { text: 'Last-minute spa discounts', preview: 'Quick! ⚡️ A cancellation just opened up a 2 PM slot. I can give it to you for 30% off.' },
           { text: 'Retail product follow-up', preview: 'Glad you liked that lavender oil! 🌿 I have a few bottles left in the shop—want me to save one?' },
@@ -67,15 +79,19 @@ const stages = [
         ],
       },
     ],
+    categoryDescription: 'Maximize therapist utilization and increase retail sales with automated spa flows.'
   },
   {
     id: 'weddings',
-    title: 'Weddings',
+    title: 'Weddings & Events',
     icon: <Heart size={22} />,
     categories: [
       {
         name: 'Lead Generation',
+        label: 'Inquiry',
         items: [
+          { text: 'Comment-to-DM Automation', preview: 'Congratulations! 💍 Want our 2026 wedding brochure? Just reply "YES" to this msg.', highlight: true },
+          { text: 'Auto-Reply to Comments', preview: 'Such a beautiful couple! ❤️ We just DMed you our available dates for next summer.', highlight: true },
           { text: 'Venue tours & quotes flow', preview: 'Hi! 🏰 Still thinking about a venue tour? I have a few slots open this Saturday morning.' },
           { text: 'Meta Ads to direct inbox', preview: 'Hey there! Saw you were interested in our outdoor weddings. Want to see our 2026 pricing?' },
           { text: 'WA auto-reply to enquiries', preview: 'Omg congrats on the engagement! 💍 I just got your inquiry—can\'t wait to chat more.' },
@@ -84,6 +100,7 @@ const stages = [
       },
       {
         name: 'Planning & Follow-Up',
+        label: 'Coordination',
         items: [
           { text: 'Vendor checklist reminders', preview: 'How’s the planning going? 🌸 By the way, have you picked a florist yet? I have some ideas!' },
           { text: 'Final headcount confirmation', preview: 'Hey! We’re getting close. 🥂 Can you send over the final guest count by Wednesday?' },
@@ -92,6 +109,7 @@ const stages = [
       },
       {
         name: 'Post-Event',
+        label: 'Upsell',
         items: [
           { text: 'Honeymoon suite upsell', preview: 'Thinking of staying the night? I can upgrade you to the Bridal Suite for half price! 🥂' },
           { text: 'Anniversary recall campaign', preview: 'Happy 1st Anniversary! ❤️ Want to come back and recreate your wedding dinner with us?' },
@@ -99,14 +117,16 @@ const stages = [
         ],
       },
     ],
+    categoryDescription: 'Nurture high-value leads and automate event logistics with precision.'
   },
   {
     id: 'room-stays',
-    title: 'Room Stays',
+    title: 'Room Stays & Suites',
     icon: <BedDouble size={22} />,
     categories: [
       {
         name: 'Pre-Arrival Experience',
+        label: 'Anticipation',
         items: [
           { text: 'Personalised Milestone Welcome', preview: 'Congratulations on your honeymoon! 🥂 Should I have a bottle of chilled champagne waiting for you?' },
           { text: 'Private Airport Transfer', preview: 'Need a ride? 🚗 Our private driver can meet you at Terminal 2. One tap to book your transfer.' },
@@ -116,6 +136,7 @@ const stages = [
       },
       {
         name: 'In-Stay Luxury',
+        label: 'Service',
         items: [
           { text: 'Real-Time Suite Butler', preview: 'Need anything? 🧴 I’m your digital butler. Fresh towels, ice, or local tips—just ask me!' },
           { text: 'Milestone Package Push', preview: 'Thinking of a surprise? 🌹 I can arrange a romantic rose-petal turndown for tonight at 8 PM.' },
@@ -125,6 +146,7 @@ const stages = [
       },
       {
         name: 'Upselling & Loyalty',
+        label: 'Retention',
         items: [
           { text: 'One-Tap Suite Upgrade', preview: 'Upgrade to our Royal Suite today for 40% off the standard rate. Interested in a tour first?' },
           { text: 'Late Checkout Paid Extension', preview: 'Sleep in! 💤 We can extend your stay until 4 PM today for a small lazy-afternoon fee.' },
@@ -133,8 +155,8 @@ const stages = [
         ],
       },
     ],
+    categoryDescription: 'Elevate every guest touchpoint from booking to checkout and beyond.'
   },
-
   {
     id: 'special-happenings',
     title: 'Special Happenings',
@@ -142,7 +164,10 @@ const stages = [
     categories: [
       {
         name: 'Engagement',
+        label: 'Promotion',
         items: [
+          { text: 'Comment-to-DM Automation', preview: 'This event is going to be huge! 🥂 Want early-bird tickets? Just comment "GALA" below.', highlight: true },
+          { text: 'Auto-Reply to Comments', preview: 'Can\'t wait to see you there! ✨ Check your DMs for the VIP entrance map.', highlight: true },
           { text: 'Private event invitations', preview: 'You’re on the list! 🥂 Join us for a secret sunset cocktail tonight at the North Terrace.' },
           { text: 'Festival & seasonal announcements', preview: 'Ready for the holidays? 🎄 See our full schedule of events and book your spots early!' },
           { text: 'VIP preview night blast', preview: 'Want to see the new lounge before it opens? Come by at 6 PM for a sneak peek. ✨' },
@@ -151,6 +176,7 @@ const stages = [
       },
       {
         name: 'Personalisation',
+        label: 'Retention',
         items: [
           { text: 'Birthday & anniversary recall', preview: 'Happy Birthday! 🎉 I’ve arranged a small gift for you at the front desk for your next stay.' },
           { text: 'Tailored offers by past stay', preview: 'Remember that beach villa you liked last summer? I can get it for you at a discount!' },
@@ -159,6 +185,7 @@ const stages = [
       },
       {
         name: 'Revenue',
+        label: 'Conversion',
         items: [
           { text: 'Package add-on at booking', preview: 'Traveling for work? 💼 I can add the "Business Plus" package for high-speed Wi-Fi.' },
           { text: 'Early bird ticket campaign', preview: 'The New Year’s Gala tickets are live! Grab yours now before prices go up next week. 🥂' },
@@ -166,6 +193,7 @@ const stages = [
         ],
       },
     ],
+    categoryDescription: 'Turn one-off events into recurring direct revenue opportunities.'
   },
   {
     id: 'leisure-activities',
@@ -174,16 +202,19 @@ const stages = [
     categories: [
       {
         name: 'Drive Sales',
+        label: 'Discovery',
         items: [
+          { text: 'Comment-to-DM Automation', preview: 'Ready for an adventure? 🚣‍♂️ Want the activity price list? Just comment "GO"!', highlight: true },
+          { text: 'Auto-Reply to Comments', preview: 'Great choice! 🌊 Check your DMs—we just sent you a 10% discount for today\'s kayak tour.', highlight: true },
           { text: 'Receive booking inquiries 24/7', preview: 'Sure thing! 🚣‍♂️ Our kayak sunrise tours depart daily. Which day works for you?' },
           { text: 'Tee time booking campaign', preview: 'Morning! ⛳️ The 8:30 AM tee time is open for tomorrow. Want it before someone else does?' },
           { text: 'Activity package promotion', preview: 'Thinking of a beach day? 🏖️ Our "All-In" watersports pass is 20% off today.' },
           { text: 'Early bird lesson offer push', preview: 'Want to sharpen your game? Book your pro tennis lesson now for an early-bird rate.' },
-          { text: 'Group booking broadcast', preview: 'Corporate day out? 🏌️‍♂️ I can arrange a private golf tournament for your team.' },
         ],
       },
       {
         name: 'Enhance Guest Exp.',
+        label: 'Experience',
         items: [
           { text: 'AI agent activity reservations', preview: 'Got it! I’ll check the availability for the Pottery class right now. 🏺' },
           { text: 'Equipment & slot confirmation', preview: 'All set! Your padel rackets are waiting at the front desk. Have a great game! 🎾' },
@@ -193,19 +224,15 @@ const stages = [
       },
       {
         name: 'Upselling',
+        label: 'Growth',
         items: [
           { text: 'Private coaching session upgrade', preview: 'Since you’re doing the group clinic, want to add 30 mins with the Pro afterwards? 🎾' },
           { text: 'Premium equipment rental offer', preview: 'We just got some new graphite clubs in—want to swap your rentals for those today? 🏌️‍♂️' },
           { text: 'Membership tier upgrade prompt', preview: 'By the way, becoming a "Leisure VIP" gets you free equipment rentals all year!' },
-          { text: 'Multi-activity bundle offer', preview: 'Can’t decide? 🌊 Get the "Sea & Sky" bundle and save big on both parasailing and jet skis!' },
         ],
       },
     ],
-    stats: [
-      { label: 'Avg. open rate', value: '94%' },
-      { label: 'Automations in this dept.', value: '9' },
-      { label: 'Channels', value: 'WhatsApp · Instagram · Email · Facebook · TikTok' },
-    ]
+    categoryDescription: 'Streamline activity bookings and maximize yield from leisure assets.'
   },
   {
     id: 'kids-club',
@@ -214,60 +241,54 @@ const stages = [
     categories: [
       {
         name: 'Inquiries & Booking',
+        label: 'Nurture',
         items: [
-          { text: 'Instant birthday inquiry bot', preview: 'Hey! 🎂 I can check our birthday dates for you. When are you thinking of celebrating?' },
+          { text: 'Instant birthday inquiry bot', preview: 'Hi! 🎂 I can definitely check our birthday availability for you. When were you thinking of celebrating?' },
           { text: 'Theme & package selector', preview: 'We have Superhero, Safari, and Mermaid themes! 🧜‍♀️ Want to see the package details for each?' },
-          { text: 'Calendar availability check', preview: 'Looking at June 14th... Yes, we have a slot at 2 PM! Shall I hold it for you for 24h?' },
-          { text: 'Automated deposit collection', preview: 'To confirm the party, just tap here to pay the 20% deposit securely via WhatsApp. 💳' },
+          { text: 'Calendar availability check', preview: 'Checking June 14th... Yes, we have a slot at 2 PM! Shall I hold it for you for 24h?' },
         ],
       },
       {
         name: 'Parent Engagement',
+        label: 'Updates',
         items: [
           { text: 'Guest list & RSVP manager', preview: 'Hi! 📝 Here is your current guest list. 12 parents have RSVPed "Yes" so far. Want to see who?' },
-          { text: 'Dietary requirement survey', preview: 'Quick question—any allergies I should tell the Chef about for Leos party on Saturday? 🥜' },
-          { text: 'Real-time party updates', preview: 'The pizza has arrived! 🍕 The kids are having a blast in the play zone right now.' },
-          { text: 'Post-party photo gallery', preview: 'What a day! 📸 Here are the photos from the celebration. Hope to see you again soon!' },
+          { text: 'Dietary requirement survey', preview: 'Quick question—any allergies I should tell the Chef about for Leo\'s party on Saturday? 🥜' },
+          { text: 'Parent check-in check-out', preview: 'Good news—all the kids are settled in and the pizza just arrived! 🍕 Everyone is having a blast.' },
         ],
       },
       {
         name: 'Revenue & Upselling',
+        label: 'Revenue',
         items: [
           { text: 'Mascot & entertainment add-ons', preview: 'Want to make it extra special? 🦁 I can arrange a surprise visit from our Safari Mascot!' },
           { text: 'Custom cake & catering upsell', preview: 'Our pastry chef can make a 3-tier custom cake for the party. Want to see some designs?' },
           { text: 'Pro photography package', preview: 'Don\'t worry about the photos! 📷 Our pro photographer can capture the whole event for you.' },
-          { text: 'Anniversary recall (re-booking)', preview: 'Can you believe it’s been a year? 🎈 Leo is turning 6 soon—want to see our new party themes?' },
         ],
       },
     ],
+    categoryDescription: 'Automate party planning and keep parents engaged in real-time.'
   },
 ];
 
-/* ─── Preview Bubble Component ────────────────────────────── */
 function PreviewBubble({ text, channel = 'whatsapp' }) {
   const isWA = channel === 'whatsapp';
-  
   return (
-    <div className={`relative px-4 py-3 rounded-2xl min-w-[180px] max-w-[240px] shadow-2xl transition-all border border-white/5 ${
+    <div className={`relative px-4 py-3 rounded-2xl min-w-[200px] max-w-[280px] shadow-2xl transition-all border border-white/5 ${
       isWA ? 'bg-[#0b5c4b] text-white/95' : 'bg-[#262626] text-white/95'
     }`}>
-      <p className="text-[12px] leading-relaxed font-medium">
-        {text}
-      </p>
-      
-      <div className="flex items-center justify-end gap-1 mt-2 opacity-50">
-        <span className="text-[9px] font-mono tracking-tight">10:00 AM</span>
-        <div className="flex -space-x-[7px]">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DEFF00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <p className="text-[12.5px] leading-relaxed font-medium">{text}</p>
+      <div className="flex items-center justify-end gap-1.5 mt-2.5 opacity-60">
+        <span className="text-[9px] font-mono tracking-tighter">10:00 AM</span>
+        <div className="flex -space-x-[8px]">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#DEFF00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DEFF00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-ml-1">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#DEFF00" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="-ml-1">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
       </div>
-
-      {/* Speech Bubble Tail - Bottom centered */}
       <div className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-4 overflow-hidden pointer-events-none`}>
         <svg viewBox="0 0 20 20" className={isWA ? 'text-[#0b5c4b]' : 'text-[#262626]'} fill="currentColor">
           <path d="M0 0 L10 10 L20 0 Z" />
@@ -277,184 +298,282 @@ function PreviewBubble({ text, channel = 'whatsapp' }) {
   );
 }
 
-export default function AutomationSystem() {
-  const [activeStage, setActiveStage] = useState(stages[0].id);
-  const [showVideo, setShowVideo] = useState(false);
+const WireframeLines = ({ isHovered, activeStageId }) => {
+  const pathLeft = "M 500 0 L 500 40 Q 500 80 440 80 L 226 80 Q 166 80 166 105 L 166 120";
+  const pathCenter = "M 500 0 L 500 120";
+  const pathRight = "M 500 0 L 500 40 Q 500 80 560 80 L 773 80 Q 833 80 833 105 L 833 120";
 
-  const active = stages.find((s) => s.id === activeStage);
+  const paths = [pathLeft, pathCenter, pathRight];
+  const pulseInstances = [0, 1, 2];
+
+  // The base mesh is also now animated to "load" on configuration
+  const baseMesh = "M 500 0 L 500 40 Q 500 80 440 80 L 226 80 Q 166 80 166 105 L 166 120 M 500 40 L 500 120 M 500 40 Q 500 80 560 80 L 773 80 Q 833 80 833 105 L 833 120";
 
   return (
-    <section className="bg-brand-black py-24 px-6 overflow-hidden relative">
-      <div className="max-w-7xl mx-auto relative z-10">
+    <div className="absolute inset-0 pointer-events-none z-0">
+      <svg width="100%" height="100%" viewBox="0 0 1000 200" preserveAspectRatio="none" className="overflow-visible">
+        {/* PHYSICAL RECONFIGURATION ANIMATION: The grey wireframe now 'loads' when the stage change */}
+        <motion.path 
+           key={`base-${activeStageId}`}
+           initial={{ pathLength: 0, opacity: 0 }}
+           animate={{ pathLength: 1, opacity: 1 }}
+           transition={{ duration: 1.2, ease: "easeInOut" }}
+           d={baseMesh} 
+           stroke="#333" 
+           strokeWidth="1.5" 
+           fill="none" 
+           strokeLinejoin="round" 
+           strokeLinecap="round" 
+        />
 
-        {/* Header */}
-        <div className="text-center mb-14">
-          <span className="text-electric uppercase tracking-widest text-sm font-bold mb-4 block">
-            Automation Engine
-          </span>
-          <h2 className="text-5xl md:text-7xl font-bold font-display text-white mb-6">
-            Available <span className="text-electric">Automations</span>
-          </h2>
-          <div className="flex flex-col items-center gap-8">
-            <p className="text-xl text-cream-muted max-w-3xl mx-auto">
-              Purpose-built automation frameworks for every property department — set once, run forever.
-            </p>
-            <button
-              onClick={() => setShowVideo(true)}
-              className="flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full text-electric font-bold text-sm tracking-widest hover:bg-white/10 transition-colors group"
-            >
-              <div className="w-8 h-8 rounded-full bg-electric/20 flex items-center justify-center group-hover:bg-electric/40 transition-colors">
-                <div className="w-0 h-0 border-t-[4px] border-t-transparent border-l-[6px] border-l-electric border-b-[4px] border-b-transparent ml-0.5" />
-              </div>
-              SEE THE ENGINE IN ACTION
-            </button>
-          </div>
-        </div>
-
-        {/* Video Modal */}
         <AnimatePresence>
-          {showVideo && (
-            <motion.div
+          {isHovered && (
+            <motion.g
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-10"
             >
-              <div className="absolute inset-0" onClick={() => setShowVideo(false)} />
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="relative w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 z-10"
-              >
-                <button
-                  onClick={() => setShowVideo(false)}
-                  className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white backdrop-blur-md transition-colors"
-                >
-                  ✕
-                </button>
-                <iframe
-                  src="https://www.youtube.com/embed/YOUTUBE_ID_HERE?autoplay=1&mute=1&playsinline=1"
-                  className="w-full h-full bg-black/50"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  title="Automation Module Demo"
-                />
-              </motion.div>
-            </motion.div>
+              {paths.map((path, pIdx) => (
+                <g key={`path-${pIdx}`}>
+                  <motion.path
+                    d={path}
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.5 }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                    stroke="#DEFF00"
+                    strokeWidth="3"
+                    fill="none"
+                  />
+
+                  {pulseInstances.map((pulseIdx) => (
+                    <motion.g
+                      key={`pulse-${pIdx}-${pulseIdx}`}
+                      initial={{ offsetDistance: "0%" }}
+                      animate={{ offsetDistance: "100%" }}
+                      transition={{ 
+                        duration: 1.5, 
+                        ease: "linear", 
+                        repeat: Infinity,
+                        delay: pulseIdx * 0.2
+                      }}
+                      style={{ 
+                        offsetPath: `path("${path}")`,
+                        offsetRotate: "auto",
+                        filter: 'drop-shadow(0 0 25px #DEFF00)'
+                      }}
+                    >
+                      <g transform="scale(0.6)">
+                        <path fill="#DEFF00" d="M -15 10 L 0 0 L -15 -10 Z" />
+                      </g>
+                    </motion.g>
+                  ))}
+                </g>
+              ))}
+            </motion.g>
           )}
         </AnimatePresence>
+      </svg>
+    </div>
+  );
+};
 
-        {/* Tab strip */}
-        <div className="flex flex-wrap gap-2 mb-6 justify-center">
+export default function AutomationSystem() {
+  const [activeStage, setActiveStage] = useState(stages[0].id);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
+  const active = stages.find((s) => s.id === activeStage);
+
+  const [direction, setDirection] = useState(0);
+
+  const handlePrev = () => {
+    setDirection(-1);
+    const currentIndex = stages.findIndex(s => s.id === activeStage);
+    const prevIndex = (currentIndex - 1 + stages.length) % stages.length;
+    setActiveStage(stages[prevIndex].id);
+  };
+
+  const handleNext = () => {
+    setDirection(1);
+    const currentIndex = stages.findIndex(s => s.id === activeStage);
+    const nextIndex = (currentIndex + 1) % stages.length;
+    setActiveStage(stages[nextIndex].id);
+  };
+
+  return (
+    <section className="bg-brand-black py-40 px-6 overflow-hidden relative min-h-screen">
+      <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
+        
+        <div className="text-center mb-24">
+          <span className="text-electric uppercase tracking-[0.4em] text-xs font-bold mb-6 block">
+            Automation Engine
+          </span>
+          <h2 className="text-6xl md:text-8xl font-bold font-display text-white mb-8 tracking-tighter leading-[0.9]">
+            Available <span className="text-electric">Automations</span>
+          </h2>
+          <p className="text-xl text-cream/40 max-w-2xl mx-auto leading-relaxed">
+            Purpose-built automation frameworks for every department — set once, run forever.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-20 justify-center">
           {stages.map((stage) => {
             const isActive = activeStage === stage.id;
             return (
               <button
                 key={stage.id}
-                onClick={() => setActiveStage(stage.id)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${
+                onClick={() => {
+                  setDirection(stages.findIndex(s => s.id === stage.id) > stages.findIndex(s => s.id === activeStage) ? 1 : -1);
+                  setActiveStage(stage.id);
+                }}
+                className={`flex items-center gap-3 px-6 py-3 rounded-full text-xs font-bold transition-all duration-300 border ${
                   isActive
-                    ? 'bg-electric text-black border-electric shadow-[0_0_20px_rgba(222,255,0,0.3)]'
-                    : 'bg-white/5 text-white/50 border-white/10 hover:border-white/30 hover:text-white'
+                    ? 'bg-electric text-black border-electric shadow-[0_10px_30px_rgba(222,255,0,0.2)]'
+                    : 'bg-white/5 text-white/30 border-white/5 hover:border-white/20 hover:text-white'
                 }`}
               >
-                <span className={`transition-colors ${isActive ? 'text-black' : 'text-white/40'}`}>
-                  {stage.icon}
-                </span>
                 {stage.title}
               </button>
             );
           })}
         </div>
 
-        {/* Active tab content card */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeStage}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-[2rem] border border-electric/30 bg-[#0d0d0d] overflow-hidden"
-          >
-            {/* Subtle electric glow behind card */}
-            <div className="absolute inset-0 bg-electric opacity-[0.04] pointer-events-none" />
+        <div className="w-full relative px-4">
+          
+          <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-12 relative z-20 mb-32 overflow-visible w-full group">
+            
+            {/* Previous Stage Title (Faded) */}
+            <button 
+              onClick={handlePrev}
+              className="hidden lg:block text-white/20 hover:text-electric/60 transition-all font-display text-3xl font-bold whitespace-nowrap -rotate-12 transform origin-right hover:scale-105 active:scale-95"
+            >
+              {stages[(stages.findIndex(s => s.id === activeStage) - 1 + stages.length) % stages.length].title}
+            </button>
 
-            <div className="relative z-10 p-8 md:p-12">
-              {/* Card header */}
-              <div className="flex items-center gap-4 mb-10">
-                <div className="w-12 h-12 rounded-xl bg-electric flex items-center justify-center text-black flex-shrink-0">
-                  {active.icon}
-                </div>
-                <div>
-                  <p className="text-electric text-[10px] font-bold uppercase tracking-[0.25em] mb-0.5">
-                    Automation Framework
-                  </p>
-                  <h3 className="text-white text-2xl font-bold font-display">
-                    {active.title}
-                  </h3>
-                </div>
-                <div className="ml-auto hidden md:flex items-center gap-2 text-white/20 text-xs font-bold uppercase tracking-widest">
-                  <span className="w-1.5 h-1.5 rounded-full bg-electric animate-pulse" />
-                  Live & active
-                </div>
-              </div>
-
-              {/* Category columns — no scrolling */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {active.categories.map((cat, idx) => (
-                  <div key={idx}>
-                    <h4 className="text-electric text-[10px] font-bold uppercase tracking-[0.25em] flex items-center gap-2 mb-5 opacity-90">
-                      <div className="w-1.5 h-1.5 rounded-full bg-electric" />
-                      {cat.name}
-                    </h4>
-                    <ul className="space-y-3">
-                      {cat.items.map((item, i) => (
-                        <li
-                          key={i}
-                          className="group relative text-cream/85 text-sm leading-snug font-medium pl-4 border-l border-white/10 hover:border-electric transition-colors cursor-pointer py-1"
-                        >
-                          {typeof item === 'string' ? item : item.text}
-                          
-                          {/* Chat Preview bubble - Now positioned ABOVE to prevent column overlap */}
-                          <div className="absolute bottom-full left-4 mb-4 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all pointer-events-none z-50 hidden md:block">
-                             <PreviewBubble 
-                               text={item.preview || `Ready to automate your ${item}? Reply YES to learn more!`} 
-                               channel="whatsapp" 
-                             />
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-
-              {/* Footer stat row */}
-              <div className="mt-10 pt-8 border-t border-white/6 flex flex-wrap items-center gap-6 justify-between">
-                <div className="flex flex-wrap gap-6">
-                  {(active.stats || [
-                    { label: 'Avg. open rate', value: '97%' },
-                    { label: 'Automations in this dept.', value: `${active.categories.reduce((a, c) => a + c.items.length, 0)}` },
-                    { label: 'Channels', value: 'WhatsApp · Instagram · Email · Facebook · TikTok' },
-                  ]).map((stat) => (
-                    <div key={stat.label}>
-                      <p className="text-electric text-lg font-black font-mono">{stat.value}</p>
-                      <p className="text-white/30 text-[10px] uppercase tracking-widest font-bold">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
+            <div className="relative flex items-center justify-center flex-1 max-w-[500px]">
+              <AnimatePresence mode="popLayout" initial={false} custom={direction}>
                 <motion.div
-                  whileHover={{ x: 4 }}
-                  className="w-10 h-10 rounded-full border border-electric/30 flex items-center justify-center text-electric cursor-pointer hover:border-electric transition-colors"
+                  key={active.id}
+                  initial={{ 
+                    x: direction > 0 ? 100 : -100, 
+                    opacity: 0, 
+                    scale: 0.85, 
+                    rotateY: direction > 0 ? 45 : -45 
+                  }}
+                  animate={{ x: 0, opacity: 1, scale: 1, rotateY: 0 }}
+                  exit={{ 
+                    x: direction > 0 ? -100 : 100, 
+                    opacity: 0, 
+                    scale: 0.85, 
+                    rotateY: direction > 0 ? -45 : 45 
+                  }}
+                  transition={{ type: "spring", stiffness: 260, damping: 25 }}
+                  className="bg-brand-black border-2 border-electric/30 p-1 px-1 rounded-2xl md:rounded-[2.5rem] shadow-[0_0_80px_rgba(222,255,0,0.1)] flex items-center w-full"
                 >
-                  <ArrowRight size={20} />
+                  <div className="bg-white/5 w-full flex items-center justify-center p-6 px-10 rounded-2xl md:rounded-[2.2rem]">
+                    <div className="flex gap-4 items-center">
+                      <span className="text-electric">{active.icon}</span>
+                      <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-white tracking-tight text-center">{active.title}</span>
+                    </div>
+                  </div>
                 </motion.div>
-              </div>
+              </AnimatePresence>
             </div>
-          </motion.div>
-        </AnimatePresence>
 
+            {/* Next Stage Title (Faded) */}
+            <button 
+              onClick={handleNext}
+              className="hidden lg:block text-white/20 hover:text-electric/60 transition-all font-display text-3xl font-bold whitespace-nowrap rotate-12 transform origin-left hover:scale-105 active:scale-95"
+            >
+              {stages[(stages.findIndex(s => s.id === activeStage) + 1) % stages.length].title}
+            </button>
+
+          </div>
+
+          <div className="hidden lg:block absolute inset-x-0 h-[200px] top-[140px]">
+             {/* NOW PASSING activeStage ID to trigger wireframe reconfiguration animation */}
+             <WireframeLines isHovered={hoveredCardIndex !== null} activeStageId={activeStage} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-20 overflow-visible">
+            <AnimatePresence mode="wait">
+              {active.categories.map((cat, idx) => (
+                <motion.div
+                  key={`${active.id}-${idx}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  onMouseEnter={() => setHoveredCardIndex(idx)}
+                  onMouseLeave={() => setHoveredCardIndex(null)}
+                  className="bg-[#0f0f0f] rounded-[2.5rem] border border-white/5 p-8 md:p-10 shadow-2xl flex flex-col items-center text-center group transition-colors hover:border-electric/20"
+                >
+                  <span className="text-electric/40 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+                    {cat.label}
+                  </span>
+                  <h4 className="text-2xl md:text-3xl font-display font-bold text-white mb-6 leading-tight">
+                    {cat.name}
+                  </h4>
+                  <p className="text-xs text-cream/30 mb-8 leading-relaxed italic">
+                    {active.categoryDescription}
+                  </p>
+                  
+                  <div className="w-full space-y-4 text-left">
+                    {cat.items.map((item, i) => (
+                      <div
+                        key={i}
+                        className={`group/item relative flex items-center justify-between p-4 py-3 border rounded-2xl transition-all cursor-pointer ${
+                          item.highlight 
+                            ? 'bg-electric/10 border-electric/40 shadow-[0_0_20px_rgba(222,255,0,0.1)]' 
+                            : 'bg-white/[0.02] border-white/5 hover:border-electric/40 hover:bg-white/[0.04]'
+                        }`}
+                      >
+                        <div className="flex flex-col gap-0.5">
+                          {item.highlight && (
+                            <span className="text-[8px] font-black uppercase tracking-tighter text-electric mb-1 flex items-center gap-1">
+                              <span className="w-1 h-1 rounded-full bg-electric animate-pulse" />
+                              Most Popular
+                            </span>
+                          )}
+                          <span className={`text-[13px] font-medium line-clamp-1 ${item.highlight ? 'text-white' : 'text-cream/70'}`}>
+                            {item.text}
+                          </span>
+                        </div>
+                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
+                          item.highlight 
+                            ? 'text-electric border-electric shadow-[0_0_10px_rgba(222,255,0,0.3)]' 
+                            : 'text-white/20 border-white/10 group-hover/item:text-electric group-hover/item:border-electric'
+                        }`}>
+                           <CheckCircle2 size={12} />
+                        </div>
+
+                        <div className="absolute left-1/2 -translate-x-1/2 bottom-[110%] mb-4 opacity-0 group-hover/item:opacity-100 translate-y-2 group-hover/item:translate-y-0 transition-all pointer-events-none z-50">
+                           <PreviewBubble text={item.preview} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+
+        </div>
+
+        <div className="mt-32 w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/5 pt-16">
+           <div className="flex flex-col items-center md:items-start">
+              <span className="text-5xl font-display font-bold text-electric mb-2 tracking-tighter">94%</span>
+              <span className="text-[11px] font-black uppercase tracking-widest text-white/30">Avg. Message Open Rate</span>
+           </div>
+           <div className="flex flex-col items-center md:items-start border-y md:border-y-0 md:border-x border-white/5 py-8 md:py-0 px-12">
+              <span className="text-5xl font-display font-bold text-white mb-2 tracking-tighter">Instant</span>
+              <span className="text-[11px] font-black uppercase tracking-widest text-white/30">Guest Response Velocity</span>
+           </div>
+           <div className="flex flex-col items-center md:items-start text-center md:text-left">
+              <span className="text-sm font-bold text-white leading-relaxed">Compatible with WhatsApp, Instagram, Email, Facebook & TikTok.</span>
+              <span className="text-[11px] font-black uppercase tracking-widest text-white/30 mt-3 italic">Unified Omni-channel Engine</span>
+           </div>
+        </div>
       </div>
     </section>
   );

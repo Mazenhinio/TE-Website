@@ -28,12 +28,6 @@ const logos = [
     // SVG has black fills — CSS invert makes it appear white on dark bg
     filter: 'invert(1)',
   },
-  {
-    name: 'Oteliana',
-    src: '/images/oteliana logo.png',
-    imgScale: 1,
-    filter: 'none',
-  },
 ];
 
 // 25% smaller than original 420×150

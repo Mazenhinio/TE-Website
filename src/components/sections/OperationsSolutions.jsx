@@ -10,7 +10,9 @@ import {
   Zap,
   Star,
   Play,
-  X
+  X,
+  ArrowRight,
+  ArrowDownRight
 } from 'lucide-react';
 import PhoneChatAnimation from '../ui/PhoneChatAnimation';
 
@@ -164,6 +166,60 @@ function ChannelFunnel() {
   );
 }
 
+function ReputationFlow() {
+  const steps = [
+    { icon: <Zap size={20} />, label: "Guest Checks Out", note: "System Trigger" },
+    { icon: <MessageSquare size={20} />, label: "Review Request", note: "Sent via WhatsApp" },
+    { icon: <Bot size={20} />, label: "Review Received", note: "AI Evaluates Stars" },
+  ];
+
+  const outcomes = [
+    { icon: <Star size={18} fill="currentColor" />, color: "text-green-500", label: "Good Review", note: "AI Auto-Reply on Google", bg: "bg-green-500/10" },
+    { icon: <Megaphone size={18} />, color: "text-red-500", label: "Bad Review", note: "Team Alerted for Follow-up", bg: "bg-red-500/10" }
+  ];
+
+  return (
+    <div className="p-10 h-full flex flex-col justify-center gap-12 max-w-5xl">
+      {/* Steps 1-3 */}
+      <div className="flex items-center gap-8 md:gap-16 relative">
+         {/* Connecting Line */}
+         <div className="absolute top-5 left-0 right-0 h-px bg-white/10 -z-10" />
+
+         {steps.map((s, i) => (
+           <div key={i} className="flex flex-col items-center text-center gap-3 relative z-10 w-32">
+              <div className="w-10 h-10 rounded-full bg-electric text-black flex items-center justify-center font-black text-sm shadow-[0_0_20px_rgba(222,255,0,0.4)]">
+                {s.icon}
+              </div>
+              <div>
+                <p className="text-white text-[11px] font-bold uppercase tracking-widest">{s.label}</p>
+                <p className="text-white/30 text-[9px] uppercase font-black mt-1 leading-tight">{s.note}</p>
+              </div>
+           </div>
+         ))}
+
+         {/* Arrow indicating split */}
+         <div className="flex-1 flex justify-center text-white/20">
+           <ArrowRight size={24} />
+         </div>
+
+         {/* Outcomes Split */}
+         <div className="flex flex-col gap-4">
+            {outcomes.map((o, i) => (
+              <div key={i} className={`flex items-center gap-3 p-4 rounded-2xl border border-white/5 ${o.bg} min-w-[240px]`}>
+                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 border-current ${o.color}`}>
+                   {o.icon}
+                 </div>
+                 <div>
+                    <p className={`text-[10px] font-black uppercase tracking-widest ${o.color}`}>{o.label}</p>
+                    <p className="text-white/60 text-[10px] font-medium leading-tight">{o.note}</p>
+                 </div>
+              </div>
+            ))}
+         </div>
+      </div>
+    </div>
+  );
+}
 
 /* ─── Animated Timeline Component ────────────────────────── */
 function AutomationsTimeline() {
@@ -373,70 +429,65 @@ export default function OperationsSolutions() {
           </Card>
         </div>
 
-        {/* ── ROW 3: Reputation + Opportunities ─────────────── */}
+        {/* ── ROW 3: Opportunities + Reputation (Swapped) ─────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
 
-          {/* Reputation — col-span-1 */}
+          {/* Opportunities — col-span-1 */}
           <Card span="md:col-span-1" index={3}>
-            <div className="p-10 h-full flex flex-col justify-between min-h-[300px] relative group overflow-hidden">
-               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col items-center justify-center gap-4">
-                   <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.reviews)} label="Automatic Reviews Demo" />
-                </div>
-              <Label icon={<Star size={16} />} text="Reputation" num={4} />
-              <div>
-                <div className="flex gap-1 mb-4">
-                  {[1,2,3,4,5].map(s => (
-                    <Star key={s} size={16} className={s <= 4 ? 'text-electric fill-electric' : 'text-white/15 fill-white/15'} />
-                  ))}
-                </div>
-                <h4 className="text-electric text-2xl font-black font-display leading-[1.1] mb-1">Drive more positive reviews</h4>
-                <p className="text-white/70 text-lg font-bold mb-4 decoration-white/30 text-decoration-line-through">and eliminate negative ones.</p>
-                <div className="mb-4">
-                  <span className="text-electric text-[10px] font-bold uppercase tracking-widest border border-electric/40 bg-electric/10 px-3 py-1.5 rounded-full inline-block">5-Star Routing Logic</span>
-                </div>
-                <p className="text-white/40 text-sm leading-relaxed mt-2">
-                  Reply to reviews instantly with AI. 5-star guests go to Google. Unhappy guests get a private recovery flow — before they post publicly.
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          {/* Opportunities — col-span-2 */}
-          <Card span="md:col-span-2" index={4}>
-            <div className="p-10 h-full flex flex-col justify-between min-h-[300px] relative group overflow-hidden">
-               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col items-center justify-center">
-                   <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.opportunities)} label="Pipeline & Deals Demo" />
+            <div className="p-10 h-full flex flex-col justify-between min-h-[460px] relative group overflow-hidden">
+               <div className="absolute inset-x-0 bottom-0 top-1/2 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col items-center justify-center">
+                   <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.opportunities)} label="Pipeline Demo" />
                 </div>
               <div>
-                <Label icon={<TrendingUp size={16} />} text="Opportunities" num={5} />
-                <h3 className="text-white text-2xl font-bold font-display leading-[1.2] mb-3">
-                  Visual pipeline for every high-value group.
+                <Label icon={<TrendingUp size={16} />} text="Opportunities" num={4} />
+                <h3 className="text-white text-2xl font-bold font-display leading-[1.2] mb-3 uppercase tracking-tighter">
+                  Pipeline
                 </h3>
-                <p className="text-white/40 text-sm leading-relaxed mb-8">
-                  Weddings, MICE, corporate events — drag deals across stages. Automated follow-ups fire the moment a lead changes status.
+                <p className="text-white/40 text-[13px] leading-relaxed mb-8">
+                  Track weddings, MICE, and corporate deals across stages.
                 </p>
               </div>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex flex-col gap-3">
                 {[
                   { label: 'New Inquiry', active: true },
-                  { label: 'Proposal Sent', active: false },
-                  { label: 'Site Visit', active: false },
-                  { label: 'Contract', active: false },
+                  { label: 'Proposal', active: false },
+                  { label: 'Contracting', active: false },
                   { label: 'Confirmed', highlight: true },
-                ].map((stage, i, arr) => (
-                  <div key={stage.label} className="flex items-center gap-2">
-                    <span className={`px-4 py-2 rounded-full text-xs font-bold border ${
+                ].map((stage, i) => (
+                  <div key={stage.label} className="flex flex-col gap-1">
+                    <span className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all text-center ${
                       stage.active
                         ? 'bg-electric/10 border-electric/40 text-electric'
                         : stage.highlight
-                        ? 'bg-electric border-electric text-black'
+                        ? 'bg-electric border-electric text-black shadow-[0_10px_30px_rgba(222,255,0,0.3)]'
                         : 'bg-white/4 border-white/8 text-white/35'
                     }`}>
                       {stage.label}
                     </span>
-                    {i < arr.length - 1 && <span className="text-white/15 text-sm">→</span>}
+                    {i < 3 && <div className="h-2 w-px bg-white/5 self-center" />}
                   </div>
                 ))}
+              </div>
+            </div>
+          </Card>
+
+          {/* Reputation — col-span-2 */}
+          <Card span="md:col-span-2" index={4}>
+            <div className="p-10 h-full flex flex-col min-h-[560px] relative group overflow-hidden">
+               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex flex-col items-center justify-center gap-4">
+                   <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.reviews)} label="Automatic Reviews Demo" />
+                </div>
+              <Label icon={<Star size={16} />} text="Reputation" num={5} />
+              
+              <div className="max-w-xl mb-12">
+                <h4 className="text-electric text-5xl font-black font-display leading-[1.1] mb-4 tracking-tighter">AI Reputation Logic</h4>
+                <p className="text-white/40 text-sm leading-relaxed">
+                  Reply to reviews instantly with AI. 5-star guests go to Google. Unhappy guests get a private recovery flow — before they post publicly.
+                </p>
+              </div>
+              
+              <div className="flex-1 -mx-10 -mb-10 bg-black/20 border-t border-white/5 overflow-hidden">
+                <ReputationFlow />
               </div>
             </div>
           </Card>
@@ -453,11 +504,11 @@ export default function OperationsSolutions() {
                 Rich profiles for every guest.
               </h3>
               <div className="flex flex-wrap gap-2 mt-auto">
-                {['VIP', 'Anniversary', 'Corporate', 'Repeat Visitor', 'Spa Enthusiast', 'Lapsed'].map((tag, i) => (
+                {['VIP', 'Anniversary', 'Corporate', 'Repeat Visitor', 'Lapsed', 'Honey Mooners', 'Golf Member', 'High Spender', 'Event Lead', 'Table Regular', 'Pool & Beach'].map((tag, i) => (
                   <span
                     key={tag}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold border ${
-                      i % 3 === 0
+                    className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border ${
+                      i % 4 === 0
                         ? 'bg-electric/8 border-electric/25 text-electric'
                         : 'bg-white/4 border-white/8 text-white/40'
                     }`}

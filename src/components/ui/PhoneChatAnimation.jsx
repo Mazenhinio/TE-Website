@@ -1,27 +1,20 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 
-const messages = [
+const defaultMessages = [
   { sender: 'user',  text: "Hi, I tried calling but no one answered. Are you available?", delay: 800 },
-  { sender: 'hotel', text: "Good evening! This is the Front Desk at Grand Palace. We're with another guest right now — how can we assist you?", delay: 2200 },
+  { sender: 'hotel', text: "Good evening! This is the Front Desk. How can we assist you today?", delay: 2200 },
   { sender: 'user',  text: "I'm looking to book a room for 2 nights, arriving this Friday.", delay: 4400 },
   { sender: 'hotel', text: "Of course. We have our Deluxe Sea View and Executive Suite available. Which do you prefer?", delay: 6400 },
-  { sender: 'user',  text: "What's the difference in price?", delay: 8200 },
-  { sender: 'hotel', text: "Deluxe Sea View is $280/night. Executive Suite is $420/night and includes private lounge access and a welcome amenity.", delay: 10400 },
-  { sender: 'user',  text: "The Suite sounds great. Can I get an early check-in?", delay: 13000 },
-  { sender: 'hotel', text: "Absolutely. I've flagged your reservation for 11AM check-in. You'll receive a confirmation link shortly to complete the booking.", delay: 15200 },
-  { sender: 'user',  text: "Perfect. Also, do you have airport pickup?", delay: 17400 },
-  { sender: 'hotel', text: "Yes — our concierge transfer is $45 one-way. Shall I add it to your booking?", delay: 19200 },
-  { sender: 'user',  text: "Yes please. Landing at Terminal 1 at 09:30.", delay: 21000 },
-  { sender: 'hotel', text: "Done. Driver will meet you at Arrivals with a name board. See you Friday!", delay: 23200 },
+  { sender: 'user',  text: "The Suite sounds great. Can I get an early check-in?", delay: 8200 },
+  { sender: 'hotel', text: "Absolutely. I've flagged your reservation for 11AM check-in. You'll receive a confirmation link shortly.", delay: 10400 },
 ];
 
-// WhatsApp dark mode palette
 const wa = {
   header:       '#1f2c34',
   chatBg:       '#0b141a',
-  incoming:     '#1f2c34',   // received bubble
-  outgoing:     '#005c4b',   // sent bubble
+  incoming:     '#1f2c34',
+  outgoing:     '#005c4b',
   incomingText: '#e9edef',
   outgoingText: '#e9edef',
   mutedText:    '#8696a0',
@@ -32,11 +25,17 @@ const wa = {
   tickColor:    '#53bdeb',
 };
 
-export default function PhoneChatAnimation() {
+export default function PhoneChatAnimation({ messages = defaultMessages, hotelName = "Grand Palace · Front Desk" }) {
   const [visibleMessages, setVisibleMessages] = useState([]);
   const [index, setIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const chatRef = useRef(null);
+
+  useEffect(() => {
+    setVisibleMessages([]);
+    setIndex(0);
+    setIsTyping(false);
+  }, [messages]);
 
   useEffect(() => {
     if (index < messages.length) {
@@ -96,7 +95,7 @@ export default function PhoneChatAnimation() {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-[13px] font-semibold leading-none" style={{ color: wa.incomingText }}>
-            Grand Palace · Front Desk
+            {hotelName}
           </p>
           <p className="text-[10px] mt-1 font-medium" style={{ color: wa.green }}>
             online

@@ -3,15 +3,15 @@ import { motion } from 'framer-motion';
 const labels = [
   { text: 'Luxury Resorts', x: -350, y: -180, color: '#A855F7' }, 
   { text: 'Boutique Hotels', x: -250, y: 150, color: '#3B82F6' },
-  { text: 'Golf Courses', x: 300, y: -160, color: '#DEFF00' },     
+  { text: 'Golf Courses', x: 300, y: -160, color: '#6366F1' },     
   { text: 'General Managers', x: 380, y: 140, color: '#A855F7' },  
   { text: 'Beach Clubs', x: -400, y: -20, color: '#3B82F6' },  
   { text: 'Tennis Courts', x: 420, y: -30, color: '#2DD4BF' },  
-  { text: 'Chain Hotels', x: -150, y: -220, color: '#DEFF00' },    
+  { text: 'Chain Hotels', x: -150, y: -220, color: '#94A3B8' },    
   { text: 'Water Sports', x: 180, y: 220, color: '#2DD4BF' },     
-  { text: 'Entertainment', x: -280, y: 250, color: '#DEFF00' },       
+  { text: 'Entertainment', x: -280, y: 250, color: '#6366F1' },       
   { text: 'Theme Parks', x: 120, y: -250, color: '#3B82F6' },        
-  { text: 'Revenue Management', x: 50, y: 280, color: '#DEFF00' },           
+  { text: 'Revenue Management', x: 50, y: 280, color: '#94A3B8' },           
   { text: 'Asset Managers', x: 450, y: 240, color: '#A855F7' },    
 ];
 
