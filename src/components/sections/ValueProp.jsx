@@ -36,8 +36,8 @@ const DirectRevenueAnimation = ({ rounding }) => {
           </div>
         </motion.div>
 
-        <div className="flex justify-center -my-3 relative">
-          <AnimatePresence>
+        <div className="h-24 flex items-center justify-center relative">
+          <AnimatePresence mode="wait">
             {step >= 1 && (
               <motion.div 
                 initial={{ scale: 0, opacity: 0, y: 20 }}
@@ -145,22 +145,24 @@ const InventoryRecoveryAnimation = ({ rounding }) => {
             </div>
           </div>
 
-          <AnimatePresence>
-            {status === 'broadcast' && (
-              <motion.div 
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                className="bg-electric text-black px-6 py-4 rounded-[1.5rem] flex flex-col gap-1 z-10 shadow-[0_15px_40px_rgba(222,255,0,0.3)]"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-black rounded-full animate-ping" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">WhatsApp Push Active</span>
-                </div>
-                <p className="text-xs font-bold leading-tight">Reaching 42 qualified in-house guests...</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="h-24 flex items-center justify-center relative">
+            <AnimatePresence mode="wait">
+              {status === 'broadcast' && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  className="bg-electric text-black px-6 py-4 rounded-[1.5rem] flex flex-col gap-1 z-10 shadow-[0_15px_40px_rgba(222,255,0,0.3)] w-full"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-black rounded-full animate-ping" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">WhatsApp Push Active</span>
+                  </div>
+                  <p className="text-xs font-bold leading-tight">Reaching 42 qualified in-house guests...</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
 
         <div className="bg-white/5 p-4 rounded-2xl border border-white/10 flex justify-between items-center opacity-30">
