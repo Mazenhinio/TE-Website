@@ -21,8 +21,8 @@ export default function Weddings() {
         <div className="bg-electric text-black flex items-center justify-center p-12 lg:p-24 relative overflow-hidden">
           <div className="z-10 relative">
              <span className="font-mono text-xs tracking-[0.2em] font-bold border border-black px-4 py-1 rounded-full mb-12 inline-block">THE CELEBRATION</span>
-             <h1 className="text-6xl lg:text-[5.5rem] font-display font-black leading-[0.85] tracking-tighter text-black">
-                {hero.h1.split('.')[0]}.<br/>{hero.h1.split('.')[1]}.
+             <h1 className="text-[clamp(2.5rem,10vw,5.5rem)] font-display font-black leading-[0.85] tracking-tighter text-black break-words">
+                {hero.h1.split('.')[0]}.<br className="hidden md:block" />{hero.h1.split('.')[1]}.
              </h1>
           </div>
         </div>
@@ -51,7 +51,7 @@ export default function Weddings() {
       {/* 3. POLAROID SOLUTIONS */}
       <section className="py-40 bg-brand-black px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl lg:text-7xl font-display font-bold mb-24 text-center">Nurture The Journey.</h2>
+          <h2 className="text-[clamp(2.5rem,8vw,5.5rem)] font-display font-bold mb-24 text-center">Nurture The Journey.</h2>
           <div className="flex flex-wrap lg:flex-nowrap justify-center gap-12">
             {solutions.slice(0, 3).map((sol, i) => (
               <motion.div 
@@ -83,7 +83,7 @@ export default function Weddings() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-stretch">
           <div className="flex-1 flex flex-col justify-center">
             <span className="font-mono text-electric text-xs uppercase tracking-widest font-bold mb-6">{whatsappSection.context}</span>
-            <h2 className="text-5xl lg:text-6xl font-display font-black mb-8 leading-tight">{whatsappSection.h2}</h2>
+            <h2 className="text-[clamp(2.5rem,7vw,4.5rem)] font-display font-black mb-8 leading-tight">{whatsappSection.h2}</h2>
             <p className="text-xl opacity-70 mb-12 leading-relaxed">{whatsappSection.body}</p>
           </div>
           <motion.div 
@@ -116,19 +116,19 @@ export default function Weddings() {
 
       {/* 5. GIGANTIC TIERED METRICS */}
       <section className="py-32 px-6 bg-cream text-black">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-end gap-12 md:gap-32">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center md:items-end gap-12 md:gap-32">
           {results.map((r, i) => (
              <div key={i} className={`flex flex-col items-center ${i === 1 ? 'md:mb-16' : ''}`}>
-               <motion.span 
-                 initial={{ opacity: 0, y: 50 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ delay: i * 0.2 }}
-                 className="text-7xl md:text-9xl font-display font-black tracking-tighter"
-               >
-                 {r.value}
-               </motion.span>
-               <span className="text-sm font-bold uppercase tracking-widest mt-4 opacity-50 text-center max-w-[150px]">{r.label}</span>
+                  <motion.div 
+                    initial={{ rotateY: 90, opacity: 0 }}
+                    whileInView={{ rotateY: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: i * 0.2 }}
+                    className="text-[clamp(5rem,20vw,9rem)] font-display font-black tracking-tighter leading-none mb-10"
+                  >
+                    {r.value}
+                  </motion.div>
+                <span className="text-sm font-bold uppercase tracking-[0.2em] mt-10 opacity-50 text-center max-w-[280px]">{r.label}</span>
              </div>
           ))}
         </div>

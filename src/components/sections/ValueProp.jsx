@@ -331,9 +331,9 @@ export default function ValueProp() {
           <span className="text-black/30 font-mono font-bold uppercase tracking-[0.5em] text-xs mb-8 block">
             The Revenue Engine
           </span>
-          <h2 className="text-5xl md:text-7xl font-display font-bold text-black leading-[1.1] tracking-tighter mb-12">
+          <h2 className="text-[clamp(1.75rem,8vw,4.5rem)] font-display font-bold text-black leading-[1.1] tracking-tighter mb-12">
             Elevate the guest journey, <br className="hidden md:block" />
-            <span className="text-electric bg-brand-black px-6 pb-2 mt-6 inline-block -rotate-1 shadow-[0_20px_60px_rgba(0,0,0,0.3)] whitespace-nowrap">
+            <span className="text-electric bg-brand-black px-6 pb-2 mt-6 inline-block md:inline -rotate-1 shadow-[0_20px_60px_rgba(0,0,0,0.3)] whitespace-normal md:whitespace-nowrap">
               maximize property <RotatingWord className="text-electric" words={["revenue", "profit", "bookings", "loyalty", "growth", "experience", "retention"]} />
             </span>
           </h2>

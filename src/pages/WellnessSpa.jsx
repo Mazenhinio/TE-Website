@@ -22,9 +22,9 @@ export default function WellnessSpa() {
           className="max-w-4xl z-10 flex flex-col items-center"
         >
           <span className="font-mono tracking-[0.3em] font-medium text-xs mb-10 opacity-60">RENEW BALANCE</span>
-          <h1 className="text-6xl md:text-8xl font-display font-medium tracking-tight leading-[1] mb-8 relative text-black">
+          <h1 className="text-[clamp(2.5rem,10vw,6rem)] font-display font-medium tracking-tight leading-[1] mb-8 relative text-black break-words">
             {hero.h1}
-            <Sparkles className="absolute -top-12 -right-16 text-black w-16 h-16 animate-pulse" />
+            <Sparkles className="absolute -top-12 -right-16 text-black w-16 h-16 animate-pulse hidden md:block" />
           </h1>
           <p className="text-xl md:text-2xl font-light opacity-80 max-w-2xl leading-relaxed mb-12">
             {hero.subheadline}
@@ -97,7 +97,7 @@ export default function WellnessSpa() {
       {/* 4. AIRY CHAT SEQUENCE */}
       <section className="bg-black text-cream py-40 px-6">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center mb-24">
-          <h2 className="text-5xl md:text-6xl font-display font-light mb-6">{whatsappSection.h2}</h2>
+          <h2 className="text-[clamp(2.25rem,6vw,3.5rem)] font-display font-light mb-6">{whatsappSection.h2}</h2>
           <p className="text-xl font-light opacity-60 font-body max-w-2xl">{whatsappSection.body}</p>
         </div>
         
@@ -131,7 +131,7 @@ export default function WellnessSpa() {
                  whileInView={{ opacity: 1, scale: 1 }}
                  viewport={{ once: true }}
                  transition={{ type: "spring", mass: 1.5, delay: i * 0.2 }}
-                 className="text-[6rem] lg:text-[8rem] font-display font-medium tracking-tighter leading-none mb-6"
+                 className="text-[clamp(4.5rem,15vw,8rem)] font-display font-medium tracking-tighter leading-none mb-6"
                >
                  {res.value}
                </motion.div>

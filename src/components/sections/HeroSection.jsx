@@ -60,14 +60,14 @@ export default function HeroSection() {
           </span>
         </motion.div>
         
-        <h1 className="flex flex-col items-center leading-[0.85] tracking-tighter">
-          <span className="hero-text-line block text-cream text-[14vw] sm:text-[12vw] md:text-[10vw] font-extrabold uppercase select-none">
+        <h1 className="flex flex-col items-center leading-[0.82] tracking-tighter w-full overflow-hidden">
+          <span className="hero-text-line block text-cream text-[clamp(44px,11vw,140px)] font-extrabold uppercase select-none whitespace-nowrap">
             ACCELERATE
           </span>
-          <span className="hero-text-line block text-cream text-[14vw] sm:text-[12vw] md:text-[10vw] font-extrabold uppercase select-none">
+          <span className="hero-text-line block text-cream text-[clamp(44px,11vw,140px)] font-extrabold uppercase select-none whitespace-nowrap">
             GROW
           </span>
-          <span className="hero-text-line block text-electric text-[14vw] sm:text-[12vw] md:text-[10vw] font-extrabold uppercase select-none">
+          <span className="hero-text-line block text-electric text-[clamp(44px,11vw,140px)] font-extrabold uppercase select-none whitespace-nowrap">
             ENGAGE
           </span>
         </h1>

@@ -43,8 +43,8 @@ export default function ReviewsReputation() {
                 <span className="w-2 h-2 rounded-full bg-electric animate-ping" />
                 Live Monitoring Active
              </span>
-             <h1 className="text-6xl md:text-8xl lg:text-[7.5rem] font-display font-black leading-none tracking-tighter mb-10">
-                {hero.h1.split(' ').slice(0,3).join(' ')} <br/>
+             <h1 className="text-[clamp(2.5rem,10vw,7.5rem)] font-display font-black leading-none tracking-tighter mb-10 break-words">
+                {hero.h1.split(' ').slice(0,3).join(' ')} <br className="hidden md:block" />
                 <span className="text-electric">{hero.h1.split(' ').slice(3).join(' ')}</span>
              </h1>
              <p className="text-xl md:text-2xl font-light opacity-60 max-w-2xl leading-relaxed mb-16">
@@ -66,7 +66,7 @@ export default function ReviewsReputation() {
 
       {/* 3. SHIELD SOLUTIONS - BENTO GRID */}
       <section className="py-40 px-6 max-w-7xl mx-auto">
-        <h2 className="text-5xl lg:text-7xl font-display font-bold mb-32 text-center">Intercept the Noise.</h2>
+        <h2 className="text-[clamp(2.5rem,8vw,5.5rem)] font-display font-bold mb-32 text-center">Intercept the Noise.</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
            {solutions.map((sol, i) => (
              <motion.div 
@@ -97,7 +97,7 @@ export default function ReviewsReputation() {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-24 items-center relative z-10">
            <div>
               <span className="font-mono text-electric text-xs tracking-widest uppercase mb-6 block uppercase">{whatsappSection.context}</span>
-              <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-none">{whatsappSection.h2}</h2>
+              <h2 className="text-[clamp(2.5rem,8vw,5rem)] font-display font-bold mb-8 leading-[1.1]">{whatsappSection.h2}</h2>
               <p className="text-xl md:text-2xl opacity-60 max-w-xl leading-relaxed font-light">
                  {whatsappSection.body}
               </p>
@@ -147,7 +147,7 @@ export default function ReviewsReputation() {
                   whileInView={{ rotateX: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1, delay: 0.5 }}
-                  className="text-8xl md:text-[9rem] font-display font-black tracking-tighter leading-none mb-4"
+                  className="text-[clamp(4.5rem,15vw,9rem)] font-display font-black tracking-tighter leading-none mb-4"
                 >
                    {r.value}
                 </motion.div>

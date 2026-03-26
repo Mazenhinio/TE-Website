@@ -51,8 +51,8 @@ export default function TrustedLogos() {
           </span>
         </motion.div>
 
-        {/* Single-row logo strip with vertical dividers */}
-        <div className="flex items-center justify-center flex-nowrap w-full">
+        {/* Single-row logo strip with vertical dividers (Wraps on mobile) */}
+        <div className="flex flex-wrap md:flex-nowrap items-center justify-center w-full gap-y-8">
           {logos.map((logo, i) => (
             <div key={i} className="flex items-center flex-shrink-0">
 
@@ -72,7 +72,7 @@ export default function TrustedLogos() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, type: 'spring', stiffness: 300 }}
                 className="bg-transparent rounded-2xl flex items-center justify-center p-3 md:p-4 cursor-pointer flex-shrink-0"
-                style={{ width: `${LOGO_W}px`, height: `${LOGO_H}px` }}
+                style={{ width: 'clamp(140px, 35vw, 315px)', height: 'clamp(50px, 12vw, 112px)' }}
               >
                 <img
                   src={logo.src}

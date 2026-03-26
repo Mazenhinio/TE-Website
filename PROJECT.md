@@ -323,6 +323,14 @@ Each fully built with bespoke design and live data from `departmentPages.js`:
 - All GHL/GoHighLevel branding hidden from public-facing pages
 - Build confirmed successful: `npm run build` — 2,184 modules, ~4s
 
+### Mobile-First Optimization
+- **Global Layout Stabilization:** Implemented `overflow-x: hidden` and fixed `Navbar` pinning to ensure a stable, no-horizontal-scroll experience on 375px+ viewports.
+- **Dynamic Typography:** Refactored all HERO and SECTION headings to use `clamp()` logic, ensuring text scales beautifully without clipping or hitting screen edges.
+- **Reputation Flow:** Verticalized the AI Reputation Logic flowchart for mobile, ensuring all outcome cards (Good/Bad Review) are fully visible.
+- **Department Page Audit:** Optimized all 7 department pages for touch-friendly interaction, balanced vertical padding, and centered statistics rows.
+- **Card Spacing:** Resolved overlapping issues in `Kids Club` (Toy Box) and `Rooms & Suites` (Lifecycle card) by adjusting mobile-specific offsets and gaps.
+- **Home Page Clean-up:** Removed specific property-name labels from `StatsBar` to focus on regional impact metrics.
+
 ---
 
 ## Pending Tasks
@@ -334,7 +342,6 @@ Each fully built with bespoke design and live data from `departmentPages.js`:
 - Implement email dispatch in `/api/demo-request` and `/api/contact` server routes (currently logs only — Nodemailer config needed)
 - Create `/thank-you` page for post-form-submission redirect
 - SEO & GEO optimization for all 7 department pages (unique `<title>`, `<meta description>`, canonical URLs, OG tags, schema markup)
-- Mobile responsiveness audit and cross-browser testing for all 7 bespoke department designs
 - Performance audit: lazy-loading verification, final Lighthouse check (target 90+ SEO score per page)
 - `prefers-reduced-motion` media query — ensure all animations respect this across every component
 
@@ -349,6 +356,16 @@ Each fully built with bespoke design and live data from `departmentPages.js`:
 ## Change Log
 
 > **Instruction:** Every time a change is made to this website — whether code, content, design, or configuration — add an entry to this log. Include the date and time of the change and a concise technical summary of what was modified and why.
+
+### 2026-03-26 — Phase: Mobile-First Optimization & Responsiveness
+
+**Summary:** Conducted a global audit and refactor to ensure the platform is "locked" and fluid on mobile (375px+).
+
+- **Global Overflow Fix:** Implemented `overflow-x: hidden` and absolute Navbar pinning to eliminate accidental horizontal scrolling.
+- **Clamp-based Typography:** Replaced fixed heading sizes with `clamp(min, vw, max)` across all 7 department pages and the homepage to prevent text clipping.
+- **Verticalized Flowcharts:** Redesigned the "AI Reputation Logic" chart to stack vertically on mobile, rotating connection arrows and lines for natural scroll guidance.
+- **Component Refinement:** Fixed overlapping cards in Kids Club, balanced statistics centering in Weddings, and loosened heading leading in Rooms & Suites to prevent ceiling clipping.
+- **Home Page Polish:** Removed specific property names (Rosewood, Abu Dhabi) from the StatsBar to keep the data points clean and regional.
 
 ### 2026-03-26 — UI Enhancement: 3D Rotating Carousel
 

@@ -27,7 +27,7 @@ export default function KidsClub() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", bounce: 0.5, duration: 2 }}
-          className="z-10 text-6xl md:text-8xl lg:text-[7.5rem] font-display font-black leading-[0.9] tracking-tighter max-w-6xl mx-auto mb-10 text-brand-black"
+          className="z-10 text-[clamp(2.5rem,12vw,7.5rem)] font-display font-black leading-[0.9] tracking-tighter max-w-6xl mx-auto mb-10 text-brand-black break-words"
         >
           {hero.h1}
         </motion.h1>
@@ -56,9 +56,9 @@ export default function KidsClub() {
       {/* 3. SCRAMBLED TOY-BOX SOLUTIONS */}
       <section className="py-40 bg-cream border-b border-black/10 px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto text-center mb-24">
-          <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter">The Toy Box.</h2>
+          <h2 className="text-[clamp(3.5rem,12vw,8rem)] font-display font-black tracking-tighter">The Toy Box.</h2>
         </div>
-        <div className="flex flex-wrap justify-center gap-8 lg:gap-16 max-w-6xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-16 md:gap-8 lg:gap-16 max-w-6xl mx-auto px-4">
           {solutions.map((sol, i) => {
             const rotations = [-6, 8, -4, 10];
             const yOffsets = [0, 40, -20, 60];
@@ -66,7 +66,11 @@ export default function KidsClub() {
               <motion.div 
                 key={i}
                 initial={{ opacity: 0, y: 150, rotate: rotations[i] * 2 }}
-                whileInView={{ opacity: 1, y: yOffsets[i], rotate: rotations[i] }}
+                whileInView={{ 
+                  opacity: 1, 
+                  y: window.innerWidth < 768 ? 0 : yOffsets[i], 
+                  rotate: rotations[i] 
+                }}
                 viewport={{ once: true, margin: "-50px" }}
                 whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
                 transition={{ type: "spring", bounce: 0.4 }}
@@ -113,7 +117,7 @@ export default function KidsClub() {
           </div>
 
           <div className="order-1 lg:order-2 z-10 relative">
-            <h2 className="text-6xl md:text-8xl font-display font-black mb-8 leading-[0.9] text-cream drop-shadow-lg">{whatsappSection.h2}</h2>
+            <h2 className="text-[clamp(2.5rem,12vw,8rem)] font-display font-black mb-8 leading-[0.9] text-cream drop-shadow-lg">{whatsappSection.h2}</h2>
             <p className="text-2xl font-medium opacity-80 leading-relaxed border-l-4 border-electric pl-6">{whatsappSection.body}</p>
           </div>
         </div>
@@ -131,7 +135,7 @@ export default function KidsClub() {
                  viewport={{ once: true }}
                  whileHover={{ y: -20, rotate: i % 2 === 0 ? 5 : -5 }}
                  transition={{ type: "spring", bounce: 0.8 }}
-                 className="text-7xl md:text-9xl font-display font-black tracking-tighter text-electric drop-shadow-[4px_4px_0px_#000] mb-6"
+                 className="text-[clamp(4.5rem,20vw,9rem)] font-display font-black tracking-tighter text-electric drop-shadow-[4px_4px_0px_#000] mb-6"
                >
                  {r.value}
                </motion.div>

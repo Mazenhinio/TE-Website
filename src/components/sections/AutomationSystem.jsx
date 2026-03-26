@@ -402,7 +402,7 @@ export default function AutomationSystem() {
     <section className="bg-brand-black py-40 px-6 overflow-hidden relative min-h-screen">
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
         
-        <div className="text-center mb-24">
+        <div className="text-center mb-12 md:mb-24">
           <span className="text-electric uppercase tracking-[0.4em] text-xs font-bold mb-6 block">
             Automation Engine
           </span>
@@ -414,7 +414,7 @@ export default function AutomationSystem() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-20 justify-center">
+        <div className="flex flex-wrap gap-2 mb-12 md:mb-20 justify-center">
           {stages.map((stage) => {
             const isActive = activeStage === stage.id;
             return (
@@ -438,7 +438,7 @@ export default function AutomationSystem() {
 
         <div className="w-full relative px-4">
           
-          <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-12 relative z-20 mb-32 overflow-visible w-full group">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-12 relative z-20 mb-16 md:mb-32 overflow-visible w-full group">
             
             {/* Previous Stage Title (Faded) */}
             <button 

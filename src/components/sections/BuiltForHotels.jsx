@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const labels = [
@@ -16,10 +17,18 @@ const labels = [
 ];
 
 const FloatingPill = ({ label, index }) => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const targetX = isMobile ? label.x * 0.4 : label.x;
-  const targetY = isMobile ? label.y * 0.7 : label.y;
-  const targetScale = isMobile ? 0.7 : 1;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const targetX = isMobile ? label.x * 0.35 : label.x;
+  const targetY = isMobile ? label.y * 0.6 : label.y;
+  const targetScale = isMobile ? 0.65 : 1;
 
   // Horizontal sliding path for purely back-and-forth drifting
   const xOffset = [0, 40 + index * 2, -40 - index * 2, 0];
@@ -63,9 +72,9 @@ const FloatingPill = ({ label, index }) => {
 export default function BuiltForHotels() {
   return (
     <section className="bg-brand-black py-40 px-6 overflow-hidden relative min-h-[800px] flex items-center justify-center">
-      <div className="relative z-20 text-center max-w-7xl mx-auto pointer-events-none">
-        <h2 className="text-[9vw] md:text-[7vw] font-black font-display leading-[0.85] tracking-tighter text-cream flex flex-col items-center">
-          <span className="block">BUILT FOR HOSPITALITY & LEISURE,</span>
+      <div className="relative z-20 text-center max-w-full px-4 mx-auto pointer-events-none overflow-hidden">
+        <h2 className="text-[clamp(1.5rem,7vw,4.5rem)] font-black font-display leading-[1.1] tracking-tighter text-cream flex flex-col items-center">
+          <span className="block text-center px-2">BUILT FOR HOSPITALITY & LEISURE,</span>
           <span className="block italic text-electric uppercase">by Hospitality Experts.</span>
         </h2>
       </div>

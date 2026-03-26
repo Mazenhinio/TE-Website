@@ -16,7 +16,7 @@ export default function RoomsSuites() {
     <div ref={containerRef} className="bg-[#FAF9F6] min-h-screen text-black font-body pt-20 selection:bg-electric">
       
       {/* 1. LUXURY EDITORIAL HERO */}
-      <section className="relative w-full h-[90vh] flex items-center justify-center px-6 overflow-hidden">
+      <section className="relative w-full min-h-[80vh] py-12 flex items-center justify-center px-6 overflow-hidden pt-32 lg:pt-0">
         
         <div className="max-w-7xl w-full z-10 grid lg:grid-cols-2 gap-20 items-center">
           <motion.div 
@@ -27,9 +27,9 @@ export default function RoomsSuites() {
             <span className="text-electric uppercase tracking-[0.3em] text-xs md:text-sm font-bold bg-black backdrop-blur-sm px-4 py-2 rounded-full inline-block border border-black mb-8">
               THE PRE-ARRIVAL EXPERIENCE
             </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-[5.5vw] font-black uppercase tracking-tighter leading-[0.9] mb-10 text-black">
-              Turn a Stay <br/>
-              into a <span className="bg-black text-electric px-4 py-1 inline-block -skew-x-6">Lifetime Memory</span>
+            <h1 className="text-[clamp(1.75rem,7.5vw,5.5rem)] font-black uppercase tracking-tighter leading-[1.1] mb-14 text-black break-words">
+              Turn a Stay <br className="hidden md:block" />
+              into a <span className="bg-black text-electric px-4 py-2 mt-3 inline-block -skew-x-6 whitespace-nowrap">Lifetime Memory</span>
             </h1>
             <p className="text-xl text-black font-medium max-w-md leading-relaxed mb-12 opacity-80">{hero.subheadline}</p>
             <motion.div whileHover={{ scale: 1.05 }} className="w-fit">
@@ -67,12 +67,12 @@ export default function RoomsSuites() {
             <div className="flex flex-col lg:flex-row justify-between items-end mb-32 gap-8">
                <div className="max-w-2xl">
                   <span className="font-mono text-electric text-xs tracking-widest uppercase mb-6 block">The Workflow</span>
-                  <h2 className="text-6xl md:text-8xl font-display font-medium text-cream leading-none tracking-tight">Seamless <br/>Transitions.</h2>
+                   <h2 className="text-[clamp(3.5rem,12vw,8rem)] font-display font-medium text-cream leading-[0.9] tracking-tight">Seamless <br/>Transitions.</h2>
                </div>
                <p className="text-xl text-cream/50 max-w-sm mb-4">Master every touchpoint from the moment of booking to the final check-out.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+            <div className="grid md:grid-cols-2 gap-16 md:gap-8 lg:gap-12">
                {solutions.map((sol, i) => (
                  <motion.div 
                    key={i}
@@ -80,7 +80,7 @@ export default function RoomsSuites() {
                    whileInView={{ opacity: 1, y: 0 }}
                    viewport={{ once: true }}
                    transition={{ duration: 0.8, delay: i * 0.1 }}
-                   className={`relative group p-12 lg:p-16 border-t border-white/10 hover:border-electric transition-all duration-500 flex flex-col justify-between min-h-[450px] ${i % 2 === 1 ? 'md:mt-24' : ''}`}
+                   className={`relative group p-8 md:p-12 lg:p-16 border-t border-white/10 hover:border-electric transition-all duration-500 flex flex-col justify-between min-h-[450px] ${i % 2 === 1 ? 'md:mt-24' : ''}`}
                  >
                     <span className="absolute top-12 right-12 font-display text-8xl text-white/5 font-black group-hover:text-electric/10 transition-colors">0{i+1}</span>
                     <div className="relative z-10 mt-auto">
@@ -103,7 +103,7 @@ export default function RoomsSuites() {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-20 items-center">
            <div className="lg:col-span-5">
               <span className="font-mono text-electric text-xs tracking-widest uppercase mb-6 block">{whatsappSection.context}</span>
-              <h2 className="text-6xl font-display font-bold mb-8 leading-none">{whatsappSection.h2}</h2>
+              <h2 className="text-[clamp(2.5rem,8vw,5rem)] font-display font-bold mb-8 leading-[1.1]">{whatsappSection.h2}</h2>
               <p className="text-xl opacity-60 leading-relaxed font-light italic border-l-2 border-electric pl-8">
                 {whatsappSection.body}
               </p>
@@ -135,15 +135,15 @@ export default function RoomsSuites() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-20">
            {results.map((r, i) => (
              <div key={i} className="flex flex-col items-center text-center">
-                <motion.div 
-                  initial={{ rotateY: 90, opacity: 0 }}
-                  whileInView={{ rotateY: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: i * 0.2 }}
-                  className="text-8xl md:text-[9rem] font-display font-black tracking-tighter leading-none mb-4"
-                >
-                  {r.value}
-                </motion.div>
+                  <motion.div 
+                    initial={{ rotateY: 90, opacity: 0 }}
+                    whileInView={{ rotateY: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: i * 0.2 }}
+                    className="text-[clamp(5rem,20vw,9rem)] font-display font-black tracking-tighter leading-none mb-4"
+                  >
+                    {r.value}
+                  </motion.div>
                 <div className="w-20 h-0.5 bg-black/20 mb-6" />
                 <span className="text-sm font-mono uppercase tracking-[0.2em] font-bold opacity-60">{r.label}</span>
              </div>

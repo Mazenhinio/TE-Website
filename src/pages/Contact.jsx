@@ -53,7 +53,7 @@ export default function Contact() {
       <section className="bg-brand-black text-cream section-padding px-6 min-h-[90vh] flex items-center">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 w-full">
           <div>
-            <h1 className="mb-6 font-display">Let's talk engagement.</h1>
+            <h1 className="text-[clamp(2.5rem,8vw,4.5rem)] font-display font-black leading-tight mb-8">Let's talk engagement.</h1>
             <p className="text-xl text-cream-muted mb-10">We'll show you exactly how Total Engage can transform your property within 48 hours.</p>
             <div className="space-y-6">
               <div className="flex gap-4 items-start"><CheckCircle className="text-electric shrink-0" /><p>We'll confirm your slot within 2 hours</p></div>
@@ -70,26 +70,26 @@ export default function Contact() {
                 <p className="text-cream-muted text-lg">One of our team will get back to you shortly.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 flex flex-col">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-8">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm tracking-widest text-[rgba(244,242,230,0.55)] uppercase">Full Name *</label>
-                  <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] pb-2 text-cream focus:outline-none focus:border-electric transition-colors" />
+                  <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] px-2 pb-2 text-cream focus:outline-none focus:border-electric transition-colors" />
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="text-sm tracking-widest text-[rgba(244,242,230,0.55)] uppercase">Work Email *</label>
-                  <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] pb-2 text-cream focus:outline-none focus:border-electric transition-colors" />
+                  <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] px-2 pb-2 text-cream focus:outline-none focus:border-electric transition-colors" />
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="text-sm tracking-widest text-[rgba(244,242,230,0.55)] uppercase">Phone Number *</label>
-                  <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] pb-2 text-cream focus:outline-none focus:border-electric transition-colors" placeholder="+1 (555) 000-0000" />
+                  <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] px-2 pb-2 text-cream focus:outline-none focus:border-electric transition-colors" placeholder="+1 (555) 000-0000" />
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="text-sm tracking-widest text-[rgba(244,242,230,0.55)] uppercase">Hotel / Property Name *</label>
-                  <input required type="text" value={formData.hotel} onChange={e => setFormData({...formData, hotel: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] pb-2 text-cream focus:outline-none focus:border-electric transition-colors" />
+                  <input required type="text" value={formData.hotel} onChange={e => setFormData({...formData, hotel: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] px-2 pb-2 text-cream focus:outline-none focus:border-electric transition-colors" />
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="text-sm tracking-widest text-[rgba(244,242,230,0.55)] uppercase">What's your biggest challenge?</label>
-                  <textarea rows="3" value={formData.challenge} onChange={e => setFormData({...formData, challenge: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] pb-2 text-cream focus:outline-none focus:border-electric transition-colors"></textarea>
+                  <textarea rows="3" value={formData.challenge} onChange={e => setFormData({...formData, challenge: e.target.value})} className="bg-transparent border-b border-[rgba(255,255,255,0.2)] px-2 pb-2 text-cream focus:outline-none focus:border-electric transition-colors"></textarea>
                 </div>
                 <button disabled={loading} type="submit" className="mt-4 px-8 py-4 bg-electric text-brand-black font-bold text-lg rounded-full hover:shadow-button-hover disabled:opacity-50 disabled:cursor-not-allowed transition-shadow flex items-center justify-center gap-2">
                   {loading ? 'Submitting...' : 'Schedule My Free Demo'} <ArrowRight size={20} />

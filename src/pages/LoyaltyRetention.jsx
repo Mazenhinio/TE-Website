@@ -44,7 +44,7 @@ export default function LoyaltyRetention() {
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="text-6xl md:text-8xl lg:text-[7.5rem] font-display font-black leading-none tracking-tighter mb-8"
+            className="text-[clamp(2.5rem,10vw,7.5rem)] font-display font-black leading-[0.9] tracking-tighter mb-8 break-words"
           >
             {hero.h1.split(' ').slice(0,-1).join(' ')} <span className="text-electric">{hero.h1.split(' ').slice(-1)}</span>
           </motion.h1>
@@ -72,7 +72,7 @@ export default function LoyaltyRetention() {
       {/* 3. LIFECYCLE SOLUTIONS - TIMELINE CARDS */}
       <section className="py-40 px-6 max-w-7xl mx-auto">
         <h2 className="text-5xl font-display font-bold mb-32 text-center">The Guest Journey.</h2>
-        <div className="relative flex flex-col gap-12">
+        <div className="relative flex flex-col gap-20 md:gap-12">
            <div className="absolute left-[31px] md:left-1/2 top-0 w-0.5 h-full bg-electric/20 -translate-x-1/2 hidden md:block" />
            {solutions.map((sol, i) => (
              <motion.div 
@@ -102,7 +102,7 @@ export default function LoyaltyRetention() {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-24 items-center">
            <div>
               <span className="font-mono text-electric text-xs tracking-widest uppercase mb-6 block uppercase">{whatsappSection.context}</span>
-              <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-none">{whatsappSection.h2}</h2>
+              <h2 className="text-[clamp(2.5rem,8vw,5rem)] font-display font-bold mb-8 leading-[1.1]">{whatsappSection.h2}</h2>
               <p className="text-xl md:text-2xl opacity-60 max-w-xl leading-relaxed font-light">
                  {whatsappSection.body}
               </p>
@@ -118,10 +118,10 @@ export default function LoyaltyRetention() {
                       whileInView={{ scale: 1, opacity: 1, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.3, type: "spring" }}
-                      className={`max-w-[75%] p-8 rounded-[3rem] text-lg font-medium shadow-[0_20px_50px_rgba(0,0,0,0.5)] ${
+                      className={`max-w-[85%] md:max-w-[75%] p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] text-base md:text-lg font-medium shadow-[0_20px_50px_rgba(0,0,0,0.5)] ${
                         m.sender === 'Hotel' 
-                          ? 'bg-white text-black self-start rounded-tl-none -mb-4' 
-                          : 'bg-electric text-black self-end rounded-br-none -mt-4'
+                          ? 'bg-white text-black self-start rounded-tl-none mb-0 md:-mb-4' 
+                          : 'bg-electric text-black self-end rounded-br-none mt-0 md:-mt-4'
                       }`}
                     >
                       {m.text}
@@ -152,7 +152,7 @@ export default function LoyaltyRetention() {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 + i * 0.1 }}
-                  className="text-7xl md:text-8xl font-display font-black tracking-tighter text-white mb-6"
+                  className="text-[clamp(4.5rem,15vw,8rem)] font-display font-black tracking-tighter text-white mb-6"
                 >
                    {r.value}
                 </motion.div>

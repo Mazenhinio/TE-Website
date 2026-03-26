@@ -46,41 +46,36 @@ export default function StatsBar() {
 
   return (
     <section ref={containerRef} className="bg-electric text-brand-black py-20 px-6 origin-center">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-5 gap-12 text-center divide-x-0 lg:divide-x divide-[rgba(0,0,0,0.1)]">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 text-center divide-x-0 lg:divide-x divide-[rgba(0,0,0,0.1)]">
         
         <div className="flex flex-col items-center">
           <div className="mb-4 text-brand-black/40"><TrendingUp size={36} /></div>
           <h2 className="font-display text-5xl md:text-6xl font-black text-brand-black stat-number" data-target="400" data-suffix="%">0%</h2>
-          <span className="text-base font-extrabold uppercase tracking-widest mt-2 mb-1">ROI Growth</span>
-          <span className="text-xs font-bold text-brand-black/50">Rosewood, Abu Dhabi</span>
+          <span className="text-base font-extrabold uppercase tracking-widest mt-2">ROI Growth</span>
         </div>
 
         <div className="flex flex-col items-center">
           <div className="mb-4 text-brand-black/40"><Utensils size={36} /></div>
           <h2 className="font-display text-5xl md:text-6xl font-black text-brand-black stat-number" data-target="250" data-suffix="%">0%</h2>
-          <span className="text-base font-extrabold uppercase tracking-widest mt-2 mb-1">More Bookings</span>
-          <span className="text-xs font-bold text-brand-black/50">Shangri-La, Jeddah</span>
+          <span className="text-base font-extrabold uppercase tracking-widest mt-2">More Bookings</span>
         </div>
 
         <div className="flex flex-col items-center">
           <div className="mb-4 text-brand-black/40"><Star size={36} /></div>
           <h2 className="font-display text-5xl md:text-6xl font-black text-brand-black stat-number" data-target="40" data-suffix="%">0%</h2>
-          <span className="text-base font-extrabold uppercase tracking-widest mt-2 mb-1">More 5★ Reviews</span>
-          <span className="text-xs font-bold text-brand-black/50">InterContinental, Dubai</span>
+          <span className="text-base font-extrabold uppercase tracking-widest mt-2">More 5★ Reviews</span>
         </div>
 
         <div className="flex flex-col items-center">
           <div className="mb-4 text-brand-black/40"><Building2 size={36} /></div>
           <h2 className="font-display text-5xl md:text-6xl font-black text-brand-black stat-number" data-target="10" data-suffix="+">0+</h2>
-          <span className="text-base font-extrabold uppercase tracking-widest mt-2 mb-1">Properties Served</span>
-          <span className="text-xs font-bold text-brand-black/50">Across Top Chains</span>
+          <span className="text-base font-extrabold uppercase tracking-widest mt-2">Properties Served</span>
         </div>
 
         <div className="flex flex-col items-center">
           <div className="mb-4 text-brand-black/40"><Globe size={36} /></div>
           <h2 className="font-display text-5xl md:text-6xl font-black text-brand-black stat-number" data-target="5" data-suffix="+">0+</h2>
-          <span className="text-base font-extrabold uppercase tracking-widest mt-2 mb-1">MENA Countries</span>
-          <span className="text-xs font-bold text-brand-black/50">Regional Leaders</span>
+          <span className="text-base font-extrabold uppercase tracking-widest mt-2">MENA Countries</span>
         </div>
 
       </div>

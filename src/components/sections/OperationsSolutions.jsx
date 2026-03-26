@@ -179,34 +179,36 @@ function ReputationFlow() {
   ];
 
   return (
-    <div className="p-10 h-full flex flex-col justify-center gap-12 max-w-5xl">
-      {/* Steps 1-3 */}
-      <div className="flex items-center gap-8 md:gap-16 relative">
-         {/* Connecting Line */}
-         <div className="absolute top-5 left-0 right-0 h-px bg-white/10 -z-10" />
+    <div className="p-8 md:p-10 h-full flex flex-col justify-center gap-8 md:gap-12 max-w-5xl">
+      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 relative">
+         
+         {/* Vertical line for mobile, horizontal for desktop */}
+         <div className="absolute top-5 bottom-5 lg:bottom-auto left-1/2 lg:left-0 lg:right-0 w-px lg:w-full h-full lg:h-px bg-white/10 -z-10 -translate-x-1/2 lg:translate-x-0" />
 
-         {steps.map((s, i) => (
-           <div key={i} className="flex flex-col items-center text-center gap-3 relative z-10 w-32">
-              <div className="w-10 h-10 rounded-full bg-electric text-black flex items-center justify-center font-black text-sm shadow-[0_0_20px_rgba(222,255,0,0.4)]">
-                {s.icon}
+         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+            {steps.map((s, i) => (
+              <div key={i} className="flex flex-col items-center text-center gap-3 relative z-10 w-32">
+                 <div className="w-10 h-10 rounded-full bg-electric text-black flex items-center justify-center font-black text-sm shadow-[0_0_20px_rgba(222,255,0,0.4)]">
+                   {s.icon}
+                 </div>
+                 <div>
+                   <p className="text-white text-[11px] font-bold uppercase tracking-widest leading-tight">{s.label}</p>
+                   <p className="text-white/30 text-[9px] uppercase font-black mt-1 leading-tight">{s.note}</p>
+                 </div>
               </div>
-              <div>
-                <p className="text-white text-[11px] font-bold uppercase tracking-widest">{s.label}</p>
-                <p className="text-white/30 text-[9px] uppercase font-black mt-1 leading-tight">{s.note}</p>
-              </div>
-           </div>
-         ))}
+            ))}
+         </div>
 
          {/* Arrow indicating split */}
-         <div className="flex-1 flex justify-center text-white/20">
+         <div className="flex justify-center text-white/20 rotate-90 lg:rotate-0">
            <ArrowRight size={24} />
          </div>
 
          {/* Outcomes Split */}
-         <div className="flex flex-col gap-4">
+         <div className="flex flex-col gap-4 w-full lg:w-auto">
             {outcomes.map((o, i) => (
-              <div key={i} className={`flex items-center gap-3 p-4 rounded-2xl border border-white/5 ${o.bg} min-w-[240px]`}>
-                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 border-current ${o.color}`}>
+              <div key={i} className={`flex items-center gap-3 p-4 rounded-2xl border border-white/5 ${o.bg} w-full lg:min-w-[240px]`}>
+                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 border-current ${o.color} shrink-0`}>
                    {o.icon}
                  </div>
                  <div>
@@ -241,14 +243,14 @@ function AutomationsTimeline() {
   ];
 
   return (
-    <div className="flex-1 flex flex-wrap md:flex-nowrap items-center md:items-start justify-center md:justify-end gap-1 overflow-visible">
+    <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-nowrap items-center md:items-start justify-center md:justify-end gap-y-8 gap-x-2 md:gap-1 overflow-visible">
       {steps.map((step, i) => {
         const isActive = i === activeStep;
         const isPassed = i < activeStep;
         
         return (
-          <div key={step.label} className="flex items-center flex-shrink-0 relative group">
-            <div className="flex flex-col items-center gap-2 min-w-[70px] md:min-w-[90px] relative z-10">
+          <div key={step.label} className="flex items-center flex-shrink-0 relative group justify-center md:justify-start">
+            <div className="flex flex-col items-center gap-2 min-w-[100px] md:min-w-[90px] relative z-10">
               <motion.div 
                 animate={{
                   scale: isActive ? 1.2 : 1,
@@ -271,7 +273,7 @@ function AutomationsTimeline() {
               </p>
             </div>
             {i < steps.length - 1 && (
-              <div className="h-px w-6 md:w-10 xl:w-16 mx-0 xl:mx-1 mb-10 flex-shrink-0 relative overflow-hidden bg-white/10 hidden sm:block">
+              <div className="h-px w-6 md:w-10 xl:w-16 mx-0 xl:mx-1 mb-10 flex-shrink-0 relative overflow-hidden bg-white/10 hidden md:block">
                 <motion.div 
                   className="absolute inset-0 h-full bg-electric origin-left"
                   initial={{ scaleX: 0 }}
@@ -342,9 +344,9 @@ export default function OperationsSolutions() {
           <span className="inline-block font-bold uppercase tracking-widest text-xs mb-5 px-4 py-1.5 bg-electric/10 border border-electric/20 text-electric rounded-full">
             Platform Capabilities
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1] text-white mb-5">
-            The best WhatsApp and social media marketing platform<br />
-            <span className="text-electric text-4xl md:text-5xl lg:text-6xl">for your property.</span>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1] text-white mb-5">
+            The best WhatsApp and social media marketing platform<br className="hidden md:block" />
+            <span className="text-electric"> for your property.</span>
           </h2>
           <p className="text-lg text-white/40 max-w-xl mx-auto leading-relaxed">
             Purpose-built for travel, entertainment & stays — every tool works together seamlessly across your entire property portfolio.
@@ -360,7 +362,7 @@ export default function OperationsSolutions() {
               <div className="p-10 flex flex-col min-h-[380px]">
                 <div>
                   <Label icon={<MessageSquare size={16} />} text="Conversations" num={1} />
-                  <h3 className="text-white text-3xl md:text-4xl font-bold font-display leading-[1.15] mb-5">
+                  <h3 className="text-white text-[clamp(1.5rem,6vw,2.5rem)] font-bold font-display leading-[1.15] mb-5">
                     One inbox for every channel.
                   </h3>
                   <p className="text-white/50 text-base leading-relaxed mb-6">
@@ -392,11 +394,11 @@ export default function OperationsSolutions() {
             <div className="p-10 h-full flex flex-col justify-between min-h-[380px]">
               <Label icon={<Bot size={16} />} text="AI Agents" num={2} />
               <div className="flex flex-col flex-grow justify-between pt-4">
-                <h3 className="text-white text-3xl md:text-4xl font-bold font-display leading-[1.15] mb-6">
+                <h3 className="text-white text-[clamp(1.5rem,6vw,2.5rem)] font-bold font-display leading-[1.15] mb-6">
                   24/7 AI front desk — always on.
                 </h3>
                 <div className="flex-grow flex flex-col justify-center">
-                  <p className="text-electric text-7xl font-black font-mono leading-none mb-2">&lt;30s</p>
+                  <p className="text-electric text-5xl md:text-7xl font-black font-mono leading-none mb-2">&lt;30s</p>
                   <p className="text-white/30 text-xs font-bold uppercase tracking-widest mb-6">Avg. AI response time</p>
                 </div>
                 <div>
@@ -486,7 +488,7 @@ export default function OperationsSolutions() {
                 </p>
               </div>
               
-              <div className="flex-1 -mx-10 -mb-10 bg-black/20 border-t border-white/5 overflow-hidden">
+              <div className="flex-1 mt-6 md:-mx-10 md:-mb-10 bg-black/20 border-t border-white/5 overflow-hidden">
                 <ReputationFlow />
               </div>
             </div>
@@ -525,7 +527,7 @@ export default function OperationsSolutions() {
             <div className="p-10 h-full flex flex-col justify-between min-h-[280px]">
               <Label icon={<Megaphone size={16} />} text="Marketing" num={7} />
               <div>
-                <p className="text-electric text-7xl font-black font-mono leading-none mb-2">98%</p>
+                <p className="text-electric text-5xl md:text-7xl font-black font-mono leading-none mb-2">98%</p>
                 <p className="text-white/30 text-xs font-bold uppercase tracking-widest mb-6">WhatsApp open rate</p>
                 <h3 className="text-white text-xl font-bold font-display leading-[1.2]">
                   Plan every campaign from one calendar.

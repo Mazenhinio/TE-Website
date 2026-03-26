@@ -32,14 +32,14 @@ export default function FoodBeverage() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="w-16 h-1 bg-black"
             />
-            <motion.h1 
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-              className="text-6xl md:text-8xl lg:text-[7rem] font-display font-black leading-[0.9] tracking-tighter text-black"
-            >
-              {hero.h1}
-            </motion.h1>
+              <motion.h1 
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+                className="text-[clamp(2.5rem,10vw,7rem)] font-display font-black leading-[0.9] tracking-tighter text-black break-words"
+              >
+                {hero.h1}
+              </motion.h1>
           </div>
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
@@ -62,7 +62,7 @@ export default function FoodBeverage() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20">
           <div className="lg:w-1/3 pt-12 lg:sticky lg:top-32 h-max">
             <h3 className="text-sm font-mono tracking-widest text-electric uppercase mb-4">The Solution</h3>
-            <h2 className="text-5xl font-display font-bold mb-8 leading-none">Automate the Kitchen to the Cloud.</h2>
+            <h2 className="text-[clamp(2.25rem,6vw,3.5rem)] font-display font-bold mb-8 leading-[1.1]">Automate the Kitchen<br className="hidden md:block" /> to the Cloud.</h2>
             <p className="text-cream/70 text-lg">Total Engage cuts out the manual grunt work, putting your seasonal menus and table bookings onto auto-pilot.</p>
           </div>
           <div className="lg:w-2/3 grid sm:grid-cols-2 gap-6">
@@ -91,7 +91,7 @@ export default function FoodBeverage() {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative z-10">
             <div className="w-24 h-24 bg-electric rounded-full blur-[40px] absolute -top-12 -left-12 mix-blend-multiply" />
-            <h2 className="text-5xl md:text-7xl font-display font-black leading-[0.9] mb-8 relative z-10 text-black">{whatsappSection.h2}</h2>
+            <h2 className="text-[clamp(2.5rem,8vw,5rem)] font-display font-black leading-[0.9] mb-8 relative z-10 text-black">{whatsappSection.h2}</h2>
             <p className="text-2xl font-medium max-w-md relative z-10">{whatsappSection.body}</p>
           </div>
           <div className="relative mx-auto w-full max-w-[320px]">
@@ -139,7 +139,7 @@ export default function FoodBeverage() {
 
       {/* CTA */}
       <section className="bg-electric text-black py-32 px-6 text-center">
-        <h2 className="text-6xl md:text-8xl font-display font-black mb-12 text-black">Table for Two?</h2>
+        <h2 className="text-[clamp(3.5rem,12vw,8rem)] font-display font-black mb-12 text-black">Table for Two?</h2>
         <Link to="/contact" className="inline-block bg-black text-electric text-2xl font-bold px-12 py-6 rounded-full hover:scale-110 transition-transform shadow-button group">
           Schedule Demo <span className="inline-block group-hover:translate-x-2 transition-transform">&rarr;</span>
         </Link>
