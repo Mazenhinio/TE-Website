@@ -27,7 +27,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`flex items-center justify-between px-6 fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 bg-brand-black border-b border-white/5 ${scrolled ? 'shadow-2xl py-4' : 'py-6'}`}>
+    <nav className={`fixed top-0 left-0 right-0 w-full z-[9999] transition-all duration-500 bg-brand-black/95 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-6 ${scrolled ? 'shadow-2xl py-4' : 'py-6'}`}>
       
       {/* Logo */}
       <Link to="/" className="flex items-center transition-transform hover:scale-105 z-50">
