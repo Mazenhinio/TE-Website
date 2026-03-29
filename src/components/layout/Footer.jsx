@@ -54,8 +54,6 @@ export default function Footer() {
           <h3 className="text-white font-display font-bold mb-8 uppercase text-xs tracking-widest">Corporate</h3>
           <ul className="space-y-4 text-sm font-medium">
             <li><Link className="hover:text-electric transition-colors" to="/privacy">Privacy Policy</Link></li>
-            <li><a className="hover:text-electric transition-colors" href="https://linkedin.com">LinkedIn</a></li>
-            <li><a className="hover:text-electric transition-colors" href="https://instagram.com">Instagram</a></li>
           </ul>
         </div>
 

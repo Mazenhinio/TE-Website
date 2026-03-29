@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, UtensilsCrossed, Flower2, Heart, BedDouble, PartyPopper, Baby, Compass, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, UtensilsCrossed, Flower2, Heart, BedDouble, PartyPopper, Baby, Compass, CheckCircle2, ArrowLeft } from 'lucide-react';
 
 const stages = [
   {
@@ -299,20 +299,18 @@ function PreviewBubble({ text, channel = 'whatsapp' }) {
 }
 
 const WireframeLines = ({ isHovered, activeStageId }) => {
-  const pathLeft = "M 500 0 L 500 40 Q 500 80 440 80 L 226 80 Q 166 80 166 105 L 166 120";
-  const pathCenter = "M 500 0 L 500 120";
-  const pathRight = "M 500 0 L 500 40 Q 500 80 560 80 L 773 80 Q 833 80 833 105 L 833 120";
+  // Extended horizontal reach to match wider card distribution
+  const pathLeft = "M 500 0 L 500 80 Q 500 160 400 160 L 205 160 Q 125 160 125 220 L 125 380";
+  const pathCenter = "M 500 0 L 500 380";
+  const pathRight = "M 500 0 L 500 80 Q 500 160 600 160 L 795 160 Q 875 160 875 220 L 875 380";
 
   const paths = [pathLeft, pathCenter, pathRight];
   const pulseInstances = [0, 1, 2];
-
-  // The base mesh is also now animated to "load" on configuration
-  const baseMesh = "M 500 0 L 500 40 Q 500 80 440 80 L 226 80 Q 166 80 166 105 L 166 120 M 500 40 L 500 120 M 500 40 Q 500 80 560 80 L 773 80 Q 833 80 833 105 L 833 120";
+  const baseMesh = `M 500 0 L 500 80 Q 500 160 400 160 L 205 160 Q 125 160 125 220 L 125 380 M 500 80 L 500 380 M 500 80 Q 500 160 600 160 L 795 160 Q 875 160 875 220 L 875 380`;
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-0">
-      <svg width="100%" height="100%" viewBox="0 0 1000 200" preserveAspectRatio="none" className="overflow-visible">
-        {/* PHYSICAL RECONFIGURATION ANIMATION: The grey wireframe now 'loads' when the stage change */}
+    <div className="absolute inset-x-0 h-[400px] top-[60px] pointer-events-none z-0">
+      <svg width="100%" height="100%" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMin meet" className="overflow-visible">
         <motion.path 
            key={`base-${activeStageId}`}
            initial={{ pathLength: 0, opacity: 0 }}
@@ -325,46 +323,15 @@ const WireframeLines = ({ isHovered, activeStageId }) => {
            strokeLinejoin="round" 
            strokeLinecap="round" 
         />
-
         <AnimatePresence>
           {isHovered && (
-            <motion.g
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
+            <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               {paths.map((path, pIdx) => (
                 <g key={`path-${pIdx}`}>
-                  <motion.path
-                    d={path}
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 0.5 }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                    stroke="#DEFF00"
-                    strokeWidth="3"
-                    fill="none"
-                  />
-
+                  <motion.path d={path} initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 0.5 }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} stroke="#DEFF00" strokeWidth="3" fill="none" />
                   {pulseInstances.map((pulseIdx) => (
-                    <motion.g
-                      key={`pulse-${pIdx}-${pulseIdx}`}
-                      initial={{ offsetDistance: "0%" }}
-                      animate={{ offsetDistance: "100%" }}
-                      transition={{ 
-                        duration: 1.5, 
-                        ease: "linear", 
-                        repeat: Infinity,
-                        delay: pulseIdx * 0.2
-                      }}
-                      style={{ 
-                        offsetPath: `path("${path}")`,
-                        offsetRotate: "auto",
-                        filter: 'drop-shadow(0 0 25px #DEFF00)'
-                      }}
-                    >
-                      <g transform="scale(0.6)">
-                        <path fill="#DEFF00" d="M -15 10 L 0 0 L -15 -10 Z" />
-                      </g>
+                    <motion.g key={`pulse-${pIdx}-${pulseIdx}`} initial={{ offsetDistance: "0%" }} animate={{ offsetDistance: "100%" }} transition={{ duration: 1.5, ease: "linear", repeat: Infinity, delay: pulseIdx * 0.2 }} style={{ offsetPath: `path("${path}")`, offsetRotate: "auto", filter: 'drop-shadow(0 0 25px #DEFF00)' }}>
+                      <g transform="scale(0.6)"><path fill="#DEFF00" d="M -15 10 L 0 0 L -15 -10 Z" /></g>
                     </motion.g>
                   ))}
                 </g>
@@ -381,7 +348,6 @@ export default function AutomationSystem() {
   const [activeStage, setActiveStage] = useState(stages[0].id);
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
   const active = stages.find((s) => s.id === activeStage);
-
   const [direction, setDirection] = useState(0);
 
   const handlePrev = () => {
@@ -398,11 +364,30 @@ export default function AutomationSystem() {
     setActiveStage(stages[nextIndex].id);
   };
 
+  const cardsScrollRef = useRef(null);
+
+  const scrollCards = (direction) => {
+    if (cardsScrollRef.current) {
+      const scrollAmount = window.innerWidth * 0.85;
+      cardsScrollRef.current.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const [activeCardIdx, setActiveCardIdx] = useState(0);
+
+  const handleCardsScroll = (e) => {
+    const scrollAmount = window.innerWidth * 0.85;
+    const newIdx = Math.round(e.target.scrollLeft / scrollAmount);
+    if (newIdx !== activeCardIdx) {
+      setActiveCardIdx(newIdx);
+    }
+  };
+
   return (
     <section className="bg-brand-black py-40 px-6 overflow-hidden relative min-h-screen">
-      <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
+      <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
         
-        <div className="text-center mb-12 md:mb-24">
+        <div className="mb-12 md:mb-24">
           <span className="text-electric uppercase tracking-[0.4em] text-xs font-bold mb-6 block">
             Automation Engine
           </span>
@@ -414,7 +399,8 @@ export default function AutomationSystem() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-12 md:mb-20 justify-center">
+        {/* 1. Pill Tabs — Hidden on mobile as per request */}
+        <div className="hidden md:flex flex-wrap gap-2 mb-12 md:mb-20 justify-center">
           {stages.map((stage) => {
             const isActive = activeStage === stage.id;
             return (
@@ -423,11 +409,10 @@ export default function AutomationSystem() {
                 onClick={() => {
                   setDirection(stages.findIndex(s => s.id === stage.id) > stages.findIndex(s => s.id === activeStage) ? 1 : -1);
                   setActiveStage(stage.id);
+                  setActiveCardIdx(0); // Reset cards on stage change
                 }}
                 className={`flex items-center gap-3 px-6 py-3 rounded-full text-xs font-bold transition-all duration-300 border ${
-                  isActive
-                    ? 'bg-electric text-black border-electric shadow-[0_10px_30px_rgba(222,255,0,0.2)]'
-                    : 'bg-white/5 text-white/30 border-white/5 hover:border-white/20 hover:text-white'
+                  isActive ? 'bg-electric text-black border-electric shadow-[0_10px_30px_rgba(222,255,0,0.2)]' : 'bg-white/5 text-white/30 border-white/5 hover:border-white/20 hover:text-white'
                 }`}
               >
                 {stage.title}
@@ -436,136 +421,148 @@ export default function AutomationSystem() {
           })}
         </div>
 
-        <div className="w-full relative px-4">
+        <div className="w-full relative px-2 md:px-4">
           
-          <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-12 relative z-20 mb-16 md:mb-32 overflow-visible w-full group">
-            
-            {/* Previous Stage Title (Faded) */}
-            <button 
-              onClick={handlePrev}
-              className="hidden lg:block text-white/20 hover:text-electric/60 transition-all font-display text-3xl font-bold whitespace-nowrap -rotate-12 transform origin-right hover:scale-105 active:scale-95"
-            >
-              {stages[(stages.findIndex(s => s.id === activeStage) - 1 + stages.length) % stages.length].title}
-            </button>
-
-            <div className="relative flex items-center justify-center flex-1 max-w-[500px]">
-              <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-                <motion.div
-                  key={active.id}
-                  initial={{ 
-                    x: direction > 0 ? 100 : -100, 
-                    opacity: 0, 
-                    scale: 0.85, 
-                    rotateY: direction > 0 ? 45 : -45 
-                  }}
-                  animate={{ x: 0, opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ 
-                    x: direction > 0 ? -100 : 100, 
-                    opacity: 0, 
-                    scale: 0.85, 
-                    rotateY: direction > 0 ? -45 : 45 
-                  }}
-                  transition={{ type: "spring", stiffness: 260, damping: 25 }}
-                  className="bg-brand-black border-2 border-electric/30 p-1 px-1 rounded-2xl md:rounded-[2.5rem] shadow-[0_0_80px_rgba(222,255,0,0.1)] flex items-center w-full"
+          {/* 2. Swipable Title Area — Shifted mb to bring cards up */}
+          <div className="relative z-20 mb-12 md:mb-56 w-full group">
+            <div className="flex items-center justify-center w-full relative">
+              {/* Left Side Labels — Closer to pill for better rhythm */}
+              <div className="hidden lg:flex items-center justify-end gap-6 absolute right-[calc(50%+240px)] whitespace-nowrap">
+                <button 
+                  onClick={handlePrev} 
+                  className="flex md:hidden items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-electric transition-colors shrink-0 active:scale-90"
+                  aria-label="Previous Department"
                 >
-                  <div className="bg-white/5 w-full flex items-center justify-center p-6 px-10 rounded-2xl md:rounded-[2.2rem]">
-                    <div className="flex gap-4 items-center">
-                      <span className="text-electric">{active.icon}</span>
-                      <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-white tracking-tight text-center">{active.title}</span>
+                  <ArrowLeft size={20} />
+                </button>
+                <button onClick={handlePrev} className="hidden lg:block text-white/10 hover:text-electric/40 transition-all font-display text-2xl font-bold -rotate-12 transform origin-right hover:scale-105">
+                  {stages[(stages.findIndex(s => s.id === activeStage) - 1 + stages.length) % stages.length].title}
+                </button>
+              </div>
+
+              {/* CENTER PILL */}
+              <div className="relative flex items-center justify-center w-full max-w-[420px] touch-pan-y shrink-0">
+                <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+                  <motion.div
+                    key={active.id}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={(e, { offset }) => {
+                      const swipeThreshold = 30;
+                      if (offset.x > swipeThreshold) handlePrev();
+                      else if (offset.x < -swipeThreshold) handleNext();
+                    }}
+                    initial={{ x: direction > 0 ? 50 : -50, opacity: 0, scale: 0.95 }}
+                    animate={{ x: 0, opacity: 1, scale: 1 }}
+                    exit={{ x: direction > 0 ? -50 : 50, opacity: 0, scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="bg-brand-black border-2 border-electric/30 p-1 rounded-2xl md:rounded-[2.5rem] shadow-[0_0_80px_rgba(222,255,0,0.1)] flex items-center w-full cursor-grab active:cursor-grabbing"
+                  >
+                    <div className="bg-white/5 w-full flex items-center justify-center p-4 md:p-3 md:px-8 rounded-2xl md:rounded-[2.2rem] pointer-events-none">
+                      <div className="flex gap-3 md:gap-4 items-center">
+                        <span className="text-electric">{active.icon}</span>
+                        <span className="text-lg sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight">{active.title}</span>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Right Side Labels */}
+              <div className="hidden lg:flex items-center justify-start gap-6 absolute left-[calc(50%+240px)] whitespace-nowrap">
+                <button onClick={handleNext} className="hidden lg:block text-white/10 hover:text-electric/40 transition-all font-display text-2xl font-bold rotate-12 transform origin-left hover:scale-105">
+                  {stages[(stages.findIndex(s => s.id === activeStage) + 1) % stages.length].title}
+                </button>
+                <button 
+                  onClick={handleNext} 
+                  className="flex md:hidden items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-electric transition-colors shrink-0 active:scale-90"
+                  aria-label="Next Department"
+                >
+                  <ArrowRight size={20} />
+                </button>
+              </div>
+
+              {/* Mobile Arrows (Visible only on small screens) */}
+              <div className="absolute inset-x-0 flex justify-between items-center px-4 pointer-events-none md:hidden">
+                 <button onClick={handlePrev} className="pointer-events-auto w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white/40"><ArrowLeft size={18} /></button>
+                 <button onClick={handleNext} className="pointer-events-auto w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white/40"><ArrowRight size={18} /></button>
+              </div>
             </div>
-
-            {/* Next Stage Title (Faded) */}
-            <button 
-              onClick={handleNext}
-              className="hidden lg:block text-white/20 hover:text-electric/60 transition-all font-display text-3xl font-bold whitespace-nowrap rotate-12 transform origin-left hover:scale-105 active:scale-95"
-            >
-              {stages[(stages.findIndex(s => s.id === activeStage) + 1) % stages.length].title}
-            </button>
-
           </div>
 
-          <div className="hidden lg:block absolute inset-x-0 h-[200px] top-[140px]">
-             {/* NOW PASSING activeStage ID to trigger wireframe reconfiguration animation */}
+          <div className="hidden lg:block">
              <WireframeLines isHovered={hoveredCardIndex !== null} activeStageId={activeStage} />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-20 overflow-visible">
-            <AnimatePresence mode="wait">
+          {/* 3. Swipable Cards Container — Pure Swipe UX on Mobile */}
+          <div className="relative overflow-visible md:overflow-visible">
+            {/* Desktop View (Grid) */}
+            <div className="hidden md:grid grid-cols-3 gap-8 relative z-20">
               {active.categories.map((cat, idx) => (
-                <motion.div
-                  key={`${active.id}-${idx}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  onMouseEnter={() => setHoveredCardIndex(idx)}
-                  onMouseLeave={() => setHoveredCardIndex(null)}
-                  className="bg-[#0f0f0f] rounded-[2.5rem] border border-white/5 p-8 md:p-10 shadow-2xl flex flex-col items-center text-center group transition-colors hover:border-electric/20"
-                >
-                  <span className="text-electric/40 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-                    {cat.label}
-                  </span>
-                  <h4 className="text-2xl md:text-3xl font-display font-bold text-white mb-6 leading-tight">
-                    {cat.name}
-                  </h4>
-                  <p className="text-xs text-cream/30 mb-8 leading-relaxed italic">
-                    {active.categoryDescription}
-                  </p>
-                  
-                  <div className="w-full space-y-4 text-left">
-                    {cat.items.map((item, i) => (
-                      <div
-                        key={i}
-                        className={`group/item relative flex items-center justify-between p-4 py-3 border rounded-2xl transition-all cursor-pointer ${
-                          item.highlight 
-                            ? 'bg-electric/10 border-electric/40 shadow-[0_0_20px_rgba(222,255,0,0.1)]' 
-                            : 'bg-white/[0.02] border-white/5 hover:border-electric/40 hover:bg-white/[0.04]'
-                        }`}
-                      >
-                        <div className="flex flex-col gap-0.5">
-                          {item.highlight && (
-                            <span className="text-[8px] font-black uppercase tracking-tighter text-electric mb-1 flex items-center gap-1">
-                              <span className="w-1 h-1 rounded-full bg-electric animate-pulse" />
-                              Most Popular
-                            </span>
-                          )}
-                          <span className={`text-[13px] font-medium line-clamp-1 ${item.highlight ? 'text-white' : 'text-cream/70'}`}>
-                            {item.text}
-                          </span>
-                        </div>
-                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
-                          item.highlight 
-                            ? 'text-electric border-electric shadow-[0_0_10px_rgba(222,255,0,0.3)]' 
-                            : 'text-white/20 border-white/10 group-hover/item:text-electric group-hover/item:border-electric'
-                        }`}>
-                           <CheckCircle2 size={12} />
-                        </div>
-
-                        <div className="absolute left-1/2 -translate-x-1/2 bottom-[110%] mb-4 opacity-0 group-hover/item:opacity-100 translate-y-2 group-hover/item:translate-y-0 transition-all pointer-events-none z-50">
-                           <PreviewBubble text={item.preview} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-
-                </motion.div>
+                 <AutomationCard 
+                    key={`${active.id}-${idx}`} 
+                    cat={cat} 
+                    idx={idx} 
+                    activeId={active.id} 
+                    categoryDescription={active.categoryDescription}
+                    setHoveredCardIndex={setHoveredCardIndex} 
+                 />
               ))}
-            </AnimatePresence>
-          </div>
+            </div>
 
+            {/* Mobile View (Swipeable Carousel) */}
+            <div className="md:hidden relative z-20 overflow-hidden px-4 -mx-4">
+              <div className="flex flex-col items-center py-4">
+                <div 
+                  ref={cardsScrollRef}
+                  onScroll={handleCardsScroll}
+                  className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8 scroll-smooth touch-pan-x w-full"
+                >
+                   {active.categories.map((cat, idx) => (
+                     <div key={idx} className="min-w-[85vw] snap-center">
+                        <AutomationCard 
+                            cat={cat} 
+                            idx={idx} 
+                            activeId={active.id} 
+                            categoryDescription={active.categoryDescription}
+                            setHoveredCardIndex={setHoveredCardIndex} 
+                        />
+                     </div>
+                   ))}
+                </div>
+
+                {/* Mobile Navigation Arrows for Cards */}
+                <div className="flex items-center gap-6 mt-4">
+                   <button 
+                     onClick={() => scrollCards(-1)}
+                     className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 active:text-electric active:border-electric transition-all shadow-lg active:scale-90"
+                   >
+                     <ArrowLeft size={18} />
+                   </button>
+                   <div className="flex gap-1.5 opacity-40">
+                      {[0, 1, 2].map(i => (
+                        <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === activeCardIdx ? 'bg-electric scale-125' : 'bg-white/30'}`} />
+                      ))}
+                   </div>
+                   <button 
+                     onClick={() => scrollCards(1)}
+                     className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 active:text-electric active:border-electric transition-all shadow-lg active:scale-90"
+                   >
+                     <ArrowRight size={18} />
+                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="mt-32 w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/5 pt-16">
-           <div className="flex flex-col items-center md:items-start">
+           <div className="flex flex-col items-center md:items-start text-center md:text-left">
               <span className="text-5xl font-display font-bold text-electric mb-2 tracking-tighter">94%</span>
               <span className="text-[11px] font-black uppercase tracking-widest text-white/30">Avg. Message Open Rate</span>
            </div>
-           <div className="flex flex-col items-center md:items-start border-y md:border-y-0 md:border-x border-white/5 py-8 md:py-0 px-12">
+           <div className="flex flex-col items-center md:items-start border-y md:border-y-0 md:border-x border-white/5 py-8 md:py-0 px-12 text-center md:text-left">
               <span className="text-5xl font-display font-bold text-white mb-2 tracking-tighter">Instant</span>
               <span className="text-[11px] font-black uppercase tracking-widest text-white/30">Guest Response Velocity</span>
            </div>
@@ -576,5 +573,37 @@ export default function AutomationSystem() {
         </div>
       </div>
     </section>
+  );
+}
+
+function AutomationCard({ cat, idx, activeId, categoryDescription, setHoveredCardIndex }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ delay: idx * 0.1 }}
+      onMouseEnter={() => setHoveredCardIndex(idx)}
+      onMouseLeave={() => setHoveredCardIndex(null)}
+      className="bg-[#0f0f0f] rounded-[2.5rem] border border-white/5 p-8 md:p-10 shadow-2xl flex flex-col items-center text-center group transition-colors hover:border-electric/20 h-full"
+    >
+      <span className="text-electric/40 text-[10px] font-black uppercase tracking-[0.3em] mb-4">{cat.label}</span>
+      <h4 className="text-2xl md:text-[42px] font-display font-bold text-white mb-6 leading-[1.1]">{cat.name}</h4>
+      <p className="text-xs text-cream/30 mb-8 leading-relaxed italic">{categoryDescription}</p>
+      <div className="w-full space-y-4 text-left">
+        {cat.items.map((item, i) => (
+          <div key={i} className={`group/item relative flex items-center justify-between p-4 py-3 border rounded-2xl transition-all cursor-pointer ${item.highlight ? 'bg-electric/10 border-electric/40 shadow-[0_0_20px_rgba(222,255,0,0.1)]' : 'bg-white/[0.02] border-white/5 hover:border-electric/40 hover:bg-white/[0.04]'}`}>
+            <div className="flex flex-col gap-0.5">
+              {item.highlight && <span className="text-[8px] font-black uppercase tracking-tighter text-electric mb-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-electric animate-pulse" />Most Popular</span>}
+              <span className={`text-[13px] md:text-[18px] font-medium line-clamp-1 ${item.highlight ? 'text-white' : 'text-cream/70'}`}>{item.text}</span>
+            </div>
+            <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${item.highlight ? 'text-electric border-electric shadow-[0_0_10px_rgba(222,255,0,0.3)]' : 'text-white/20 border-white/10 group-hover/item:text-electric group-hover/item:border-electric'}`}>
+               <CheckCircle2 size={12} />
+            </div>
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-[110%] mb-4 opacity-0 group-hover/item:opacity-100 translate-y-2 group-hover/item:translate-y-0 transition-all pointer-events-none z-50"><PreviewBubble text={item.preview} /></div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
   );
 }

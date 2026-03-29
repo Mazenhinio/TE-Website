@@ -167,11 +167,20 @@ function ChannelFunnel() {
 }
 
 function ReputationFlow() {
+  const [activeStep, setActiveStep] = useState(0);
+
   const steps = [
-    { icon: <Zap size={20} />, label: "Guest Checks Out", note: "System Trigger" },
-    { icon: <MessageSquare size={20} />, label: "Review Request", note: "Sent via WhatsApp" },
-    { icon: <Bot size={20} />, label: "Review Received", note: "AI Evaluates Stars" },
+    { icon: <Zap size={18} />, label: "Checkout", note: "Trigger" },
+    { icon: <MessageSquare size={18} />, label: "Request", note: "Pulse" },
+    { icon: <Bot size={18} />, label: "Evaluation", note: "AI Logic" },
   ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep(s => (s + 1) % steps.length);
+    }, 1800);
+    return () => clearInterval(timer);
+  }, [steps.length]);
 
   const outcomes = [
     { icon: <Star size={18} fill="currentColor" />, color: "text-green-500", label: "Good Review", note: "AI Auto-Reply on Google", bg: "bg-green-500/10" },
@@ -179,41 +188,66 @@ function ReputationFlow() {
   ];
 
   return (
-    <div className="p-8 md:p-10 h-full flex flex-col justify-center gap-8 md:gap-12 max-w-5xl">
-      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 relative">
+    <div className="p-6 md:p-10 h-full flex flex-col items-center justify-center gap-10 md:gap-14 max-w-5xl mx-auto">
+      <div className="flex flex-col items-center gap-10 w-full">
          
-         {/* Vertical line for mobile, horizontal for desktop */}
-         <div className="absolute top-5 bottom-5 lg:bottom-auto left-1/2 lg:left-0 lg:right-0 w-px lg:w-full h-full lg:h-px bg-white/10 -z-10 -translate-x-1/2 lg:translate-x-0" />
+         {/* Steps Container — Animating linear path */}
+         <div className="grid grid-cols-3 items-start justify-center gap-x-0 w-full">
+            {steps.map((s, i) => {
+              const isActive = i === activeStep;
+              return (
+                <div key={i} className="flex flex-col items-center text-center relative group">
+                  <div className="flex items-center w-full">
+                    {/* Line before (not for first) */}
+                    <div className={`flex-1 h-px transition-colors duration-500 ${i > 0 && i <= activeStep ? 'bg-electric/40' : 'bg-white/10'} ${i === 0 ? 'opacity-0' : 'opacity-100'}`} />
+                    
+                    {/* Pulsing Icon */}
+                    <motion.div 
+                      animate={{
+                        scale: isActive ? 1.15 : 1,
+                        backgroundColor: isActive ? '#deff00' : 'rgba(255,255,255,0.05)',
+                        borderColor: isActive ? '#deff00' : 'rgba(255,255,255,0.15)',
+                        boxShadow: isActive ? '0px 0px 20px rgba(222,255,0,0.4)' : 'none'
+                      }}
+                      className="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 flex items-center justify-center text-black shrink-0 z-10"
+                    >
+                      <div className={isActive ? 'text-black' : 'text-white/30'}>
+                        {s.icon}
+                      </div>
+                    </motion.div>
 
-         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-            {steps.map((s, i) => (
-              <div key={i} className="flex flex-col items-center text-center gap-3 relative z-10 w-32">
-                 <div className="w-10 h-10 rounded-full bg-electric text-black flex items-center justify-center font-black text-sm shadow-[0_0_20px_rgba(222,255,0,0.4)]">
-                   {s.icon}
-                 </div>
-                 <div>
-                   <p className="text-white text-[11px] font-bold uppercase tracking-widest leading-tight">{s.label}</p>
-                   <p className="text-white/30 text-[9px] uppercase font-black mt-1 leading-tight">{s.note}</p>
-                 </div>
-              </div>
-            ))}
+                    {/* Line after (not for last) */}
+                    <div className={`flex-1 h-px transition-colors duration-500 ${i < activeStep ? 'bg-electric/40' : 'bg-white/10'} ${i === steps.length - 1 ? 'opacity-0' : 'opacity-100'}`} />
+                  </div>
+                  
+                  <div className="mt-5 min-h-[40px] flex flex-col items-center">
+                    <p className={`text-[9px] md:text-[11px] font-bold uppercase tracking-widest leading-none mb-1 transition-colors duration-300 ${isActive ? 'text-electric' : 'text-white/30'}`}>
+                      {s.label}
+                    </p>
+                    <p className={`text-[8px] uppercase font-black tracking-tighter transition-colors duration-300 ${isActive ? 'text-white/60' : 'text-white/10'} hidden sm:block`}>
+                      {s.note}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
          </div>
 
-         {/* Arrow indicating split */}
-         <div className="flex justify-center text-white/20 rotate-90 lg:rotate-0">
-           <ArrowRight size={24} />
+         {/* Down Arrow — Connects steps to outcomes */}
+         <div className="flex justify-center text-white/10">
+           <ArrowDownRight size={24} className="rotate-45" />
          </div>
 
          {/* Outcomes Split */}
-         <div className="flex flex-col gap-4 w-full lg:w-auto">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full lg:max-w-3xl">
             {outcomes.map((o, i) => (
-              <div key={i} className={`flex items-center gap-3 p-4 rounded-2xl border border-white/5 ${o.bg} w-full lg:min-w-[240px]`}>
-                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 border-current ${o.color} shrink-0`}>
+              <div key={i} className={`flex items-center gap-4 p-5 rounded-2xl border border-white/5 ${o.bg} transition-all hover:scale-[1.02]`}>
+                 <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 border-current ${o.color} shrink-0`}>
                    {o.icon}
                  </div>
-                 <div>
-                    <p className={`text-[10px] font-black uppercase tracking-widest ${o.color}`}>{o.label}</p>
-                    <p className="text-white/60 text-[10px] font-medium leading-tight">{o.note}</p>
+                 <div className="text-left">
+                    <p className={`text-[11px] font-black uppercase tracking-widest leading-none mb-1 ${o.color}`}>{o.label}</p>
+                    <p className="text-white/60 text-[10px] font-medium leading-relaxed">{o.note}</p>
                  </div>
               </div>
             ))}
@@ -224,15 +258,8 @@ function ReputationFlow() {
 }
 
 /* ─── Animated Timeline Component ────────────────────────── */
-function AutomationsTimeline() {
+function AutomationsTimeline({ onVideoClick }) {
   const [activeStep, setActiveStep] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveStep(s => (s + 1) % 5);
-    }, 1500);
-    return () => clearInterval(timer);
-  }, []);
 
   const steps = [
     { label: 'Pre-Arrival', note: 'Forms & reminders' },
@@ -240,7 +267,15 @@ function AutomationsTimeline() {
     { label: 'In-Stay', note: 'Upsells & surveys' },
     { label: 'Checkout', note: 'Express flow' },
     { label: 'Post-Stay', note: 'Reviews & loyalty' },
+    { label: 'Watch Demo', note: 'System Video', isVideo: true },
   ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep(s => (s + 1) % steps.length);
+    }, 1500);
+    return () => clearInterval(timer);
+  }, [steps.length]);
 
   return (
     <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-nowrap items-center md:items-start justify-center md:justify-end gap-y-8 gap-x-2 md:gap-1 overflow-visible">
@@ -249,21 +284,29 @@ function AutomationsTimeline() {
         const isPassed = i < activeStep;
         
         return (
-          <div key={step.label} className="flex items-center flex-shrink-0 relative group justify-center md:justify-start">
+          <div 
+            key={step.label} 
+            className={`flex items-center flex-shrink-0 relative group justify-center md:justify-start ${step.isVideo ? 'cursor-pointer hover:scale-105 transition-transform' : ''}`}
+            onClick={step.isVideo ? onVideoClick : undefined}
+          >
             <div className="flex flex-col items-center gap-2 min-w-[100px] md:min-w-[90px] relative z-10">
               <motion.div 
                 animate={{
                   scale: isActive ? 1.2 : 1,
-                  backgroundColor: isActive || isPassed ? '#deff00' : 'rgba(255,255,255,0.05)',
-                  borderColor: isActive || isPassed ? '#deff00' : 'rgba(255,255,255,0.15)',
+                  backgroundColor: isActive || isPassed || (step.isVideo && activeStep === steps.length - 1) ? '#deff00' : 'rgba(255,255,255,0.05)',
+                  borderColor: isActive || isPassed || (step.isVideo && activeStep === steps.length - 1) ? '#deff00' : 'rgba(255,255,255,0.15)',
                   boxShadow: isActive ? '0px 0px 18px rgba(222,255,0,0.5)' : 'none'
                 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="w-10 h-10 rounded-full border-2 flex items-center justify-center"
               >
-                <span className={`text-xs font-bold transition-colors duration-300 ${isActive || isPassed ? 'text-black' : 'text-white/30'}`}>
-                  {i + 1}
-                </span>
+                {step.isVideo ? (
+                  <Play size={16} fill="currentColor" className={isActive || isPassed ? 'text-black' : 'text-white/30'} />
+                ) : (
+                  <span className={`text-xs font-bold transition-colors duration-300 ${isActive || isPassed ? 'text-black' : 'text-white/30'}`}>
+                    {i + 1}
+                  </span>
+                )}
               </motion.div>
               <h4 className={`text-[11px] font-bold text-center mt-2 transition-colors duration-300 ${isActive || isPassed ? 'text-electric' : 'text-white/30'}`}>
                 {step.label}
@@ -359,7 +402,8 @@ export default function OperationsSolutions() {
           {/* Conversations — col-span-2 */}
           <Card span="md:col-span-2" index={0}>
             <div className="grid grid-cols-1 md:grid-cols-2 h-full min-h-[380px]">
-              <div className="p-10 flex flex-col min-h-[380px]">
+              {/* Text Content — comes second on mobile */}
+              <div className="order-2 md:order-1 p-10 flex flex-col min-h-[380px]">
                 <div>
                   <Label icon={<MessageSquare size={16} />} text="Conversations" num={1} />
                   <h3 className="text-white text-[clamp(1.5rem,6vw,2.5rem)] font-bold font-display leading-[1.15] mb-5">
@@ -370,15 +414,17 @@ export default function OperationsSolutions() {
                   </p>
                   
                   {/* Restore Channel Funnel (octopus animation) beneath paragraph */}
-                  <div className="w-full max-w-[320px] mb-8 relative z-10">
+                  <div className="w-full max-w-[320px] mb-8 relative z-10 mx-auto md:mx-0">
                     <ChannelFunnel />
                   </div>
                 </div>
-                <div className="mt-auto items-start justify-start flex">
+                <div className="mt-auto flex justify-center md:items-start md:justify-start">
                    <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.conversations)} />
                 </div>
               </div>
-              <div className="flex items-center justify-center bg-black/20 border-l border-white/5 p-8 relative group overflow-hidden">
+
+              {/* Mockup Content — comes first on mobile */}
+              <div className="order-1 md:order-2 flex items-center justify-center bg-black/20 border-b md:border-b-0 md:border-l border-white/5 p-8 relative group overflow-hidden">
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex items-center justify-center">
                    <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.conversations)} />
                 </div>
@@ -423,10 +469,9 @@ export default function OperationsSolutions() {
                 <p className="text-white/40 text-sm leading-relaxed mb-6">
                   Every touchpoint triggered at the right moment. Set it once, run forever.
                 </p>
-                <VideoTrigger onClick={() => setActiveVideo(MODULE_VIDEOS.automation)} label="System Automation Demo" />
               </div>
               {/* Timeline */}
-              <AutomationsTimeline />
+              <AutomationsTimeline onVideoClick={() => setActiveVideo(MODULE_VIDEOS.automation)} />
             </div>
           </Card>
         </div>

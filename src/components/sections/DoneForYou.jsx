@@ -65,13 +65,15 @@ export default function DoneForYou() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 + i * 0.1 }}
-              className="bg-black-card p-10 rounded-[2.5rem] border border-white/5 hover:border-electric/20 transition-colors text-left group"
+              className="bg-black-card p-8 md:p-10 rounded-[2.5rem] border border-white/5 hover:border-electric/20 transition-colors text-left group"
             >
-              <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 group-hover:bg-electric/10 transition-colors">
-                {item.icon}
+              <div className="flex items-center gap-4 mb-6 md:block md:mb-0">
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-0 md:mb-8 group-hover:bg-electric/10 transition-colors shrink-0">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-0 md:mb-4">{item.title}</h3>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
-              <p className="text-cream/50 leading-relaxed">{item.desc}</p>
+              <p className="text-cream/50 leading-relaxed text-sm md:text-base">{item.desc}</p>
             </motion.div>
           ))}
         </div>

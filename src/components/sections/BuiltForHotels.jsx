@@ -73,8 +73,8 @@ export default function BuiltForHotels() {
   return (
     <section className="bg-brand-black py-40 px-6 overflow-hidden relative min-h-[800px] flex items-center justify-center">
       <div className="relative z-20 text-center max-w-full px-4 mx-auto pointer-events-none overflow-hidden">
-        <h2 className="text-[clamp(1.5rem,7vw,4.5rem)] font-black font-display leading-[1.1] tracking-tighter text-cream flex flex-col items-center">
-          <span className="block text-center px-2">BUILT FOR HOSPITALITY & LEISURE,</span>
+        <h2 className="text-[clamp(3.5rem,16vw,9rem)] font-black font-display leading-[0.9] tracking-tighter text-cream flex flex-col items-center">
+          <span className="block text-center px-2 uppercase">BUILT FOR HOSPITALITY & LEISURE,</span>
           <span className="block italic text-electric uppercase">by Hospitality Experts.</span>
         </h2>
       </div>

@@ -72,15 +72,15 @@ export default function HeroSection() {
           </span>
         </h1>
 
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="mt-8 text-cream-muted text-lg md:text-xl max-w-2xl mx-auto font-body"
-        >
-          Maximize property <span className="text-electric">experience</span> and turn every guest into a regular with MENA's most powerful 
-          automated engagement platform, featuring our industry-leading WhatsApp engine.
-        </motion.p>
+      <motion.p 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+        className="mt-8 text-cream-muted text-lg md:text-xl max-w-2xl mx-auto font-body"
+      >
+        Maximize property experience and turn every guest into a regular with MENA's most powerful 
+        automated engagement platform, featuring our industry-leading WhatsApp engine.
+      </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

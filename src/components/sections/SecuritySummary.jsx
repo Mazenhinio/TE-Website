@@ -22,20 +22,24 @@ export default function SecuritySummary() {
 
                 <div className="md:w-1/2 flex flex-col gap-6 w-full">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div className="bg-black-card p-8 rounded-3xl border border-[rgba(255,255,255,0.05)] shadow-card-dark">
-                            <div className="w-12 h-12 rounded-xl bg-[rgba(222,255,0,0.1)] flex items-center justify-center mb-6">
-                                <Lock size={24} className="text-electric" />
+                        <div className="bg-black-card p-6 md:p-8 rounded-3xl border border-[rgba(255,255,255,0.05)] shadow-card-dark">
+                            <div className="flex items-center gap-4 mb-6 md:block md:mb-0">
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[rgba(222,255,0,0.1)] flex items-center justify-center mb-0 md:mb-6 shrink-0">
+                                    <Lock size={20} className="text-electric md:w-[24px] md:h-[24px]" />
+                                </div>
+                                <h4 className="font-bold text-lg md:text-xl mb-0 md:mb-3 whitespace-nowrap">TLS 1.3 Encryption</h4>
                             </div>
-                            <h4 className="font-bold text-xl mb-3">TLS 1.3 Encryption</h4>
-                            <p className="text-sm text-cream-muted leading-relaxed">2,048-bit encryption for all data in transit alongside hardened KMS at rest.</p>
+                            <p className="text-xs md:text-sm text-cream-muted leading-relaxed">2,048-bit encryption for all data in transit alongside hardened KMS at rest.</p>
                         </div>
 
-                        <div className="bg-black-card p-8 rounded-3xl border border-[rgba(255,255,255,0.05)] shadow-card-dark lg:translate-y-8">
-                            <div className="w-12 h-12 rounded-xl bg-[rgba(222,255,0,0.1)] flex items-center justify-center mb-6">
-                                <Server size={24} className="text-electric" />
+                        <div className="bg-black-card p-6 md:p-8 rounded-3xl border border-[rgba(255,255,255,0.05)] shadow-card-dark lg:translate-y-8">
+                            <div className="flex items-center gap-4 mb-6 md:block md:mb-0">
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[rgba(222,255,0,0.1)] flex items-center justify-center mb-0 md:mb-6 shrink-0">
+                                    <Server size={20} className="text-electric md:w-[24px] md:h-[24px]" />
+                                </div>
+                                <h4 className="font-bold text-lg md:text-xl mb-0 md:mb-3 whitespace-nowrap">AWS & GCP Hosted</h4>
                             </div>
-                            <h4 className="font-bold text-xl mb-3">AWS & GCP Hosted</h4>
-                            <p className="text-sm text-cream-muted leading-relaxed">Leveraging the world's most secure and redundant cloud infrastructure.</p>
+                            <p className="text-xs md:text-sm text-cream-muted leading-relaxed">Leveraging the world's most secure and redundant cloud infrastructure.</p>
                         </div>
                     </div>
 

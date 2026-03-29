@@ -357,6 +357,14 @@ Each fully built with bespoke design and live data from `departmentPages.js`:
 
 > **Instruction:** Every time a change is made to this website — whether code, content, design, or configuration — add an entry to this log. Include the date and time of the change and a concise technical summary of what was modified and why.
 
+### 2026-03-29 — UI Refinement: ValueProp Grid Revert
+
+**Summary:** Reverted the Value Proposition section from sticky-scrolling cards back to the multi-column grid layout for better scannability.
+
+- **Layout Revert:** Swapped the high-fidelity animated card stack for the 3-column `impactAreas` grid.
+- **Content Preservation:** Commented out the interactive animation versions (`DirectRevenueAnimation`, `ROIAnimation`, etc.) within `ValueProp.jsx` for future reference.
+- **Mobile Readability:** Improved scannability on small screens by moving from sequential full-screen cards to a standard vertical grid stack.
+
 ### 2026-03-26 — Phase: Mobile-First Optimization & Responsiveness
 
 **Summary:** Conducted a global audit and refactor to ensure the platform is "locked" and fluid on mobile (375px+).
