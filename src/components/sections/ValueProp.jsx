@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Bed, Utensils, LineChart, ArrowRight, Compass } from 'lucide-react';
 
@@ -70,21 +71,109 @@ const impactAreas = [
   }
 ];
 
+const ChatStream = () => {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    let timers = [];
+
+    const startCycle = () => {
+      setStep(0);
+      timers.push(setTimeout(() => setStep(1), 800));   // Guest 1
+      timers.push(setTimeout(() => setStep(2), 2200));  // Typing
+      timers.push(setTimeout(() => setStep(3), 4500));  // AI Response
+      timers.push(setTimeout(() => setStep(4), 6500));  // Guest 2
+      timers.push(setTimeout(() => startCycle(), 10500)); // Restart loop
+    };
+
+    startCycle();
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div className="flex flex-col gap-6 w-full max-w-[450px] mx-auto lg:mx-0 min-h-[300px]">
+      {/* 1. Guest Inquiry */}
+      <AnimatePresence>
+        {step >= 1 && (
+          <motion.div
+            initial={{ opacity: 0, x: -20, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            className="self-start bg-white border border-black/5 p-4 rounded-3xl rounded-bl-none shadow-md max-w-[80%]"
+          >
+            <p className="text-[13px] md:text-sm font-bold text-black leading-relaxed">Hi. I saw your post. Do you have any spa slots available for this afternoon?</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* SLOT: Typing REPLACED by AI Response */}
+      <div className="self-end w-full flex justify-end min-h-[80px]">
+        <AnimatePresence mode="wait">
+          {step === 2 ? (
+            <motion.div
+              key="typing"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="bg-brand-black p-4 px-6 rounded-2xl rounded-br-none flex gap-1 items-center h-fit"
+            >
+              <div className="w-1.5 h-1.5 bg-electric rounded-full animate-bounce" style={{ animationDelay: '0s' }} />
+              <div className="w-1.5 h-1.5 bg-electric rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+              <div className="w-1.5 h-1.5 bg-electric rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+            </motion.div>
+          ) : step >= 3 ? (
+            <motion.div
+              key="response"
+              initial={{ opacity: 0, x: 20, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              className="bg-brand-black border border-electric/30 p-5 rounded-3xl rounded-br-none shadow-[0_20px_40px_rgba(222,255,0,0.15)] max-w-[85%]"
+            >
+              <p className="text-[13px] md:text-sm font-bold text-white leading-tight">
+                Hi Sarah. We just had a <span className="text-electric font-black underline underline-offset-4">cancellation at 3:30 PM</span> for a 60-min signature massage. Shall I book that for you now?
+              </p>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
+
+      {/* 4. Guest Success */}
+      <AnimatePresence>
+        {step >= 4 && (
+          <motion.div
+            initial={{ opacity: 0, x: -20, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            className="self-start bg-white border border-black/5 p-4 rounded-3xl rounded-bl-none shadow-md max-w-[80%]"
+          >
+            <p className="text-[13px] md:text-sm font-bold text-black leading-relaxed">Yes please. That's perfect.</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 export default function ValueProp() {
   return (
     <section className="bg-cream py-24 px-6 border-b border-black/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center md:text-left mb-16 max-w-3xl">
-          <span className="text-black/40 font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
-            Total Property Unification
-          </span>
-          <h2 className="text-4xl md:text-6xl font-display font-bold text-black leading-[1.1] mb-6">
-            Elevate the guest journey, <br className="hidden md:block" />
-            <span className="text-electric bg-brand-black px-3 pb-1 mt-2 inline-block -rotate-1 shadow-xl">maximize property revenue.</span>
-          </h2>
-          <p className="text-xl text-black/60 font-medium">
-            Total Engage orchestrates seamless, personalized communication across every touchpoint — empowering your property & management teams and driving direct bookings.
-          </p>
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-12 lg:mb-24">
+          <div className="text-center md:text-left max-w-2xl">
+            <span className="text-black/40 font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
+              Total Property Unification
+            </span>
+            <h2 className="text-4xl md:text-6xl font-display font-bold text-black leading-[1.1] mb-6">
+              Elevate the guest journey, <br className="hidden md:block" />
+              <span className="text-electric bg-brand-black px-3 pb-1 mt-2 inline-block -rotate-1 shadow-xl">maximize property revenue.</span>
+            </h2>
+            <p className="text-lg md:text-xl text-black/60 font-medium">
+              Total Engage orchestrates seamless, personalized communication across every touchpoint — empowering your property teams and driving direct bookings.
+            </p>
+          </div>
+
+          <div className="w-full lg:w-auto flex-shrink-0 relative">
+            {/* Decorative glow behind chat */}
+            <div className="absolute inset-0 bg-electric/5 blur-[80px] rounded-full scale-150 pointer-events-none" />
+            <ChatStream />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -100,15 +189,13 @@ export default function ValueProp() {
                 whileHover={{ y: -8 }}
               >
                 <Link to={area.path} className="block h-full group">
-                  <div className={`h-full min-h-[280px] rounded-3xl p-8 lg:p-10 flex flex-col justify-between transition-shadow hover:shadow-2xl border ${
-                    isDark 
-                      ? 'bg-brand-black border-brand-black shadow-lg cursor-pointer' 
-                      : 'bg-white border-black/5 shadow-md cursor-pointer'
-                  }`}>
+                  <div className={`h-full min-h-[280px] rounded-3xl p-8 lg:p-10 flex flex-col justify-between transition-shadow hover:shadow-2xl border ${isDark
+                    ? 'bg-brand-black border-brand-black shadow-lg cursor-pointer'
+                    : 'bg-white border-black/5 shadow-md cursor-pointer'
+                    }`}>
                     <div>
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${
-                        isDark ? 'bg-electric text-black' : 'bg-brand-black text-electric'
-                      }`}>
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${isDark ? 'bg-electric text-black' : 'bg-brand-black text-electric'
+                        }`}>
                         {area.icon}
                       </div>
                       <h3 className={`text-2xl font-bold font-display mb-3 ${isDark ? 'text-white' : 'text-black'}`}>
